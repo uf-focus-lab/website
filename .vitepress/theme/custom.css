@@ -1,0 +1,34 @@
+:root {
+    --vp-c-brand-1: var(--vp-c-text-1);
+    --vp-c-brand-2: var(--vp-c-text-2);
+    --vp-c-brand-3: var(--vp-c-text-3);
+    --vp-c-brand-soft: var(--vp-c-gray-soft);
+}
+
+.Layout.portfolio {
+    --vp-nav-bg-color: #fff8;
+}
+
+.dark .Layout.portfolio {
+    --vp-nav-bg-color: #0008;
+}
+
+@media (min-width: 960px) {
+    .Layout.portfolio .VPNavBar:not(.top) .title {
+        color: unset;
+    }
+
+    .Layout.portfolio .VPNavBar:not(.top) {
+        background-color: var(--vp-nav-bg-color);
+        backdrop-filter: blur(10px);
+    }
+}
+
+.Layout.portfolio .VPNavBar .title {
+    color: #000c;
+}
+
+svg {
+    max-width: 100%;
+    height: auto;
+}

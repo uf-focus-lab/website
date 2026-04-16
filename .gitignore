@@ -1,0 +1,16 @@
+package-lock.json
+node_modules
+dist
+/*.xml
+.DS_Store
+*.log
+*.env
+*.cache
+*.tmp
+*.bak
+*.swp
+*.swo
+*.zip
+.vitepress/dist
+.vitepress/cache
+.vitepress/temp
