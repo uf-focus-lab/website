@@ -2,133 +2,131 @@
 title: "TEAM"
 date: 2023-04-07
 ---
-## Principal Investigator
 
-![image](sanjeev-koppal.jpg)
+<script setup lang="ts">
+import People from './People.vue'
+</script>
+
+<style scoped>
+h1:has(+ .person),
+h2:has(+ .person),
+h3:has(+ .person),
+h4:has(+ .person) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+h2:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+</style>
+
+## Principal Investigator
 
 ### Dr. Sanjeev Koppal
 
-Sanjeev J. Koppal is an Associate Professor at the University of Florida’s Electrical and Computer Engineering Department and is a Kent and Linda Fuchs Faculty Fellow. He also held a UF Term Professorship for 2021-23. Sanjeev is the Director of the FOCUS Lab at UF. Since 2022, Sanjeev has been an Amazon Scholar with Amazon Robotics. Prior to joining UF, he was a researcher at the Texas Instruments Imaging R&D lab. Sanjeev obtained his Masters and Ph.D. degrees from the Robotics Institute at Carnegie Mellon University. After CMU, he was a postdoctoral research associate in the School of Engineering and Applied Sciences at Harvard University. He received his B.S. degree from the University of Southern California in 2003 as a Trustee Scholar. He is a co-author on best student paper awards for ECCV 2016 and NEMS 2018, and work from his FOCUS lab was a CVPR 2019 best-paper finalist. Sanjeev won an NSF CAREER award in 2020 and is an IEEE Senior Member and an Optica Senior Member. His interests span computer vision, computational photography and optics, novel cameras and sensors, 3D reconstruction, physics-based vision, and active illumination.
+<People large name="Dr. Sanjeev Koppal" image="sanjeev-koppal.jpg" :links="{CV: 'https://focus.ece.ufl.edu/wp-content/uploads/2024/11/Sanjeev_Koppal_CV.pdf', email: 'mailto:sjkoppal@ece.ufl.edu'}">
+Sanjeev J. Koppal is an Associate Professor at the University of Florida's Electrical and Computer Engineering Department and is a Kent and Linda Fuchs Faculty Fellow. He also held a UF Term Professorship for 2021-23. Sanjeev is the Director of the FOCUS Lab at UF. Since 2022, Sanjeev has been an Amazon Scholar with Amazon Robotics. Prior to joining UF, he was a researcher at the Texas Instruments Imaging R&D lab. Sanjeev obtained his Masters and Ph.D. degrees from the Robotics Institute at Carnegie Mellon University. After CMU, he was a postdoctoral research associate in the School of Engineering and Applied Sciences at Harvard University. He received his B.S. degree from the University of Southern California in 2003 as a Trustee Scholar. He is a co-author on best student paper awards for ECCV 2016 and NEMS 2018, and work from his FOCUS lab was a CVPR 2019 best-paper finalist. Sanjeev won an NSF CAREER award in 2020 and is an IEEE Senior Member and an Optica Senior Member. His interests span computer vision, computational photography and optics, novel cameras and sensors, 3D reconstruction, physics-based vision, and active illumination.
 
-[Dr. Koppal’s CV](https://focus.ece.ufl.edu/wp-content/uploads/2024/11/Sanjeev_Koppal_CV.pdf)
-
-sjkoppal@ece.ufl.edu 352-392-8942 MALA 5103
+352-392-8942 · MALA 5103
+</People>
 
 ## Ph.D Students
 
-![image](hannah-kirkland.webp)
-
 ### Hannah Kirkland
 
+<People name="Hannah Kirkland" image="hannah-kirkland.webp" :links="{email: 'mailto:hkirkland@ufl.edu'}">
 Hannah is a graduate research assistant in the FOCUS Lab. They graduated with a B.S in Electrical Engineering from UF in 2021. Their interests include computational photography, unconventional computing, and computer vision.
-
-hkirkland@ufl.edu
-
-![image](https://focus.ece.ufl.edu/wp-content/uploads/2024/03/square-small-300x300.png)
+</People>
 
 ### Yuxuan Zhang
 
-Yuxuan earned his Bachelor’s degree in Physics from Xi’an Jiao Tong University and is currently pursuing a PhD at the University of Florida. His interdisciplinary expertise includes _Software Engineering_ (Web Dev, Computer Vision, Concurrent Programming, Machine Learning, Linux Deployment and Maintenance), _Electrical Engineering_ (HDL Languages, ISA Emulators, PCB Prototyping, Embedded Systems Development and Communication Protocols), and _Mechanical Engineering_ (CAD Tools, Robotic Mechanisms, 3D Printing and many other CNC manufacturing technologies). His current research focuses on _foveated vision systems_.
+<People name="Yuxuan Zhang" image="https://focus.ece.ufl.edu/wp-content/uploads/2024/03/square-small-300x300.png" :links="{email: 'mailto:zhangyuxuan@ufl.edu', Website: 'https://zhangyx.net/', GitHub: 'https://github.com/zhangyx1998'}">
 
-zhangyuxuan@ufl.edu | [Website](https://zhangyx.net/)
+Yuxuan is pursuing his Ph.D. in Electrical and Computer Engineering at the University of Florida, after earning his Bachelor's in Physics from Xi'an Jiao Tong University. He builds end-to-end intelligent robotic systems spanning _Machine Learning_, _Software_, _Electrical_, and _Mechanical Engineering_. His current research focuses on _foveated vision systems_, _vergence stereo algorithms_, and their applications in robotics.
 
-![image](https://focus.ece.ufl.edu/wp-content/uploads/2025/11/BESTPROFILE-1-293x300.png)
+</People>
 
 ### Michael Tomadakis
 
+<People name="Michael Tomadakis" image="https://focus.ece.ufl.edu/wp-content/uploads/2025/11/BESTPROFILE-1-293x300.png" :links="{email: 'mailto:m.tomadakis@ufl.edu'}">
 Michael is a 2024 Computer Science graduate from the University of Florida. He's been passionate about graphics since discovering shaders in Unreal Engine 3 twelve years ago, but his interests have matured into Computer Vision and Neural Rendering. He is working on NeRF stitching and adjacent techniques.
-
-m.tomadakis@ufl.edu | [resume](https://focus.ece.ufl.edu/wp-content/uploads/2024/05/Michael_Tomadakis_2024_Data-ML.pdf)
-
-![image](https://focus.ece.ufl.edu/wp-content/uploads/2024/08/jacob_carter.jpg)
+</People>
 
 ### Jacob Carter
 
+<People name="Jacob Carter" image="https://focus.ece.ufl.edu/wp-content/uploads/2024/08/jacob_carter.jpg" :links="{email: 'mailto:carterjacob@ufl.edu'}">
 Jacob graduated from Louisiana State University in 2024 with a B.S. in Computer Science. He is interested in AI, Machine Learning, and Computer Vision.
-
-carterjacob@ufl.edu
-
-![image](mehran-keivanimehr.webp)
+</People>
 
 ### Mehran Keivanimehr
 
+<People name="Mehran Keivanimehr" image="mehran-keivanimehr.webp" :links="{email: 'mailto:m.keivanimehr@ufl.edu'}">
 Mehran earned a B.S. in Electrical and Computer Engineering from the University of Kashan. His academic interests span artificial intelligence, machine learning, deep learning, and computer vision.
-
-m.keivanimehr@ufl.edu.
-
-![image](https://focus.ece.ufl.edu/wp-content/uploads/2025/02/thiago-focuslab.jpg)
+</People>
 
 ### Thiago Cuevas
 
+<People name="Thiago Cuevas" image="https://focus.ece.ufl.edu/wp-content/uploads/2025/02/thiago-focuslab.jpg" :links="{email: 'mailto:tcuevasmestanza@ufl.edu', GitHub: 'https://github.com/thiagofcm', LinkedIn: 'https://www.linkedin.com/in/thiago-cuevas/'}">
 Thiago Cuevas holds a Bachelor’s degree in Control and Automation Engineering from the Universidade Federal de Uberlândia, Brazil, and is currently pursuing a Ph.D. in Electrical Engineering at the University of Florida. Prior to joining the FOCUS Lab, he worked in research and development in Robotics, Computer Vision, and Embedded Systems, having experience in both software and hardware design. His current research focuses on collision prediction algorithms and computational imaging.
-
-tcuevasmestanza@ufl.edu. | [GitHub](https://github.com/thiagofcm) | [LinkedIn](< https://www.linkedin.com/in/thiago-cuevas/>)
+</People>
 
 ## Undergraduate Students
 
-![image](trung-le.webp)
-
 ### Trung Le
 
+<People name="Trung Le" image="trung-le.webp" :links="{email: 'mailto:trung.le@ufl.edu'}">
 Trung is a Undergraduate Junior student majoring in Electrical Engineering. His research interests include computational photography and optical computing.
-
-trung.le@ufl.edu
-
-![image](https://focus.ece.ufl.edu/wp-content/uploads/2025/02/ajna-scaled.jpg)
+</People>
 
 ### Ajna Topic
 
+<People name="Ajna Topic" image="https://focus.ece.ufl.edu/wp-content/uploads/2025/02/ajna-scaled.jpg" :links="{email: 'mailto:ajnatopic@ufl.edu'}">
 Ajna is a Sophomore Computer Engineering Student at UF. She is interested in microcontrollers, robotics, and optics.
+</People>
 
-ajnatopic@ufl.edu
-
-![image](https://focus.ece.ufl.edu/wp-content/uploads/2025/03/rebecca-1024x1024.jpeg)
-
-### Rebecca Borissova
-
+<People name="Rebecca Borissova" image="https://focus.ece.ufl.edu/wp-content/uploads/2025/03/rebecca-1024x1024.jpeg" :links="{email: 'mailto:rborissova@ufl.edu'}">
 Rebecca Borissova is an undergraduate student at the University of Florida majoring in Computer Science. Her research interests include Machine Learning, Computer Vision, and Neural Radiance Fields.
-
-rborissova@ufl.edu
-
-![image](https://focus.ece.ufl.edu/wp-content/uploads/2025/12/Noah-1024x1024.jpg)
+</People>
 
 ### Noah Ralph
 
+<People name="Noah Ralph" image="https://focus.ece.ufl.edu/wp-content/uploads/2025/12/Noah-1024x1024.jpg" :links="{email: 'mailto:na.ralph@ufl.edu'}">
 Noah Ralph is an undergraduate student at the University of Florida majoring in Electrical Engineering. His interests include 3D printing, Biomechanics, Robotics, and Medical Devices.
-
-na.ralph@ufl.edu
-
-![image](elvin-hernandez.webp)
+</People>
 
 ### Elvin Hernandez
 
+<People name="Elvin Hernandez" image="elvin-hernandez.webp" :links="{email: 'mailto:elvin.hernandez@ufl.edu'}">
 Elvin Hernandez is an undergraduate student at the University of Florida majoring in Electrical Engineering. His research interests include machine learning, MEMS integration and embedded systems, optics/optical computing, and signal processing.
-
-hernandez.e1@ufl.edu
-
-![image](https://focus.ece.ufl.edu/wp-content/uploads/2025/11/DSC_0013-1024x683.jpg)
+</People>
 
 ### Marcel Bossa
 
+<People name="Marcel Bossa" image="https://focus.ece.ufl.edu/wp-content/uploads/2025/11/DSC_0013-1024x683.jpg" :links="{email: 'mailto:marcelbossa@ufl.edu'}">
 Marcel Bossa is a sophomore majoring in computer engineering. His research interests include Computer Vision and Computational Photography.
-
-marcelbossa@ufl.edu
-
-![image](https://focus.ece.ufl.edu/wp-content/uploads/2025/12/dillon_focus-1024x1024.png)
+</People>
 
 ### Dillon Gutowski
 
+<People name="Dillon Gutowski" image="https://focus.ece.ufl.edu/wp-content/uploads/2025/12/dillon_focus-1024x1024.png" :links="{email: 'mailto:dillongutowski@ufl.edu'}">
 Dillon is an undergraduate Computer Science student at the University of Florida. He is interested in algorithm design and applied mathematics, light transport simulation, embedded systems, dual photography, and Raman spectroscopy.
-
-dillongutowski@ufl.edu
-
-![image](logan-burns.webp)
+</People>
 
 ### Logan Burns
 
-Logan Burns is an undergraduate student at the University of Florida majoring in Electrical Engineering. Their research interests include embedded systems, printed circuit board design, robotics, optical sensing, and mixed-signal circuits. 
+<People name="Logan Burns" image="logan-burns.webp" :links="{email: 'mailto:lburns1@ufl.edu'}">
 
-lburns1@ufl.edu
+Logan Burns is an undergraduate student at the University of Florida majoring in Electrical Engineering. Their research interests include embedded systems, printed circuit board design, robotics, optical sensing, and mixed-signal circuits. 
+</People>
 
 ## Alumni
 

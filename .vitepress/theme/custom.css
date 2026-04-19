@@ -1,8 +1,8 @@
 :root {
-    --vp-c-brand-1: var(--vp-c-text-1);
-    --vp-c-brand-2: var(--vp-c-text-2);
-    --vp-c-brand-3: var(--vp-c-text-3);
-    --vp-c-brand-soft: var(--vp-c-gray-soft);
+  --vp-c-brand-1: hsl(212, 90%, 40%);
+  --vp-c-brand-2: hsl(212, 95%, 30%);
+  --vp-c-brand-3: hsl(212, 100%, 20%);
+  --vp-c-brand-soft: hsla(212, 100%, 50%, 0.1);
 }
 
 .Layout.portfolio {

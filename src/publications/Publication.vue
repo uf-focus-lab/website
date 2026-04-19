@@ -35,61 +35,58 @@ function onInlineLinkKeydown(event: KeyboardEvent, url: string): void {
 </script>
 
 <template>
-  <a
-    class="publication"
-    :class="{ clickable: !!link }"
-    :href="link"
-    :target="link ? '_blank' : undefined"
-    :rel="link ? 'noopener noreferrer' : undefined"
-  >
-    <h4 class="title">{{ title }}</h4>
-    <div class="meta-row">
-      <div v-if="authors" class="authors">
+  <div class="publication">
+    <h4 class="title">
+      <a v-if="link" :href="link" target="_blank" rel="noopener noreferrer">{{
+        title
+      }}</a>
+      <span v-else>{{ title }}</span>
+    </h4>
+    <div v-if="authors" class="authors">
+      <span
+        v-for="(author, index) in authors"
+        :key="index"
+        style="text-wrap: nowrap"
+      >
         <span
-          v-for="(author, index) in authors"
-          :key="index"
-          style="text-wrap: nowrap"
+          v-if="typeof author === 'object'"
+          class="inline-link"
+          role="link"
+          tabindex="0"
+          :style="author.style ?? {}"
+          @click="onInlineLinkClick($event, author.link)"
+          @keydown="onInlineLinkKeydown($event, author.link)"
         >
-          <span
-            v-if="typeof author === 'object'"
-            class="inline-link"
-            role="link"
-            tabindex="0"
-            :style="author.style ?? {}"
-            @click="onInlineLinkClick($event, author.link)"
-            @keydown="onInlineLinkKeydown($event, author.link)"
-          >
-            {{ author.name }}
-          </span>
-          <span v-else>{{ author }}</span>
-          <span class="divider">,&nbsp;</span>
+          {{ author.name }}
         </span>
-      </div>
-      <div v-if="links || venue" class="links">
-        <template
-          v-for="[text, linkUrl] in Object.entries(links ?? {})"
-          :key="text"
-        >
-          <span
-            class="inline-link"
-            role="link"
-            tabindex="0"
-            @click="onInlineLinkClick($event, linkUrl)"
-            @keydown="onInlineLinkKeydown($event, linkUrl)"
-          >
-            {{ text }}
-          </span>
-          <span class="divider"> | </span>
-        </template>
-        <span v-if="venue">{{ venue }}</span>
-      </div>
+        <span v-else>{{ author }}</span>
+        <span class="divider">,&nbsp;</span>
+      </span>
     </div>
-  </a>
+    <div v-if="links || venue" class="links">
+      <template
+        v-for="[text, linkUrl] in Object.entries(links ?? {})"
+        :key="text"
+      >
+        <span
+          class="inline-link"
+          role="link"
+          tabindex="0"
+          @click="onInlineLinkClick($event, linkUrl)"
+          @keydown="onInlineLinkKeydown($event, linkUrl)"
+        >
+          {{ text }}
+        </span>
+        <span class="divider"> | </span>
+      </template>
+      <span v-if="venue">{{ venue }}</span>
+    </div>
+  </div>
 </template>
 
 <style scoped>
 .publication {
-  margin: 24px 0;
+  margin: 0;
   position: relative;
   display: flex;
   flex-direction: row;
@@ -102,42 +99,28 @@ function onInlineLinkKeydown(event: KeyboardEvent, url: string): void {
   border-radius: 12px;
   padding: 12px;
   transition:
-    border-color 0.25s,
-    background-color 0.25s;
+    border-color 0.1s,
+    background-color 0.1s;
+  &:not(:hover) a {
+    text-decoration: none;
+  }
 }
 
 .publication:hover,
 .publication:focus-visible {
   background-color: var(--vp-c-bg-soft);
-  border-color: var(--vp-c-brand-1);
-}
-
-.publication.clickable {
-  cursor: pointer;
+  border-color: var(--vp-c-brand-soft);
 }
 
 .title {
   margin: 0;
 }
 
-.publication.clickable:hover .title,
-.publication.clickable:focus-visible .title {
-  text-decoration: underline;
-}
-
-.meta-row {
-  width: 100%;
-  margin-top: 6px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  column-gap: 12px;
-  row-gap: 6px;
-}
-
-.authors {
-  flex: 1 1 480px;
-  min-width: 0;
+a {
+  font-family: unset;
+  font-size: inherit;
+  color: inherit;
+  font-weight: inherit;
 }
 
 .authors,

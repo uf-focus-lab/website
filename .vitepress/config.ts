@@ -11,7 +11,6 @@ export default defineConfig({
   themeConfig: {
     logo: "/home/focus.png",
     nav: [
-      { text: "Home", link: "/" },
       { text: "Research", link: "/research/" },
       { text: "Publications", link: "/publications/" },
       { text: "Team", link: "/team/" },
@@ -22,8 +21,6 @@ export default defineConfig({
       { text: "Contact", link: "/contact/" },
     ],
     outline: false,
-    socialLinks: [
-      { icon: "github", link: "https://github.com/uf-focus-lab/" },
-    ],
+    socialLinks: [{ icon: "github", link: "https://github.com/uf-focus-lab/" }],
   },
 });
