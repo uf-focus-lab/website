@@ -1,5 +1,5 @@
 ---
-title: "TEAM"
+title: Team
 date: 2023-04-07
 ---
 

@@ -7,13 +7,14 @@
     "strict": true
   },
   "vueCompilerOptions": {
-    "vitePressExtensions": [".md"]
+    "vitePressExtensions": [".md", ".mdx"]
   },
   "include": [
     ".vitepress/**/*.ts",
     ".vitepress/**/*.vue",
     "src/**/*.ts",
     "src/**/*.vue",
-    "src/**/*.md"
+    "src/**/*.md",
+    "src/**/*.mdx",
   ]
 }

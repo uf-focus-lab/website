@@ -81,11 +81,12 @@ const src = computed(() => {
 }
 .description {
   grid-area: desc;
+  text-wrap: pretty;
+  hyphens: auto;
   &,
   & * {
     margin: 0;
     line-height: 1.4 !important;
-    text-align: justify;
   }
 }
 .links {
@@ -120,12 +121,15 @@ const src = computed(() => {
     align-items: center;
   }
   .photo {
-    width: 20vw;
-    height: 20vw;
+    width: 32vw;
+    height: 32vw;
   }
   .name {
+    font-size: 1.6rem;
     align-self: center;
     word-spacing: 100vw;
+    padding-left: 1ch;
+    line-height: 1.4em;
   }
 
   .person.large {

@@ -67,7 +67,7 @@ const featured = [
 
     <section class="featured">
       <header class="section-head">
-        <h2>Featured Research</h2>
+        <h2>Featured Projects</h2>
         <a class="more" href="/research/">All projects →</a>
       </header>
       <div class="featured-grid">

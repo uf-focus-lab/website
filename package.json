@@ -4,7 +4,9 @@
     "build": "vitepress build"
   },
   "devDependencies": {
+    "@types/markdown-it-container": "^4.0.0",
     "@types/node": "^25.5.2",
+    "markdown-it-container": "^4.0.0",
     "markdown-it-mathjax3": "^4.3.2",
     "vitepress": "^2.0.0-alpha.17"
   }

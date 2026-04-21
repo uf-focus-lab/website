@@ -1,4 +1,5 @@
 import { defineConfig } from "vitepress";
+import newsMarkdown from "./plugins/news";
 
 export default defineConfig({
   srcDir: "src",
@@ -7,6 +8,9 @@ export default defineConfig({
   cleanUrls: true,
   markdown: {
     math: true,
+  },
+  vite: {
+    plugins: [newsMarkdown()],
   },
   themeConfig: {
     logo: "/home/focus.png",
