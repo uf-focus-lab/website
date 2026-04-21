@@ -45,4 +45,14 @@ b {
 }
 </style>
 
+<span>
+Part of the Electrical and Computer Engineering Department at the University of Florida.
+</span>
+
+<span style="font-size:1.25vmax">
+
+_Our research areas are **computer vision** and **computational photography.**_
+
+</span>
+
 <VPHomeSponsors :data="funders" />
