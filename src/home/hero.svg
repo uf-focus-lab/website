@@ -38,70 +38,70 @@
     </style>
   </defs>
   <image
-    href="/hero/1-1.png"
+    href="/home/hero/1-1.png"
     class="hero-piece"
     x="0"
     y="0"
     style="--x: -100px; --y: 0; --delay: 0ms"
   />
   <image
-    href="/hero/2-1.png"
+    href="/home/hero/2-1.png"
     class="hero-piece"
     x="0"
     y="160"
     style="--x: -100px; --y: 160px; --delay: 60ms"
   />
   <image
-    href="/hero/3-1.png"
+    href="/home/hero/3-1.png"
     class="hero-piece"
     x="0"
     y="400"
     style="--x: -100px; --y: 400px; --delay: 120ms"
   />
   <image
-    href="/hero/4.png"
+    href="/home/hero/4.png"
     class="hero-piece"
     x="0"
     y="550"
     style="--x: -100px; --y: 550px; --delay: 180ms"
   />
   <image
-    href="/hero/5.png"
+    href="/home/hero/5.png"
     class="hero-piece"
     x="250"
     y="0"
     style="--x: 250px; --y: 0; --delay: 240ms"
   />
   <image
-    href="/hero/6.png"
+    href="/home/hero/6.png"
     class="hero-fade"
     x="260"
     y="180"
     style="--delay: 300ms"
   />
   <image
-    href="/hero/7.png"
+    href="/home/hero/7.png"
     class="hero-piece"
     x="260"
     y="520"
     style="--x: 260px; --y: 520px; --delay: 360ms"
   />
   <image
-    href="/hero/8.png"
+    href="/home/hero/8.png"
     class="hero-piece"
     x="760"
     y="0"
     style="--x: 760px; --y: 0; --delay: 420ms"
   />
   <image
-    href="/hero/9.png"
+    href="/home/hero/9.png"
     class="hero-piece"
     x="760"
     y="280"
     style="--x: 760px; --y: 280px; --delay: 480ms"
   />
   <image
-    href="/hero/10.png"
+    href="/home/hero/10.png"
     class="hero-piece"
     x="760"
     y="500"
