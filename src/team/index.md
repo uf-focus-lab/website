@@ -33,7 +33,7 @@ h2:first-child {
 
 ### Dr. Sanjeev Koppal
 
-<People large name="Dr. Sanjeev Koppal" image="sanjeev-koppal" :links="{CV: 'https://focus.ece.ufl.edu/wp-content/uploads/2024/11/Sanjeev_Koppal_CV.pdf', email: 'mailto:sjkoppal@ece.ufl.edu'}">
+<People large name="Dr. Sanjeev Koppal" image="sanjeev-koppal" :links="{CV: '/Sanjeev_Koppal_CV.pdf', email: 'mailto:sjkoppal@ece.ufl.edu'}">
 Sanjeev J. Koppal is an Associate Professor at the University of Florida's Electrical and Computer Engineering Department and is a Kent and Linda Fuchs Faculty Fellow. He also held a UF Term Professorship for 2021-23. Sanjeev is the Director of the FOCUS Lab at UF. Since 2022, Sanjeev has been an Amazon Scholar with Amazon Robotics. Prior to joining UF, he was a researcher at the Texas Instruments Imaging R&D lab. Sanjeev obtained his Masters and Ph.D. degrees from the Robotics Institute at Carnegie Mellon University. After CMU, he was a postdoctoral research associate in the School of Engineering and Applied Sciences at Harvard University. He received his B.S. degree from the University of Southern California in 2003 as a Trustee Scholar. He is a co-author on best student paper awards for ECCV 2016 and NEMS 2018, and work from his FOCUS lab was a CVPR 2019 best-paper finalist. Sanjeev won an NSF CAREER award in 2020 and is an IEEE Senior Member and an Optica Senior Member. His interests span computer vision, computational photography and optics, novel cameras and sensors, 3D reconstruction, physics-based vision, and active illumination.
 
 352-392-8942 · MALA 5103

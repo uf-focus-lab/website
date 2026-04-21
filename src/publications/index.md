@@ -117,7 +117,7 @@ const Koppal = {
     :authors="['Yuyang Chen', 'Dingkang Wang', 'Lenworth Thomas', 'Karthik Dantu', Koppal]"
     link='/research/2024/lightweight-lidar/'
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2024/02/23-0818_03_MS.pdf',
+        PDF: '/2024-TRO-lightweight-lidar.pdf',
     }"
 />
 
@@ -127,7 +127,7 @@ const Koppal = {
     :authors="['Justin Folden', 'Atul Ingle', Koppal]"
     link='/research/2024/foveaspad/'
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2024/12/FoveaSPAD_TCI_2024.pdf',
+        PDF: '/2024-TCI-foveaspad.pdf',
     }"
 />
 
@@ -137,8 +137,8 @@ const Koppal = {
     :authors="['Yuxuan Zhang', Koppal]"
     link='/research/2024/foveacam-plus/'
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2024/08/IROS-FoveaCamPlus.pdf',
-        Poster: 'https://focus.ece.ufl.edu/wp-content/uploads/2024/10/Poster.V2.A0.pdf',
+        PDF: '/2024-IROS-foveacam-plus.pdf',
+        Poster: '/Poster.V2.A0.pdf',
         Video: 'https://www.youtube.com/watch?v=GR6qlshd_Xw',
     }"
 />
@@ -148,7 +148,7 @@ const Koppal = {
     venue="Computers and Electronics in Agriculture"
     :authors="['Spencer J. Chang', 'Ritesh Chowdhry', 'Yangyang Song', 'Tomas Mejia', 'Anna Hampton', 'Shelby Kucharski', 'T.M. Sazzad', 'Yuxuan Zhang', Koppal, 'Chris H. Wilson', 'Stefan Gerber', 'Barry Tillman', 'Marcio F.R. Resende', 'William M. Hammond', 'Alina Zare']"
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2024/08/HyperPRI.pdf',
+        PDF: '/2024-CEA-hyperpri.pdf',
     }"
 />
 
@@ -175,7 +175,7 @@ const Koppal = {
     venue="Plant, Cell &amp; Environment"
     :authors="['Yangyang Song', 'Gerard Sapes', 'Spencer Chang', 'Ritesh Chowdhry', 'Tomas Mejia', 'Anna Hampton', 'Shelby Kucharski', 'Shahiar Sazzad TM', 'Yuxuan Zhang', 'Barry L. Tillman', 'Marcio Resende F R', Koppal, 'Chris Wilson', 'Stefan Gerber', 'Alina Zare', 'William Hammond']"
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2024/07/Plant-Cell-Environment-2024-Song-Hyperspectral-signals-in-the-soil-Plant-soil-hydraulic-connection-and.pdf',
+        PDF: '/2024-PCE-hyperspectral-soil-signals.pdf',
     }"
 />
 
@@ -184,7 +184,7 @@ const Koppal = {
     venue="SPIE Defense + Commercial Sensing 2024"
     :authors="['J. Folden', 'D. Alley', 'D. Illig', 'L. Mullen', Koppal]"
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2024/05/Confocal_Bistatic_LIDAR_in_Scattering_Media_DCS24.pdf',
+        PDF: '/2024-SPIE-DCS-confocal-bistatic-lidar.pdf',
     }"
 />
 
@@ -193,7 +193,7 @@ const Koppal = {
     venue="ECTC 2024"
     :authors="['S. Ghosh', 'A. Roy', 'M. Al Hasan Md', 'P. Craig', 'N. Varshney', Koppal, 'N. Asadizanjani']"
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2024/11/Demystifying_Edge_Cases_in_Advanced_IC_Packaging_Inspection_through_Novel_Explainable_AI_Metrics.pdf',
+        PDF: '/2024-ECTC-demystifying-ic-packaging-edge-cases.pdf',
     }"
 />
 
@@ -202,8 +202,8 @@ const Koppal = {
     venue="SPIE Optical Engineering 2024"
     :authors="['Shajib Ghosh', 'Nitin Varshney', 'Md Mahfuz Al Hasan', 'Antika Roy', 'Patrick Craig', Koppal, 'Hamed Dalir', 'Navid Asadizanjani']"
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2024/11/131521W.pdf',
-        Poster: 'https://focus.ece.ufl.edu/wp-content/uploads/2024/11/exploring_physics-informed_machine_learning_poster.pdf',
+        PDF: '/131521W.pdf',
+        Poster: '/2024-SPIE-physics-informed-ml-poster.pdf',
         'SPIE Optical Engineering': 'https://www.spiedigitallibrary.org/conference-proceedings-of-spie/13152/3027381/Exploring-physics-informed-machine-learning-for-system-matrix-formulation-in/10.1117/12.3027381.full',
     }"
 />
@@ -222,7 +222,7 @@ const Koppal = {
     venue="Applications of Machine Learning 2024"
     :authors="['S. Ghosh', 'A. Roy', 'N. Varshney', 'P. Craig', 'M.M. Al Hasan', Koppal, 'H. Dalir', '...']"
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2025/01/shield-pcb.pdf',
+        PDF: '/2024-AppML-shield-pcb.pdf',
     }"
 />
 
@@ -231,7 +231,7 @@ const Koppal = {
     venue="Applications of Machine Learning 2024"
     :authors="['S. Ghosh', 'M.M. Al Hasan', 'P. Craig', 'A. Roy', 'N. Varshney', Koppal, 'H. Dalir', '...']"
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2025/01/optimizing-deep-learning-performance-in-pcb-x-ray.pdf',
+        PDF: '/2024-AppML-optimizing-pcb-xray-dl.pdf',
     }"
 />
 
@@ -243,7 +243,7 @@ const Koppal = {
     :authors="['Yangyang Song', 'Gerard Sapes', 'Spencer Jordan Chang', 'Retish Chowdhry', 'Tomas Mejia', 'Anna Hampton', 'Shelby Kucharski', 'TM Shahriar Sazzad', 'Yuxuan Zhang', Koppal, 'Alina Zare', 'Stefan Gerber', 'Chris H Wilson', 'William Hammond']"
     link='https://github.com/GatorSense/HyperPRI'
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2024/05/hyperpri.pdf',
+        PDF: '/2024-CEA-hyperpri.pdf',
     }"
 />
 
@@ -253,7 +253,7 @@ const Koppal = {
     :authors="['Hannah Kirkland', Koppal]"
         link='/research/2023/schrodinger-cam/'
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/06/Schrodingers_Camera_Quantum-Based_Privacy_Preserving_Camera_CVPRW_2023.pdf',
+        PDF: '/2023-CVPRW-schrodingers-camera.pdf',
         CODE: 'https://github.com/teawizardry/schrodingers-camera',
     }"
 />
@@ -264,7 +264,7 @@ const Koppal = {
     :authors="['Brevin Tilmon', 'Zhanghao Sun', Koppal, 'Yicheng Wu', 'Georgios Evangelidis', 'Ramzi Zahreddine', 'Guru Krishnan', 'Sizhuo Ma', 'Jian Wang']"
     link='/research/2023/e3d/'
     :links="{
-        PDF: 'https://btilmon.github.io/pubs/CVPR_2023_Energy_Efficient_Adaptive_3D_Sensing.pdf',
+        PDF: 'https://btilmon.github.io/pubs/2023-CVPR-energy-efficient-adaptive-3d.pdf',
     }"
 />
 
@@ -273,7 +273,7 @@ const Koppal = {
     venue="IEEE VR Conference 2023 (Poster)"
     :authors="['Karina LaRubbio', 'Ethan Wilson', Koppal, 'Sophie Jorg', 'Eakta Jain']"
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/06/Personal_Safety_Bubble_VR2023_poster.pdf',
+        PDF: '/2023-VR-personal-safety-bubble.pdf',
     }"
 />
 
@@ -283,7 +283,7 @@ const Koppal = {
     :authors="['Xiaomeng Liu', 'Joshua D. Rego', 'Suren Jayasuriya', Koppal]"
     link='/research/2023/event-dual-photo/'
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/06/events-based_dual_photography.pdf',
+        PDF: '/2023-OpticsLetters-event-dual-photography.pdf',
     }"
 />
 
@@ -294,7 +294,7 @@ const Koppal = {
     venue="FOCUS Lab Position Paper 2022"
     :authors="[Koppal]"
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/BlockSLAMabstract.pdf',
+        PDF: '/2022-FOCUS-blockslam.pdf',
     }"
 />
 
@@ -303,7 +303,7 @@ const Koppal = {
     venue="SPIE OPTO 2022"
     :authors="['Daniel Lovell', 'Veljko Milanovic', 'Abhishek Kasturi', 'Frank Hu', 'Karan Soni', 'Derek Ho', 'Bryan H. Atwood', 'Lj Ristic', 'Xiaomeng Liu', Koppal]"
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/06/optical_mems.pdf',
+        PDF: '/2022-SPIE-OPTO-optical-mems-robot-vision.pdf',
         VIDEO: 'https://www.spiedigitallibrary.org/conference-proceedings-of-spie/12013/2613458/Optical-MEMS-enable-next-generation-solutions-for-robot-vision-and/10.1117/12.2613458.full',
     }"
 />
@@ -326,7 +326,7 @@ const Koppal = {
     :authors="['D. Wang', 'D. Zheng', Koppal, 'B. Sun', 'H. Xie']"
     link='/research/2018/wide-angle-mems/'
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/A_Monolithic_Forward-View_Optical_Scanner_by_a_Pair_of_Upright_MEMS_Mirrors_on_a_SiOB_for_LiDAR_Applications.pdf',
+        PDF: '/2021-JMEMS-monolithic-forward-view-scanner.pdf',
     }"
 />
 
@@ -336,7 +336,7 @@ const Koppal = {
     :authors="['X. Liu', 'K. Henderson', 'J. Rego', 'S. Jayasuriya', Koppal]"
     link='/research/2021/lissajous-light-transport/'
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/03/Dense_Lissajous_Sampling_and_Interpolation_for_Dynamic_Light_Transport__revised_.pdf',
+        PDF: '/2021-OpticsExpress-dense-lissajous.pdf',
     }"
 />
 
@@ -346,7 +346,7 @@ const Koppal = {
     :authors="['D. Wang', 'H. Xie', 'L. Thomas', Koppal]"
     link='/research/2018/wide-angle-mems/'
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/A_miniature_LiDAR_with_a_detached_MEMS_scanner_for_micro-robotics.pdf',
+        PDF: '/2021-IEEE-Sensors-miniature-lidar.pdf',
     }"
 />
 
@@ -356,7 +356,7 @@ const Koppal = {
     :authors="['B. Tilmon', 'E. Jain', 'S. Ferrari', Koppal]"
     link='/research/2020/foveacam/'
     :links="{
-        PDF: 'https://btilmon.github.io/pubs/FoveaCam_PAMI.pdf',
+        PDF: 'https://btilmon.github.io/pubs/2021-PAMI-foveacam.pdf',
     }"
 />
 
@@ -366,7 +366,7 @@ const Koppal = {
     :authors="['D. Wang', 'D. Zheng', Koppal, 'B. Sun', 'H. Xie']"
     link='/research/2018/wide-angle-mems/'
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/MEMS2021_dingkang7.pdf',
+        PDF: '/2021-MEMS-forward-view-siob-scanner.pdf',
     }"
 />
 
@@ -388,7 +388,7 @@ const Koppal = {
     :authors="['Z. Tasneem', 'C. Adhivarahan', 'D. Wang', 'H. Xie', 'K. Dantu', Koppal]"
     link='/research/2018/adaptive-depth/'
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/Adaptive_LiDAR.pdf',
+        PDF: '/2020-IJRR-adaptive-fovea.pdf',
     }"
 />
 
@@ -409,7 +409,7 @@ const Koppal = {
     link='/research/2020/foveacam/'
     :links="{
         CODE: 'https://github.com/btilmon/foveaCam_ICCP',
-        PDF: 'https://btilmon.github.io/pubs/foveaCam_iccp20.pdf',
+        PDF: 'https://btilmon.github.io/pubs/2020-ICCP-foveacam.pdf',
     }"
 />
 
@@ -438,7 +438,7 @@ const Koppal = {
     venue="IEEE VR 2020"
     :authors="['B. John', 'S. Joerg', Koppal, 'E. Jain']"
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/IEEE_VR_1049_accepted-1.pdf',
+        PDF: '/2020-VR-iris-authentication-tradeoff.pdf',
     }"
 />
 
@@ -448,7 +448,7 @@ const Koppal = {
     :authors="['D. Wang', 'L. Thomas', Koppal, 'Y. Ding', 'H. Xie']"
     link='/research/2018/wide-angle-mems/'
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/IEEE_Sensor_Low_Power_MEMS_liDAR_0613.pdf',
+        PDF: '/2020-IEEE-Sensors-low-power-mems-lidar.pdf',
     }"
 />
 
@@ -458,7 +458,7 @@ const Koppal = {
     :authors="['D. Wang', Koppal, 'H. Xie']"
     link='/research/2018/wide-angle-mems/'
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/09123864.pdf',
+        PDF: '/09123864.pdf',
     }"
 />
 
@@ -470,7 +470,7 @@ const Koppal = {
     :authors="['D. Wang', 'C. Watkins', Koppal, 'M. Li', 'Y. Ding', 'H. Xie']"
     link='/research/2018/wide-angle-mems/'
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/A_COMPACT_MEMS-BASED_WIDE-ANGLE_OPTICAL_SCANNER_OMN_2017_Abstract.pdf',
+        PDF: '/2017-OMN-compact-mems-scanner.pdf',
     }"
 />
 
@@ -480,7 +480,7 @@ const Koppal = {
     :authors="['D. Wang', 'C. Watkins', 'M. Aradhya', Koppal, 'H. Xie']"
     link='/research/2018/wide-angle-mems/'
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/A-Large-Aperture-2-Axis-Electrothermal-MEMS-Mirror-for-Compact-3D-LiDAR.pdf',
+        PDF: '/2019-OMN-large-aperture-2-axis-mems-mirror.pdf',
     }"
 />
 
@@ -510,7 +510,7 @@ const Koppal = {
     :authors="['F. Pittaluga', Koppal, 'A. Chakrabarti']"
     link='/research/2019/privacy-cameras/'
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/wacv-20191.pdf',
+        PDF: '/2019-WACV-privacy-preserving-encodings.pdf',
     }"
 />
 
@@ -522,7 +522,7 @@ const Koppal = {
     :authors="['Z. Tasneem', 'D. Wang', 'H. Xie', Koppal]"
     link='/research/2018/adaptive-depth/'
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/05/p11.pdf',
+        PDF: '/2018-RSS-directional-tof-ranging.pdf',
     }"
 />
 
@@ -532,7 +532,7 @@ const Koppal = {
     :authors="['D. Wang', 'S. S. Rojas', 'Al. Shuping', 'Z. Tasneem', Koppal, 'H. Xie']"
     link='/research/2018/wide-angle-mems/'
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/IEEE-NEMS-2018.pdf',
+        PDF: '/2018-NEMS-2-axis-mems-scanner.pdf',
     }"
 />
 
@@ -542,7 +542,7 @@ const Koppal = {
     :authors="['D. Wang', 'S. Strassle', 'A. Stainsby', 'Y. Bai', Koppal, 'et al.']"
     link='/research/2018/wide-angle-mems/'
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/05/SPIE-DCS-2018-1.pdf',
+        PDF: '/2018-SPIE-compact-3d-lidar.pdf',
     }"
 />
 
@@ -551,7 +551,7 @@ const Koppal = {
     venue="SoutheastCon 2018"
     :authors="['M. U. Tariq', 'A. K. Ghosh', 'K. Badillo-Urquiola', 'A. Jha', Koppal, 'P. J. Wisniewski']"
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/05/SoutheastCon2018_v5_submit.pdf',
+        PDF: '/2018-SoutheastCon-skin-light-filters.pdf',
     }"
 />
 
@@ -573,7 +573,7 @@ const Koppal = {
     :authors="['K. Henderson', 'K. Stadnikia', 'A. Martin', 'A. Enqvist', Koppal]"
     link='/research/2017/radiological-fusion/'
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/3DV_2017_Paper_Final_V3.pdf',
+        PDF: '/2017-3DV-radiological-tracking.pdf',
     }"
 />
 
@@ -582,7 +582,7 @@ const Koppal = {
     venue="IJCV 2017"
     :authors="['E. Alexander', 'Q. Guo', Koppal, 'S.J. Gortler', 'T. Zickler']"
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/05/Focal_Flow_IJCV.pdf',
+        PDF: '/2017-IJCV-focal-flow.pdf',
     }"
 />
 
@@ -602,7 +602,7 @@ const Koppal = {
     :authors="['B. Yang', 'L. Zhou', 'X. Zhang', 'D. Wang', Koppal, 'H. Xie']"
     link='/research/2018/wide-angle-mems/'
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/A_COMPACT_MEMS-BASED_WIDE-ANGLE_OPTICAL_SCANNER_OMN_2017_Abstract.pdf',
+        PDF: '/2017-OMN-compact-mems-scanner.pdf',
     }"
 />
 
@@ -612,7 +612,7 @@ const Koppal = {
     :authors="['I. Thirunarayan', 'K. Khetarpal', Koppal, 'O. LeMeur', 'J. Shea', 'E. Jain']"
     link='http://jainlab.cise.ufl.edu/comics.html#creating-segments-and'
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/05/a24-thirunarayanan.pdf',
+        PDF: '/2017-TOMM-comics-segments.pdf',
     }"
 />
 
@@ -622,7 +622,7 @@ const Koppal = {
     :authors="['F. Pittaluga', Koppal]"
     link='/research/2019/privacy-cameras/'
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/05/precapture_privacy_for_small_vision_sensors.pdf',
+        PDF: '/2017-PAMI-precapture-privacy.pdf',
     }"
 />
 
@@ -633,7 +633,7 @@ const Koppal = {
     venue="Winner of Best Student Paper Award | European Conference on Computer Vision, 2016"
     :authors="['E. Alexander', 'Q. Guo', Koppal, 'S.J. Gortler', 'T. Zickler']"
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/05/Focal_Flow_IJCV.pdf',
+        PDF: '/2017-IJCV-focal-flow.pdf',
     }"
 />
 
@@ -652,7 +652,7 @@ const Koppal = {
     venue="IEEE Signal Processing Magazine, 2016"
     :authors="[Koppal]"
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/05/survey-1.pdf',
+        PDF: '/2016-SPM-comp-photography-survey.pdf',
     }"
 />
 
@@ -662,7 +662,7 @@ const Koppal = {
     :authors="['X. Zhang', 'L. Zhou', 'C. Duan', 'D. Zheng', Koppal, 'H. Xie']"
     link='/research/2018/wide-angle-mems/'
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/OMN2016_Immersed-ISC.pdf',
+        PDF: '/2016-OMN-immersed-mems-mirrors.pdf',
     }"
 />
 
@@ -672,7 +672,7 @@ const Koppal = {
     :authors="['F. Pittaluga', 'A. Zivkovic', Koppal]"
     link='/research/2019/privacy-cameras/'
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/OMN2016_Immersed-ISC.pdf',
+        PDF: '/2016-OMN-immersed-mems-mirrors.pdf',
     }"
 />
 
@@ -682,7 +682,7 @@ const Koppal = {
     :authors="['X. Zhang', Koppal, 'R. Zhang', 'L. Zhou', 'E. Butler', 'H. Xie']"
     link='/research/2018/wide-angle-mems/'
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/05/optics_express_2016.pdf',
+        PDF: '/2016-OpticsExpress-wide-angle-mems-mirror-in-liquid.pdf',
     }"
 />
 
@@ -693,7 +693,7 @@ const Koppal = {
     venue="Extreme Imaging Workshop 2015"
     :authors="['E. Alexander', Koppal, 'T. Zickler']"
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/05/ICCV_15.pdf',
+        PDF: '/2015-ExtremeImaging-low-power-depth-velocity.pdf',
     }"
 />
 
@@ -703,7 +703,7 @@ const Koppal = {
     :authors="['P. Riley', 'A. Enqvist', Koppal]"
     link='/research/2017/radiological-fusion/'
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/3dv_2015_paper.pdf',
+        PDF: '/2015-3DV-radiological-fusion.pdf',
     }"
 />
 
@@ -713,7 +713,7 @@ const Koppal = {
     :authors="['F. Pittaluga', Koppal]"
     link='/research/2019/privacy-cameras/'
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/05/precapture_privacy_for_small_vision_sensors.pdf',
+        PDF: '/2017-PAMI-precapture-privacy.pdf',
     }"
 />
 
@@ -740,7 +740,7 @@ const Koppal = {
     :authors="['X. Zhang', 'R. Zhang', Koppal, 'L. Butler', 'X. Cheng', 'H. Xie']"
     link='/research/2018/wide-angle-mems/'
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/xioyang_OSA.pdf',
+        PDF: '/2016-OpticsExpress-wide-angle-structured-light.pdf',
     }"
 />
 
@@ -796,7 +796,7 @@ const Koppal = {
     :authors="[Koppal, 'L. Zitnick', 'M. Cohen', 'S. Kang', 'B. Ressler', 'A. Colburn']"
     link='/research/2010/stereo-editing/'
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/stereoscopy.pdf',
+        PDF: '/2011-CGA-stereoscopic-cinema.pdf',
     }"
 />
 
@@ -806,7 +806,7 @@ const Koppal = {
     :authors="[Koppal, 'I. Gkioulekas', 'T. Zickler', 'G. Barrows']"
     link='/research/2011/micro-vision-sensors/'
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/WideAngleMicro_CVPR2011.pdf',
+        PDF: '/2011-CVPR-wide-angle-micro-sensors.pdf',
     }"
 />
 

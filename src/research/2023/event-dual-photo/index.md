@@ -6,4 +6,4 @@ Light transport contains all light information between the light source and the 
 
 [Event Data Download](#) (47.0 GB)
 
-https://focus.ece.ufl.edu/wp-content/uploads/2023/03/event-light-transport-v3resubmit.mp4
+./video.mp4

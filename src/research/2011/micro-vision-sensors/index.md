@@ -4,13 +4,13 @@
 
 Achieving computer vision on micro-scale devices is a challenge. On these platforms, the power and mass constraints are severe enough for even the most common computations (matrix manipulations, convolution, etc.) to be difficult. This paper proposes and analyzes a class of miniature vision sensors that can help overcome these constraints. These sensors reduce power requirements through template-based optical convolution, and they enable a wide field-of-view within a small form. We describe the trade-offs between the FOV, volume, and mass of these sensors and provide tools to navigate the design space. We demonstrate milli-scale prototypes for computer vision tasks such as locating edges, tracking targets, and detecting faces.
 
-PAPERS: "Wide-angle Micro Sensors for Vision on a Tight Budget" S J. Koppal, I. Gkioulekas, T. Zickler and G. Barrows Accepted to IEEE Conference on Computer Vision and Pattern Recognition (CVPR) June, 2011 [PDF](https://focus.ece.ufl.edu/wp-content/uploads/2023/04/WideAngleMicro_CVPR2011.pdf)
+PAPERS: "Wide-angle Micro Sensors for Vision on a Tight Budget" S J. Koppal, I. Gkioulekas, T. Zickler and G. Barrows Accepted to IEEE Conference on Computer Vision and Pattern Recognition (CVPR) June, 2011 [PDF](/2011-CVPR-wide-angle-micro-sensors.pdf)
 
-PRESENTATION: "Wide-angle Micro Sensors for Vision on a Tight Budget" Oral presentation at CVPR 2011 | [PPT](https://focus.ece.ufl.edu/wp-content/uploads/2023/04/wide_angle_microCV.pptx)
+PRESENTATION: "Wide-angle Micro Sensors for Vision on a Tight Budget" Oral presentation at CVPR 2011 | [PPT](./slides.pptx)
 
-CODE: Building a lookup table:  [Code](https://focus.ece.ufl.edu/wp-content/uploads/2023/04/build_lookup_table.zip)
+CODE: Building a lookup table:  [Code](./build-lookup-table.zip)
 
-SUPPLEMENTARY MATERIAL: A few additional derivations:  [PDF](https://focus.ece.ufl.edu/wp-content/uploads/2023/04/Supplementary_material.pdf)
+SUPPLEMENTARY MATERIAL: A few additional derivations:  [PDF](./supplementary.pdf)
 
 ## Pictures:
 
@@ -50,7 +50,7 @@ In part (I) of the figure, we show our setup: a camera with custom template hold
 
 We show our optics in a sample container and also in close-up in under a microscope. This is a lensless design with templates embedded in a refractive slab. The templates were arbitrarily selected and created by photolithographic techniques with a resolution of 1 micron. We show the expected responses of convolution of these templates with a \`\`T" target, calculated in software. We validate our optics by showing the optical filtering responses are consistent over a wide field-of-view. Also, we show the setup, from CentEye, of an autonomous micro helicopter, with our optics and our sensor attached. We are able to recognize simple patterns such as the \`\`T" target, and differentiate it from an \`\`O" target and change location based on the type of target. A full video is available in the video section at the end of this website.
 
-![image](https://focus.ece.ufl.edu/wp-content/uploads/2023/04/Instances-of-milli-scale-designs.bmp)
+![image](./designs.bmp)
 
 ### Instances of milli-scale designs
 
@@ -64,28 +64,28 @@ Selecting templates for micro-sensors is challenging. Only a few number of templ
 
 ## Videos:
 
-https://focus.ece.ufl.edu/wp-content/uploads/2023/09/cvpr_video.mov
+[cvpr-demo.mov](./cvpr-demo.mov)
 
 ### CVPR 2011 Video
 
 This video is a compilation of the main results of this project.
 
-https://focus.ece.ufl.edu/wp-content/uploads/2023/09/trackingcut.mov
+[tracking.mov](./tracking.mov)
 
 ### An Arduino based 8-bit tracker
 
 We put together a vision tracker for a simple T-target based on the Arduino platform. We used a low-power imager from CentEye Inc along with custom optics that we designed and built. Since this design utilizes a refractive slab, it tracks the target over a 160 degree view of the scene. Performing convolution on this 8-bit platform in real time would be very challenging, and therefore our design enables this demonstration.
 
-https://focus.ece.ufl.edu/wp-content/uploads/2023/09/helidemo1.mov
+[helicopter-demo.mov](./helicopter-demo.mov)
 
 ### Proof-of-concept fiducial detection on an autonomous helicopter
 
 We show a demonstration of target detection and tracking using our miniaturized optics and fly our sensor on an autonomous micro air vehicle. This video shows an experiment where we detect a \`\`T" target, and differentiate it from an \`\`O" target. Once the target is detected, the helicopter changes location (flies upward).
 
-https://focus.ece.ufl.edu/wp-content/uploads/2023/09/sanface.mov
+[face-demo.mov](./face-demo.mov)
 
 ### Face detection with background subtraction
 
-https://focus.ece.ufl.edu/wp-content/uploads/2023/09/facenearest.mov
+[face-nearest.mov](./face-nearest.mov)
 
 ### Face detection with skin filters and nearest neighbor matching

@@ -8,7 +8,7 @@ _Privacy-preserving vision must overcome the dual challenge of utility and priva
 
 [GitHub code](https://github.com/teawizardry/schrodingers-camera)
 
-[Poster](https://focus.ece.ufl.edu/wp-content/uploads/2023/06/poster.pdf)
+[Poster](./poster.pdf)
 
 <iframe src="https://share.descript.com/embed/F4Z6N2GhvvJ" width="680" height="400" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
 

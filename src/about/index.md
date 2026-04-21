@@ -10,7 +10,7 @@ title: About
 
 ### Advanced Robot Perception · EEL 6935
 
-[Course Syllabus →](https://focus.ece.ufl.edu/wp-content/uploads/2023/04/EEL6935_Adv_Robot_Percep_Koppal.pdf)
+[Course Syllabus →](./adv-robot-perception-syllabus.pdf)
 
 </div>
 
@@ -18,7 +18,7 @@ title: About
 
 ### Computational Photography · EEL 4403 / 5406
 
-[Course Syllabus →](https://focus.ece.ufl.edu/wp-content/uploads/2024/10/CompPhoto-Syllabus.pdf)
+[Course Syllabus →](./comp-photo-syllabus.pdf)
 
 </div>
 

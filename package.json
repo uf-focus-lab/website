@@ -1,7 +1,8 @@
 {
   "scripts": {
     "dev": "vitepress dev",
-    "build": "vitepress build"
+    "build": "vitepress build",
+    "serve": "vitepress build && vitepress serve"
   },
   "devDependencies": {
     "@types/markdown-it-container": "^4.0.0",

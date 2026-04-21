@@ -20,7 +20,7 @@ Francesco Pittaluga, Sanjeev J. Koppal, Ayan Chakrabarti
 
 We present a framework to learn privacy-preserving encodings of images to inhibit inference of a chosen private attribute. Rather than encoding a fixed dataset or inhibiting a fixed estimator, we aim to to learn an encoding function such that even after this function is fixed, an estimator with knowledge of the encoding is unable to learn to accurately predict the private attribute, when generalizing beyond a training set. We formulate this as adversarial optimization of an encoding function against a classifier for the private attribute, with both modeled as deep neural networks. We describe an optimization approach which successfully yields an encoder that permanently limits inference of the private attribute, while preserving either a generic notion of information, or the estimation of a different, desired, attribute. We experimentally validate the efficacy of our approach on private tasks of real-world complexity, by learning to prevent detection of scene classes from the Places-365 dataset.
 
-PAPERS: [PDF](https://focus.ece.ufl.edu/wp-content/uploads/2023/04/wacv-20191.pdf)
+PAPERS: [PDF](/2019-WACV-privacy-preserving-encodings.pdf)
 
 ### Pre-capture Privacy for Small Vision Sensors
 
@@ -30,7 +30,7 @@ https://www.youtube.com/watch?v=JmDfbMMuWao
 
 The next wave of micro and nano devices will create a world with trillions of small networked cameras. This will lead to increased concerns about privacy and security. Most privacy preserving algorithms for computer vision are applied after image/video data has been captured. We propose to use privacy preserving optics that filter or block sensitive information directly from the incident light-field before sensor measurements are made, adding a new layer of privacy. In addition to balancing the privacy and utility of the captured data, we address trade-offs unique to miniature vision sensors, such as achieving high-quality field-of-view and resolution within the constraints of mass and volume. Our privacy preserving optics enable applications such as depth sensing, full-body motion tracking, people counting, blob detection and privacy preserving face recognition. While we demonstrate applications on macro-scale devices (smartphones, webcams, etc.) our theory has impact for smaller devices.
 
-PAPERS: [PAMI 2017](https://focus.ece.ufl.edu/wp-content/uploads/2023/05/precapture_privacy_for_small_vision_sensors.pdf) [CVPR 2015](https://focus.ece.ufl.edu/wp-content/uploads/2023/05/paper_privacy_preserving_optics_for_miniature_vision-sensors.pdf) [Presentation](https://focus.ece.ufl.edu/wp-content/uploads/2023/05/presentation_privacy_preserving_optics_for_miniature_vision-sensors.pdf)
+PAPERS: [PAMI 2017](/2017-PAMI-precapture-privacy.pdf) [CVPR 2015](./privacy-optics-paper.pdf) [Presentation](./privacy-optics-slides.pdf)
 
 ### Sensor-level Privacy for Thermal Cameras
 
@@ -40,4 +40,4 @@ https://www.youtube.com/watch?v=xEpOkyo2beI
 
 As cameras turn ubiquitous, balancing privacy and utility becomes crucial. To achieve both, we enforce privacy at the sensor level, as incident photons are converted into an electrical signal and then digitized into image measurements. We present sensor protocols and accompanying algorithms that degrade facial information for thermal sensors, where there is usually a clear distinction between humans and the scene. By manipulating the sensor processes of gain, digitization, exposure time, and bias voltage, we are able to provide privacy during the actual image formation process and the original face data is never directly captured or stored. We show privacy-preserving thermal imaging applications such as temperature segmentation, night vision, gesture recognition and HDR imaging
 
-PAPERS: [ICCP 2016](https://focus.ece.ufl.edu/wp-content/uploads/2023/05/sensor_level_privacy_for_thermal_cameras.pdf) [Presentation](https://focus.ece.ufl.edu/wp-content/uploads/2023/05/presentation_sensor_level_privacy_for_thermal-cameras.pdf)
+PAPERS: [ICCP 2016](./thermal-privacy-paper.pdf) [Presentation](./thermal-privacy-slides.pdf)

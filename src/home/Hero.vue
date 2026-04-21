@@ -10,9 +10,9 @@ import ufEceLogo from "../logo/uf-ece.webp";
         <p class="brand">FOCUS Lab</p>
         <h1>The Florida Optics &amp; Computational Sensor Lab</h1>
         <p class="tagline">
+          <span>Comp. Photo</span>
           <span>Computer Vision</span>
           <span>Novel Sensors</span>
-          <span>Machine Learning</span>
         </p>
         <a
           class="affiliation"

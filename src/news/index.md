@@ -139,7 +139,7 @@ Our paper “Schrödinger’s Camera: First Steps Towards a Quantum-Based Privac
 Congratulations to Brevin Tilmon for his accepted CVPR paper titled [“Energy-Efficient Adaptive 3D Sensing”](https://btilmon.github.io/e3d.html) and congratulations to our collaborators at Snap Research!
 
 @02/16
-FOCUS lab worked with Dr. Eakta Jain in CISE on [personal space bubbles](https://focus.ece.ufl.edu/wp-content/uploads/2023/06/Personal_Safety_Bubble_VR2023_poster.pdf) which is a poster in IEEE VR 2023. Congrats to our collaborators!
+FOCUS lab worked with Dr. Eakta Jain in CISE on [personal space bubbles](/2023-VR-personal-safety-bubble.pdf) which is a poster in IEEE VR 2023. Congrats to our collaborators!
 
 @01/18
 Hannah Kirkland has been selected to attend the [Grad-Cohort for Women Workshop.](https://cra.org/cra-wp/grad-cohort-for-women/?utm_source=CRA-WP+Updates&utm_campaign=5e63f0d699-EMAIL_CAMPAIGN_2019_09_27_01_21_COPY_01&utm_medium=email&utm_term=0_24729738cd-5e63f0d699-82426629) Congrats Hannah!

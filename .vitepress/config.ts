@@ -1,5 +1,6 @@
 import { defineConfig } from "vitepress";
 import newsMarkdown from "./plugins/news";
+import colocatedAssets from "./plugins/colocated-assets";
 
 export default defineConfig({
   srcDir: "src",
@@ -9,8 +10,12 @@ export default defineConfig({
   markdown: {
     math: true,
   },
+  // Office document extensions aren't in VitePress's built-in known-extensions
+  // list, so its dead-link checker treats [text](./slides.pptx) as a page link.
+  // The colocated-assets plugin emits the file to dist/, so skip the check.
+  ignoreDeadLinks: [/\.(pptx?|docx?|xlsx?)(?:[?#].*)?$/i],
   vite: {
-    plugins: [newsMarkdown()],
+    plugins: [newsMarkdown(), colocatedAssets()],
   },
   themeConfig: {
     logo: "/home/focus.png",

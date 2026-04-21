@@ -1,8 +1,8 @@
 ## FoveaCam++: Systems-Level Advances for Long Range Multi-Object High-Resolution Tracking
 
 ##### Yuxuan Zhang and Sanjeev J. Koppal
-[Full Text (PDF)](https://focus.ece.ufl.edu/wp-content/uploads/2024/08/IROS-FoveaCamPlus.pdf) |
-[Poster](https://focus.ece.ufl.edu/wp-content/uploads/2024/10/Poster.V2.A0.pdf) |
+[Full Text (PDF)](/2024-IROS-foveacam-plus.pdf) |
+[Poster](./poster.pdf) |
 IROS 2024
 
 <div style="display: flex; flex-direction: row; justify-content: space-between;">
