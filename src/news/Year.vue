@@ -1,12 +1,7 @@
-<script setup lang="ts">
-defineProps<{
-  year: string;
-}>();
-</script>
+<script setup lang="ts"></script>
 
 <template>
-    <h2>{{ year }}</h2>
-    <table>
-        <slot />
-    </table>
+  <table>
+    <slot />
+  </table>
 </template>

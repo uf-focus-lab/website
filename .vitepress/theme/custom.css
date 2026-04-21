@@ -1,8 +1,23 @@
 :root {
-  --vp-c-brand-1: hsl(212, 90%, 40%);
-  --vp-c-brand-2: hsl(212, 95%, 30%);
+  --vp-c-brand-1: hsl(212, 100%, 30%);
+  --vp-c-brand-2: hsl(212, 100%, 25%);
   --vp-c-brand-3: hsl(212, 100%, 20%);
   --vp-c-brand-soft: hsla(212, 100%, 50%, 0.1);
+  --vp-c-text: var(--vp-c-text-1);
+  --vp-c-text-1: hsl(0, 0%, 0%);
+  --vp-c-text-2: hsl(0, 0%, 10%);
+  --vp-c-text-3: hsl(0, 0%, 20%);
+}
+
+.dark {
+  --vp-c-brand-1: hsl(212, 100%, 70%);
+  --vp-c-brand-2: hsl(212, 100%, 75%);
+  --vp-c-brand-3: hsl(212, 100%, 60%);
+  --vp-c-brand-soft: hsla(212, 100%, 70%, 0.15);
+  --vp-c-text: var(--vp-c-text-1);
+  --vp-c-text-1: hsl(0, 0%, 100%);
+  --vp-c-text-2: hsl(0, 0%, 90%);
+  --vp-c-text-3: hsl(0, 0%, 80%);
 }
 
 .Layout.portfolio {
@@ -29,6 +44,24 @@
 }
 
 svg {
-    max-width: 100%;
-    height: auto;
+  max-width: 100%;
+  height: auto;
+}
+
+.normal {
+  font-weight: normal;
+}
+
+.light {
+  font-weight: 300;
+}
+
+.vp-doc h1:first-child,
+.vp-doc h2:first-child,
+.vp-doc h3:first-child,
+.vp-doc h4:first-child,
+.vp-doc h5:first-child,
+.vp-doc h6:first-child {
+  margin-top: 0;
+  border-top: none;
 }

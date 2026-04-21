@@ -7,7 +7,9 @@ import Year from "./Year.vue";
 import Item from "./Item.vue";
 </script>
 
-<Year year="2026">
+# 2026
+
+<Year>
 <Item date="04/03">Dr. Koppal will be an AC for BMVC 2026.</Item>
 <Item date="03/15">Our paper Towards a Non-Fourier Event-Based Opto-Electronic Convolution Accelerator was accepted to Optics Express. Congrats to Hannah, the coauthors, and our collaborators in the NSWC!</Item>
 <Item date="03/10">FOCUS lab and collaborators in Dr. Navid's group win ECTC Intel Best Student Paper Award!</Item>

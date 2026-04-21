@@ -1,11 +1,9 @@
-import type { DefaultTheme } from "vitepress";
+import { defineAdditionalConfig } from "vitepress";
 
-const sidebar: DefaultTheme.SidebarItem[] = [
-	{
-		text: "News",
-		collapsed: false,
-		items: [{ text: "Overview", link: "/news/" }]
-	}
-];
-
-export default sidebar;
+export default defineAdditionalConfig({
+  themeConfig: {
+    outline: {
+      label: "Year",
+    },
+  },
+});
