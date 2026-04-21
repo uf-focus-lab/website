@@ -1,0 +1,1017 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>UAV Attitude Estimation from Monocular Omnidirectional Events</title>
+<!--Generated on Mon Apr 20 22:18:32 2026 by LaTeXML (version 0.8.8) http://dlmf.nist.gov/LaTeXML/.-->
+
+<link rel="stylesheet" href="LaTeXML.css" type="text/css">
+<link rel="stylesheet" href="ltx-article.css" type="text/css">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+<div class="ltx_page_main">
+<div class="ltx_page_content">
+<article class="ltx_document ltx_authors_1line">
+<h1 class="ltx_title ltx_title_document">UAV Attitude Estimation from Monocular Omnidirectional Events</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">
+Hannah Kirkland,
+Shruti Sharma,
+Yuxuan Zhang,
+Gage Hills,
+Sanjeev J. Koppal,
+and Todd Zickler
+</span></span>
+</div>
+
+<div class="ltx_abstract">
+<h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p">Attitude estimation seeks to calculate the orientation (i.e., pitch and roll) of an object in motion. Determining attitude is crucial for flight, but conventional sensing techniques rely on gyroscopes, accelerometers, and magnetometers whose measurements are prone to drift and require an initial reference orientation. We propose a novel attitude estimation method for drift correction and reference orientation obtention by combining two inspirations from biology: wide-field optics and event sensors. We focus on planar motion with 3 degrees of freedom, and we introduce a simple algorithm that estimates the pitch and roll from a set of omnidirectional events, velocity, and altitude. We show that selecting an annular region of events along the scene horizon yields better results than naively processing a set of omnidirectional events in its entirety, and evaluate the approach using experiments on captured data, showing robust attitude estimation.</p>
+</div>
+<section id="S1" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">I </span><span class="ltx_text ltx_font_smallcaps">Introduction</span>
+</h2>
+
+<div id="S1.p1" class="ltx_para">
+<p class="ltx_p">Attitude estimation is a crucial task for unmanned aerial vehicles (UAVs). Vision-based attitude estimation methods seek to determine UAV orientation (i.e., pitch and roll) from one or more cameras and are particularly useful as a complement to conventional sensing techniques, which rely on drift-prone gyroscopes, accelerometers, and magnetometers. Correcting the attitude errors induced by this drift can lead to decreased errors for downstream tasks such as position determination and path planning.</p>
+</div>
+<div id="S1.p2" class="ltx_para">
+<p class="ltx_p">UAVs typically already contain one or more cameras as part of their payload for use in path planning, data collection, surveillance, etc. Increasingly, event cameras are included in UAV payloads due to their superior power efficiency, reduced data bandwidth, and low latency when compared to conventional cameras. These qualities are crucial for the future of small and low-power robotics, where size and power constraints are severe <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib21" title="Event-based vision: a survey" class="ltx_ref">9</a>, <a href="#bib.bib20" title="How fast is too fast? the role of perception latency in high-speed sense and avoid" class="ltx_ref">8</a>]</cite>.</p>
+</div>
+<div id="S1.p3" class="ltx_para">
+<p class="ltx_p">We focus here on one such constrained situation: an agent equipped with a single downward facing event camera equipped with hemispherical optics. Our algorithm estimates the relative angle between the agent and the ground (modeled as simple plane) using only the event-set, velocity, and altitude. Wide-field optics are critical in this scenario, as narrow-field optics would fail whenever the camera passes over a textureless region and whenever the camera’s view direction is far from the agent’s translation direction <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib22" title="Inherent ambiguities in recovering 3-d motion and structure from a noisy flow field" class="ltx_ref">2</a>, <a href="#bib.bib23" title="Implementation of wide-field integration of optic flow for autonomous quadrotor navigation" class="ltx_ref">6</a>]</cite>. Hemispherical optics reduce these failures by aggregating motion from all directions, and by always measuring some viewing rays that are close to the direction of translation.</p>
+</div>
+<div id="S1.p4" class="ltx_para">
+<p class="ltx_p">As depicted in Figure <a href="#S1.F1" title="Figure 1 ‣ I Introduction ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>, our key observation is that we can drastically reduce the computation required to estimate attitude from hemispherical images by coupling our optics to an event sensor. In particular, we introduce a simple algorithm that estimates pitch and roll from an event-set directly. This is in contrast to prior event-based algorithms which require reference frames from a conventional camera <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib6" title="FlyTracker: motion tracking and obstacle detection for drones using event cameras" class="ltx_ref">24</a>]</cite> or a base-station camera <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib7" title="A spatial localization and attitude estimation system for unmanned aerial vehicles using a single dynamic vision sensor" class="ltx_ref">21</a>]</cite>.</p>
+</div>
+<div id="S1.p5" class="ltx_para">
+<p class="ltx_p">Additionally, our use of an event camera provides benefits beyond increased power efficiency and reduced data bandwidth. Event cameras offer incredible speed, easily reaching MHz rates while conventional cameras achieve kHz refresh rates at best. They are also less susceptible to motion blur and more resilient to high dynamic range <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib21" title="Event-based vision: a survey" class="ltx_ref">9</a>]</cite>.</p>
+</div>
+<div id="S1.p6" class="ltx_para ltx_noindent">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold ltx_font_italic">In summary, our contributions are:</span></p>
+<ul id="S1.I1" class="ltx_itemize">
+<li id="S1.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S1.I1.i1.p1" class="ltx_para">
+<p class="ltx_p">an attitude estimation algorithm using only an event-set, velocity, and altitude;</p>
+</div>
+</li>
+<li id="S1.I1.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S1.I1.i2.p1" class="ltx_para">
+<p class="ltx_p">the evaluation of our algorithm on a macro-scale prototype using off-the-shelf components.</p>
+</div>
+</li>
+</ul>
+</div>
+<figure id="S1.F1" class="ltx_figure"><img src="figs/figure1.png" id="S1.F1.g1" class="ltx_graphics ltx_centering ltx_img_landscape" width="598" height="478" alt="Refer to caption">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 1: </span>We couple hemispherical optics with a neuromorphic sensor to efficiently estimate attitude of an agent undergoing planar motion. We do so <span class="ltx_text ltx_font_italic">directly</span> from a small event-set, as shown in the inset.</figcaption>
+</figure>
+</section>
+<section id="S2" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">II </span><span class="ltx_text ltx_font_smallcaps">Related Work</span>
+</h2>
+
+<div id="S2.p1" class="ltx_para">
+<p class="ltx_p">Traditionally, attitude estimation has relied on integrating inertial measurement unit (IMU) data to derive the system’s pitch, roll, and heading. In practice, these IMUs have some amount of bias which induce a significant amount of drift in the resulting integrated measurements. Multiple strategies have been developed to account for this bias, including Kalman filtering <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib14" title="A new approach to linear filtering and prediction problems" class="ltx_ref">1</a>]</cite> and sensor fusion with Global Navigation Satellite Systems (GNSS), as surveyed in <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib15" title="Efficient attitude estimators: a tutorial and survey" class="ltx_ref">3</a>, <a href="#bib.bib16" title="GNSS-based attitude determination techniques—a comprehensive literature survey" class="ltx_ref">16</a>]</cite>. However, these solutions are not always viable for application to UAV systems. UAVs may be in GNSS-denied environments, and Kalman filtering makes assumptions on the system’s linearity and error distribution. One research avenue has been the development of vision-based attitude estimation methods, as surveyed in <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib17" title="Vision based uav attitude estimation: progress and insights" class="ltx_ref">19</a>, <a href="#bib.bib18" title="A survey on vision-based uav navigation" class="ltx_ref">12</a>, <a href="#bib.bib19" title="Survey on uav navigation in gps denied environments" class="ltx_ref">4</a>]</cite>.</p>
+</div>
+<div id="S2.p2" class="ltx_para">
+<p class="ltx_p">Much of this work involves finding the horizon in a scene captured with catadioptric optics. The relative orientation can then be derived by finding the plane that intersects the horizon as projected on the image sphere <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib4" title="Vision-based sensing of uav attitude and altitude from downward in-flight images" class="ltx_ref">17</a>, <a href="#bib.bib1" title="Omnidirectional vision applied to unmanned aerial vehicles (uavs) attitude and heading estimation" class="ltx_ref">13</a>, <a href="#bib.bib11" title="Omnidirectional vision on uav for attitude computation" class="ltx_ref">7</a>, <a href="#bib.bib8" title="A bio-inspired stereo vision system for guidance of autonomous aircraft" class="ltx_ref">14</a>, <a href="#bib.bib12" title="Omnidirectional vision for uav: applications to attitude, motion and altitude estimation for day and night conditions" class="ltx_ref">15</a>]</cite>. Another common strategy is to find vanishing points in a scene based off straight-edged features, then use homography to estimate orientation from those lines. This approach has been demonstrated with wide-field optics <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib9" title="EKF based attitude estimation and stabilization of a quadrotor uav using vanishing points in catadioptric images" class="ltx_ref">22</a>, <a href="#bib.bib10" title="UAV attitude estimation by vanishing points in catadioptric images" class="ltx_ref">5</a>]</cite> as well as narrow-field optics <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib2" title="Vision-based attitude estimation for indoor navigation using vanishing points and lines" class="ltx_ref">10</a>, <a href="#bib.bib3" title="An attitude estimation method based on monocular vision and inertial sensor fusion for indoor navigation" class="ltx_ref">23</a>]</cite>. Other approaches estimate attitude from the amount of ellipse deformation found in stereo catadioptric images <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib12" title="Omnidirectional vision for uav: applications to attitude, motion and altitude estimation for day and night conditions" class="ltx_ref">15</a>]</cite> or using homography between multiple frames <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib5" title="Vision-aided estimation of attitude, velocity, and inertial measurement bias for uav stabilization" class="ltx_ref">25</a>]</cite>.</p>
+</div>
+<div id="S2.p3" class="ltx_para">
+<p class="ltx_p">In contrast, there is a very limited amount of prior work utilizing event sensors. One prior work uses a stationary base-station event camera to estimate the attitude of an UAV fitted with LEDs <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib7" title="A spatial localization and attitude estimation system for unmanned aerial vehicles using a single dynamic vision sensor" class="ltx_ref">21</a>]</cite>. Another estimates attitude as a part of a larger motion estimation framework using the eight-point algorithm in conjunction with an additional conventional sensor <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib6" title="FlyTracker: motion tracking and obstacle detection for drones using event cameras" class="ltx_ref">24</a>]</cite>.</p>
+</div>
+<div id="S2.p4" class="ltx_para">
+<p class="ltx_p">As summarized in Table <a href="#S2.T1" title="TABLE I ‣ II Related Work ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">I</span></a>, prior research utilizes wide-field optics or event cameras, but not both. Our proposed algorithm seeks to fill this gap by harnessing the advantages of wide-field optics and event cameras.</p>
+</div>
+<figure id="S2.T1" class="ltx_table">
+
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">TABLE I: </span>Related Work Summary</figcaption><div class="ltx_flex_figure">
+<div class="ltx_flex_cell ltx_flex_size_1">
+<table class="ltx_tabular ltx_centering ltx_figure_panel ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_center ltx_border_tt"><span class="ltx_text ltx_font_bold">Camera Type</span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt"><span class="ltx_text ltx_font_bold">Related Work</span></td>
+<td class="ltx_td ltx_align_left ltx_border_tt"><span class="ltx_text ltx_font_bold">Algorithm</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-bottom:5.0pt;" rowspan="3"> 
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_nopad_r ltx_align_center">Conventional</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_nopad_r ltx_align_center">Wide-Field<sup class="ltx_sup">1</sup>
+</td>
+</tr>
+</table> </td>
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-bottom:5.0pt;"> 
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_nopad_r ltx_align_center"><cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib4" title="Vision-based sensing of uav attitude and altitude from downward in-flight images" class="ltx_ref">17</a>, <a href="#bib.bib1" title="Omnidirectional vision applied to unmanned aerial vehicles (uavs) attitude and heading estimation" class="ltx_ref">13</a>, <a href="#bib.bib11" title="Omnidirectional vision on uav for attitude computation" class="ltx_ref">7</a>, <a href="#bib.bib8" title="A bio-inspired stereo vision system for guidance of autonomous aircraft" class="ltx_ref">14</a>, <a href="#bib.bib12" title="Omnidirectional vision for uav: applications to attitude, motion and altitude estimation for day and night conditions" class="ltx_ref">15</a>]</cite></td>
+</tr>
+</table></td>
+<td class="ltx_td ltx_align_left ltx_border_t" style="padding-bottom:5.0pt;">Horizon Detection</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_center" style="padding-bottom:5.0pt;"> 
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_nopad_r ltx_align_center"><cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib9" title="EKF based attitude estimation and stabilization of a quadrotor uav using vanishing points in catadioptric images" class="ltx_ref">22</a>, <a href="#bib.bib10" title="UAV attitude estimation by vanishing points in catadioptric images" class="ltx_ref">5</a>]</cite></td>
+</tr>
+</table></td>
+<td class="ltx_td ltx_align_left" style="padding-bottom:5.0pt;">Vanishing Points / Lines</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_center"><cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib12" title="Omnidirectional vision for uav: applications to attitude, motion and altitude estimation for day and night conditions" class="ltx_ref">15</a>]</cite></td>
+<td class="ltx_td ltx_align_left">Ellipse Deformation</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-bottom:5.0pt;" rowspan="2"> 
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_nopad_r ltx_align_center">Conventional</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_nopad_r ltx_align_center">Narrow-Field</td>
+</tr>
+</table> </td>
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-bottom:5.0pt;"> 
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_nopad_r ltx_align_center"><cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib2" title="Vision-based attitude estimation for indoor navigation using vanishing points and lines" class="ltx_ref">10</a>, <a href="#bib.bib3" title="An attitude estimation method based on monocular vision and inertial sensor fusion for indoor navigation" class="ltx_ref">23</a>]</cite></td>
+</tr>
+</table></td>
+<td class="ltx_td ltx_align_left ltx_border_t" style="padding-bottom:5.0pt;">Vanishing Points / Lines</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_center"><cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib5" title="Vision-aided estimation of attitude, velocity, and inertial measurement bias for uav stabilization" class="ltx_ref">25</a>]</cite></td>
+<td class="ltx_td ltx_align_left">Homography</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-bottom:5.0pt;" rowspan="2">Event Camera<sup class="ltx_sup">2</sup>
+</td>
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-bottom:5.0pt;"> 
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_nopad_r ltx_align_center"><cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib6" title="FlyTracker: motion tracking and obstacle detection for drones using event cameras" class="ltx_ref">24</a>]</cite></td>
+</tr>
+</table></td>
+<td class="ltx_td ltx_align_left ltx_border_t" style="padding-bottom:5.0pt;">Eight-Point Algorithm</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_center"><cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib7" title="A spatial localization and attitude estimation system for unmanned aerial vehicles using a single dynamic vision sensor" class="ltx_ref">21</a>]</cite></td>
+<td class="ltx_td ltx_align_left">LED Tracking</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_tt" colspan="3">
+<sup class="ltx_sup">1</sup> Papers <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib12" title="Omnidirectional vision for uav: applications to attitude, motion and altitude estimation for day and night conditions" class="ltx_ref">15</a>, <a href="#bib.bib8" title="A bio-inspired stereo vision system for guidance of autonomous aircraft" class="ltx_ref">14</a>]</cite> utilize stereo catadioptric cameras</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-bottom:-1.0pt;" colspan="3">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:390.3pt;"><sup class="ltx_sup">2</sup> Paper <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib6" title="FlyTracker: motion tracking and obstacle detection for drones using event cameras" class="ltx_ref">24</a>]</cite> utilizes both a neuromorphic image sensor and a conventional image sensor</span>
+</span>
+</td>
+</tr>
+</table>
+</div>
+<div class="ltx_flex_break"></div>
+<div class="ltx_flex_cell ltx_flex_size_1">
+<p class="ltx_p ltx_figure_panel">Prior work on vision-based attitude estimation tend to fall into several broad algorithmic categories. Approaches that use wide angle lenses or catadioptric systems tend to focus on detecting the skyline or horizon of the scene <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib4" title="Vision-based sensing of uav attitude and altitude from downward in-flight images" class="ltx_ref">17</a>, <a href="#bib.bib1" title="Omnidirectional vision applied to unmanned aerial vehicles (uavs) attitude and heading estimation" class="ltx_ref">13</a>, <a href="#bib.bib11" title="Omnidirectional vision on uav for attitude computation" class="ltx_ref">7</a>, <a href="#bib.bib8" title="A bio-inspired stereo vision system for guidance of autonomous aircraft" class="ltx_ref">14</a>]</cite>, though algorithms that estimate attitude from the vanishing points in the scene <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib9" title="EKF based attitude estimation and stabilization of a quadrotor uav using vanishing points in catadioptric images" class="ltx_ref">22</a>, <a href="#bib.bib10" title="UAV attitude estimation by vanishing points in catadioptric images" class="ltx_ref">5</a>]</cite> or ellipse deformation <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib12" title="Omnidirectional vision for uav: applications to attitude, motion and altitude estimation for day and night conditions" class="ltx_ref">15</a>]</cite> also exist. Work utilizing conventional image sensors with a typical FOV tend to focus on finding vanishing points in the scene <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib2" title="Vision-based attitude estimation for indoor navigation using vanishing points and lines" class="ltx_ref">10</a>, <a href="#bib.bib3" title="An attitude estimation method based on monocular vision and inertial sensor fusion for indoor navigation" class="ltx_ref">23</a>]</cite> or use homography <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib5" title="Vision-aided estimation of attitude, velocity, and inertial measurement bias for uav stabilization" class="ltx_ref">25</a>]</cite> for their estimation. The few prior works that use event cameras either use the eight-point algorithm as a key part of their algorithm <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib6" title="FlyTracker: motion tracking and obstacle detection for drones using event cameras" class="ltx_ref">24</a>]</cite> or fix the event camera on the ground, relying on an LED tracking system attached to the UAV <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib7" title="A spatial localization and attitude estimation system for unmanned aerial vehicles using a single dynamic vision sensor" class="ltx_ref">21</a>]</cite>. In contrast, our proposed algorithm utilizes both an event camera and a wide FOV.</p>
+</div>
+</div>
+</figure>
+</section>
+<section id="S3" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">III </span><span class="ltx_text ltx_font_smallcaps">Attitude Estimation from Monocular Omnidirectional Events</span>
+</h2>
+
+<figure id="S3.F2" class="ltx_figure">
+<table class="ltx_tabular ltx_centering ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_center" colspan="2"><img src="figs/big_figure.png" id="S3.F2.g1" class="ltx_graphics ltx_img_landscape" width="568" height="341" alt="Refer to caption"></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_center" style="padding-bottom:5.0pt;" colspan="2"><span class="ltx_text ltx_font_italic">(a)</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_center"><img src="figs/image.jpg" id="S3.F2.g2" class="ltx_graphics ltx_img_landscape" width="269" height="202" alt="Refer to caption"></td>
+<td class="ltx_td ltx_align_center"><img src="figs/image3.jpg" id="S3.F2.g3" class="ltx_graphics ltx_img_landscape" width="269" height="202" alt="Refer to caption"></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_center"><span class="ltx_text ltx_font_italic">(b)</span></td>
+<td class="ltx_td ltx_align_center"><span class="ltx_text ltx_font_italic">(c)</span></td>
+</tr>
+</table>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 2: </span>Overview of our hardware setup. <span class="ltx_text ltx_font_italic">(a):</span> Photo of our custom hardware prototype. A DAVIS346 event camera was fitted with a <math id="S3.F2.m2" class="ltx_Math" alttext="195^{\circ}" display="inline"><msup><mn>195</mn><mo>∘</mo></msup></math> fisheye lens and mounted onto a linear stage with 3D printed fittings. These fittings allowed for independent control of the roll and pitch of the camera. The camera’s axis configuration is shown in the top right. <span class="ltx_text ltx_font_italic">(b):</span> A photo of the checkerboard scene. <span class="ltx_text ltx_font_italic">(c):</span> A photo of the satellite agricultural scene.</figcaption>
+</figure>
+<div id="S3.p1" class="ltx_para">
+<p class="ltx_p">As shown in Figure <a href="#S1.F1" title="Figure 1 ‣ I Introduction ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>, we focus on an omnidirectional monocular event sensor undergoing planar motion. We denote the rotational velocity along the camera axis as <math id="S3.p1.m1" class="ltx_Math" alttext="\omega" display="inline"><mi>ω</mi></math> (radians per unit time) and the translational velocity along the <math id="S3.p1.m2" class="ltx_Math" alttext="x" display="inline"><mi>x</mi></math>- and <math id="S3.p1.m3" class="ltx_Math" alttext="y" display="inline"><mi>y</mi></math>-axis as <math id="S3.p1.m4" class="ltx_Math" alttext="u" display="inline"><mi>u</mi></math> and <math id="S3.p1.m5" class="ltx_Math" alttext="v" display="inline"><mi>v</mi></math>, respectively (meters per unit time). Let there be some static features <math id="S3.p1.m6" class="ltx_Math" alttext="\mathbf{F_{i}}" display="inline"><msub><mi>𝐅</mi><mi>𝐢</mi></msub></math> lying along a plane in the scene which have strong local contrast, triggering events upon sensor movement. The output from the sensor over time duration <math id="S3.p1.m7" class="ltx_Math" alttext="T" display="inline"><mi>T</mi></math> (<math id="S3.p1.m8" class="ltx_Math" alttext="t_{1}=0" display="inline"><mrow><msub><mi>t</mi><mn>1</mn></msub><mo>=</mo><mn>0</mn></mrow></math> and <math id="S3.p1.m9" class="ltx_Math" alttext="t_{N}=T" display="inline"><mrow><msub><mi>t</mi><mi>N</mi></msub><mo>=</mo><mi>T</mi></mrow></math>) is a group of <math id="S3.p1.m10" class="ltx_Math" alttext="N" display="inline"><mi>N</mi></math> events denoted by <math id="S3.p1.m11" class="ltx_Math" alttext="\left\{x_{i},y_{i},t_{i},p_{i}\right\}^{N}_{i=1}" display="inline"><msubsup><mrow><mo>{</mo><msub><mi>x</mi><mi>i</mi></msub><mo>,</mo><msub><mi>y</mi><mi>i</mi></msub><mo>,</mo><msub><mi>t</mi><mi>i</mi></msub><mo>,</mo><msub><mi>p</mi><mi>i</mi></msub><mo>}</mo></mrow><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></msubsup></math>—where, for every <math id="S3.p1.m12" class="ltx_Math" alttext="i^{\text{th}}" display="inline"><msup><mi>i</mi><mtext>th</mtext></msup></math> event, <math id="S3.p1.m13" class="ltx_Math" alttext="x_{i}" display="inline"><msub><mi>x</mi><mi>i</mi></msub></math> and <math id="S3.p1.m14" class="ltx_Math" alttext="y_{i}" display="inline"><msub><mi>y</mi><mi>i</mi></msub></math> represent the location on the image sensor, <math id="S3.p1.m15" class="ltx_Math" alttext="t_{i}" display="inline"><msub><mi>t</mi><mi>i</mi></msub></math> represents the time of occurrence, and <math id="S3.p1.m16" class="ltx_Math" alttext="p_{i}" display="inline"><msub><mi>p</mi><mi>i</mi></msub></math> represents the polarity. Event polarity is binary and denotes whether the intensity change that triggered an event was positive (increasing intensity) or negative (decreasing intensity). We assume that the change in the depth of a feature from the image sensor is small and negligible over a small time duration <math id="S3.p1.m17" class="ltx_Math" alttext="T" display="inline"><mi>T</mi></math>. In other words, we assume that the displacement of the sensor with respect to the average depth of the features from the sensor is small over the given time window. The velocity and altitude of the agent is assumed to be obtained from other sensors, such as IMU data, single point-LiDAR, or barometric altimeters.</p>
+</div>
+<div id="S3.p2" class="ltx_para">
+<p class="ltx_p">The goal of our algorithm is to estimate pitch and roll parameters <math id="S3.p2.m1" class="ltx_Math" alttext="\theta" display="inline"><mi>θ</mi></math> and <math id="S3.p2.m2" class="ltx_Math" alttext="\varphi" display="inline"><mi>φ</mi></math>, where <math id="S3.p2.m3" class="ltx_Math" alttext="\theta" display="inline"><mi>θ</mi></math> is the rotation in radians about the <math id="S3.p2.m4" class="ltx_Math" alttext="x" display="inline"><mi>x</mi></math>-axis and <math id="S3.p2.m5" class="ltx_Math" alttext="\varphi" display="inline"><mi>φ</mi></math> is the rotation in radians about the <math id="S3.p2.m6" class="ltx_Math" alttext="y" display="inline"><mi>y</mi></math>-axis, for a given event window. For a set of candidate attitude parameters, we first back-project each event in event window <math id="S3.p2.m7" class="ltx_Math" alttext="N" display="inline"><mi>N</mi></math> to its corresponding 3D coordinate along a plane defined by the agent’s depth and candidate attitude parameters. Next we generate a 2D histogram, warping each event from its position at time <math id="S3.p2.m8" class="ltx_Math" alttext="t_{i}" display="inline"><msub><mi>t</mi><mi>i</mi></msub></math> to the estimated origin location at time <math id="S3.p2.m9" class="ltx_Math" alttext="t_{1}" display="inline"><msub><mi>t</mi><mn>1</mn></msub></math> and accumulating the number of events at each location. This histogram is dependent on accurate radial depths between the camera center and the 3D coordinates of the scene features and accurate velocities. Accurate attitude parameters lead to converging initial location predictions for each feature, resulting in a sharp histogram. Inaccurate attitude parameters conversely lead to unsharp or distorted histograms, as the initial location predictions for each feature fail to converge. We quantify this sharpness in a loss function that counts the number of high-value bins in a region of interest. This process is repeated for a limited number of candidate attitude parameters, and the candidate with the lowest loss is selected as the final estimation.</p>
+</div>
+<div id="S3.p3" class="ltx_para">
+<p class="ltx_p">In Section <a href="#S3.SS1" title="III-A Omnidirectional Model and Calibration ‣ III Attitude Estimation from Monocular Omnidirectional Events ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">III-A</span></a>, we describe the omnidirectional camera model and calibration. In Section <a href="#S3.SS2" title="III-B Implied Trajectories ‣ III Attitude Estimation from Monocular Omnidirectional Events ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">III-B</span></a> we derive the ordinary differential equations that govern event trajectories on an unit sphere that are induced when the omnidirectional event sensor is undergoing planar motion <math id="S3.p3.m1" class="ltx_Math" alttext="(\omega,u,v)" display="inline"><mrow><mo stretchy="false">(</mo><mi>ω</mi><mo>,</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow></math>—i.e., the path which an event generated from a feature takes as a function of time—and provide an efficient implementation of these event trajectories. From here, we can accomplish our goal by finding the set of attitude parameters <math id="S3.p3.m2" class="ltx_Math" alttext="(\theta,\varphi)" display="inline"><mrow><mo stretchy="false">(</mo><mi>θ</mi><mo>,</mo><mi>φ</mi><mo stretchy="false">)</mo></mrow></math> that results in maximum alignment of the events along a given set of trajectories, as described in Section <a href="#S3.SS3" title="III-C Quantifying Alignment ‣ III Attitude Estimation from Monocular Omnidirectional Events ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">III-C</span></a>.</p>
+</div>
+<section id="S3.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">III-A </span><span class="ltx_text ltx_font_italic">Omnidirectional Model and Calibration</span>
+</h3>
+
+<div id="S3.SS1.p1" class="ltx_para">
+<p class="ltx_p">We used the omnidirectional camera model proposed by Scaramuzza et al <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib13" title="A flexible technique for accurate omnidirectional camera calibration and structure from motion" class="ltx_ref">18</a>]</cite>. The model uses a Taylor approximation for the mapping between image points, <math id="S3.SS1.p1.m1" class="ltx_Math" alttext="(x,y)" display="inline"><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow></math>, and their corresponding unit-length direction vectors for each captured feature <math id="S3.SS1.p1.m2" class="ltx_Math" alttext="\mathbf{F_{i}}" display="inline"><msub><mi>𝐅</mi><mi>𝐢</mi></msub></math> in the scene, <math id="S3.SS1.p1.m3" class="ltx_Math" alttext="\mathbf{d_{i}}=(x_{s},y_{s},z_{s})" display="inline"><mrow><msub><mi>𝐝</mi><mi>𝐢</mi></msub><mo>=</mo><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mi>s</mi></msub><mo>,</mo><msub><mi>y</mi><mi>s</mi></msub><mo>,</mo><msub><mi>z</mi><mi>s</mi></msub><mo stretchy="false">)</mo></mrow></mrow></math>. The Taylor coefficients are the calibration parameters to be estimated. The projection model is:</p>
+<table id="S3.E1" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S3.E1.m1" class="ltx_Math" alttext="\begin{bmatrix}x_{s}\\
+y_{s}\\
+z_{s}\end{bmatrix}=\lambda\begin{bmatrix}x^{\prime}\\
+y^{\prime}\\
+f(x^{\prime},y^{\prime})\end{bmatrix},\quad\lambda&gt;0," display="block"><mrow><mrow><mrow><mrow><mo>[</mo><mtable displaystyle="true" rowspacing="0pt"><mtr><mtd><msub><mi>x</mi><mi>s</mi></msub></mtd></mtr><mtr><mtd><msub><mi>y</mi><mi>s</mi></msub></mtd></mtr><mtr><mtd><msub><mi>z</mi><mi>s</mi></msub></mtd></mtr></mtable><mo>]</mo></mrow><mo>=</mo><mrow><mi>λ</mi><mo>⁢</mo><mrow><mo>[</mo><mtable displaystyle="true" rowspacing="0pt"><mtr><mtd><msup><mi>x</mi><mo>′</mo></msup></mtd></mtr><mtr><mtd><msup><mi>y</mi><mo>′</mo></msup></mtd></mtr><mtr><mtd><mrow><mi>f</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msup><mi>x</mi><mo>′</mo></msup><mo>,</mo><msup><mi>y</mi><mo>′</mo></msup><mo stretchy="false">)</mo></mrow></mrow></mtd></mtr></mtable><mo>]</mo></mrow></mrow></mrow><mo rspace="1.167em">,</mo><mrow><mi>λ</mi><mo>&gt;</mo><mn>0</mn></mrow></mrow><mo>,</mo></mrow></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(1)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">where <math id="S3.SS1.p1.m4" class="ltx_Math" alttext="f(x^{\prime},y^{\prime})=a_{0}+a_{1}\rho_{1}+...+a_{n}\rho_{n}" display="inline"><mrow><mrow><mi>f</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msup><mi>x</mi><mo>′</mo></msup><mo>,</mo><msup><mi>y</mi><mo>′</mo></msup><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><msub><mi>a</mi><mn>0</mn></msub><mo>+</mo><mrow><msub><mi>a</mi><mn>1</mn></msub><mo>⁢</mo><msub><mi>ρ</mi><mn>1</mn></msub></mrow><mo>+</mo><mi mathvariant="normal">…</mi><mo>+</mo><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>⁢</mo><msub><mi>ρ</mi><mi>n</mi></msub></mrow></mrow></mrow></math>, <math id="S3.SS1.p1.m5" class="ltx_Math" alttext="\lambda" display="inline"><mi>λ</mi></math> is a depth factor, and where <math id="S3.SS1.p1.m6" class="ltx_Math" alttext="\rho=\sqrt{x^{\prime 2}+y^{\prime 2}}" display="inline"><mrow><mi>ρ</mi><mo>=</mo><msqrt><mrow><msup><mi>x</mi><mrow><mo mathsize="1.420em">′</mo><mo lspace="0em">⁣</mo><mn>2</mn></mrow></msup><mo>+</mo><msup><mi>y</mi><mrow><mo mathsize="1.420em">′</mo><mo lspace="0em">⁣</mo><mn>2</mn></mrow></msup></mrow></msqrt></mrow></math> is the distance of the pixel from the image center, with <math id="S3.SS1.p1.m7" class="ltx_Math" alttext="(x^{\prime},y^{\prime})" display="inline"><mrow><mo stretchy="false">(</mo><msup><mi>x</mi><mo>′</mo></msup><mo>,</mo><msup><mi>y</mi><mo>′</mo></msup><mo stretchy="false">)</mo></mrow></math> related to raw pixel coordinates <math id="S3.SS1.p1.m8" class="ltx_Math" alttext="(x,y)" display="inline"><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow></math> by:</p>
+<table id="S3.E2" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S3.E2.m1" class="ltx_Math" alttext="\begin{bmatrix}x\\
+y\end{bmatrix}=\begin{bmatrix}c&amp;d\\
+e&amp;1\end{bmatrix}\begin{bmatrix}x^{\prime}\\
+y^{\prime}\end{bmatrix}+\begin{bmatrix}x_{c}\\
+y_{c}\end{bmatrix}." display="block"><mrow><mrow><mrow><mo>[</mo><mtable displaystyle="true" rowspacing="0pt"><mtr><mtd><mi>x</mi></mtd></mtr><mtr><mtd><mi>y</mi></mtd></mtr></mtable><mo>]</mo></mrow><mo>=</mo><mrow><mrow><mrow><mo>[</mo><mtable columnspacing="5pt" displaystyle="true" rowspacing="0pt"><mtr><mtd><mi>c</mi></mtd><mtd><mi>d</mi></mtd></mtr><mtr><mtd><mi>e</mi></mtd><mtd><mn>1</mn></mtd></mtr></mtable><mo>]</mo></mrow><mo>⁢</mo><mrow><mo>[</mo><mtable displaystyle="true" rowspacing="0pt"><mtr><mtd><msup><mi>x</mi><mo>′</mo></msup></mtd></mtr><mtr><mtd><msup><mi>y</mi><mo>′</mo></msup></mtd></mtr></mtable><mo>]</mo></mrow></mrow><mo>+</mo><mrow><mo>[</mo><mtable displaystyle="true" rowspacing="0pt"><mtr><mtd><msub><mi>x</mi><mi>c</mi></msub></mtd></mtr><mtr><mtd><msub><mi>y</mi><mi>c</mi></msub></mtd></mtr></mtable><mo>]</mo></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">Here, the affine transformation parameterized by <math id="S3.SS1.p1.m9" class="ltx_Math" alttext="c" display="inline"><mi>c</mi></math>, <math id="S3.SS1.p1.m10" class="ltx_Math" alttext="d" display="inline"><mi>d</mi></math>, and <math id="S3.SS1.p1.m11" class="ltx_Math" alttext="e" display="inline"><mi>e</mi></math> accounts for geometric distortions and the translation parameterized by <math id="S3.SS1.p1.m12" class="ltx_Math" alttext="x_{c}" display="inline"><msub><mi>x</mi><mi>c</mi></msub></math> and <math id="S3.SS1.p1.m13" class="ltx_Math" alttext="y_{c}" display="inline"><msub><mi>y</mi><mi>c</mi></msub></math> accounts for misalignment errors between the camera and omnidirectional optic’s axis.</p>
+</div>
+<div id="S3.SS1.p2" class="ltx_para">
+<p class="ltx_p">In summary, we assume that we know the maps <math id="S3.SS1.p2.m1" class="ltx_Math" alttext="C(x,y)=(x_{s},y_{s},z_{s})" display="inline"><mrow><mrow><mi>C</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mi>s</mi></msub><mo>,</mo><msub><mi>y</mi><mi>s</mi></msub><mo>,</mo><msub><mi>z</mi><mi>s</mi></msub><mo stretchy="false">)</mo></mrow></mrow></math> and <math id="S3.SS1.p2.m2" class="ltx_Math" alttext="C^{\prime}(x_{s},y_{s},z_{s})=C^{-1}(x_{s},y_{s},z_{s})=(x,y)" display="inline"><mrow><mrow><msup><mi>C</mi><mo>′</mo></msup><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mi>s</mi></msub><mo>,</mo><msub><mi>y</mi><mi>s</mi></msub><mo>,</mo><msub><mi>z</mi><mi>s</mi></msub><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><msup><mi>C</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mi>s</mi></msub><mo>,</mo><msub><mi>y</mi><mi>s</mi></msub><mo>,</mo><msub><mi>z</mi><mi>s</mi></msub><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow></mrow></math>. We performed experimental calibration using frame images from DAVIS346, details of which are explained in Section <a href="#S4" title="IV Experiments ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">IV</span></a>.</p>
+</div>
+</section>
+<section id="S3.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">III-B </span><span class="ltx_text ltx_font_italic">Implied Trajectories</span>
+</h3>
+
+<div id="S3.SS2.p1" class="ltx_para">
+<p class="ltx_p">Consider an omnidirectional monocular event sensor undergoing a general 6 DOF motion of rotation about an axis <math id="S3.SS2.p1.m1" class="ltx_Math" alttext="\mathbf{R}" display="inline"><mi>𝐑</mi></math> and a translation along a axis <math id="S3.SS2.p1.m2" class="ltx_Math" alttext="\mathbf{T}" display="inline"><mi>𝐓</mi></math>. Let there be a captured feature point <math id="S3.SS2.p1.m3" class="ltx_Math" alttext="\mathbf{F_{i}}" display="inline"><msub><mi>𝐅</mi><mi>𝐢</mi></msub></math> at a depth <math id="S3.SS2.p1.m4" class="ltx_Math" alttext="1/\sigma_{i}" display="inline"><mrow><mn>1</mn><mo>/</mo><msub><mi>σ</mi><mi>i</mi></msub></mrow></math> from the sensor. The rigid motion of the feature <math id="S3.SS2.p1.m5" class="ltx_Math" alttext="\mathbf{F_{i}}" display="inline"><msub><mi>𝐅</mi><mi>𝐢</mi></msub></math> relative to our sensor can be described as a rotation about the axis <math id="S3.SS2.p1.m6" class="ltx_Math" alttext="\mathbf{R}" display="inline"><mi>𝐑</mi></math> and a translation along the axis <math id="S3.SS2.p1.m7" class="ltx_Math" alttext="\mathbf{T}" display="inline"><mi>𝐓</mi></math>. The instantaneous velocity of <math id="S3.SS2.p1.m8" class="ltx_Math" alttext="\mathbf{F_{i}}" display="inline"><msub><mi>𝐅</mi><mi>𝐢</mi></msub></math> is</p>
+<table id="S3.E3" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S3.E3.m1" class="ltx_Math" alttext="\mathbf{F_{i}}=-\mathbf{T}-\mathbf{R}\times\mathbf{F_{i}}." display="block"><mrow><mrow><msub><mi>𝐅</mi><mi>𝐢</mi></msub><mo>=</mo><mrow><mrow><mo>−</mo><mi>𝐓</mi></mrow><mo>−</mo><mrow><mi>𝐑</mi><mo lspace="0.222em" rspace="0.222em">×</mo><msub><mi>𝐅</mi><mi>𝐢</mi></msub></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(3)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">Projecting <math id="S3.SS2.p1.m9" class="ltx_Math" alttext="\mathbf{F_{i}}" display="inline"><msub><mi>𝐅</mi><mi>𝐢</mi></msub></math> onto a unit sphere via spherical perspective projection simply yields the previously defined direction vector:</p>
+<table id="S3.E4" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S3.E4.m1" class="ltx_Math" alttext="\mathbf{d_{i}}=\sigma_{i}\mathbf{F_{i}}." display="block"><mrow><mrow><msub><mi>𝐝</mi><mi>𝐢</mi></msub><mo>=</mo><mrow><msub><mi>σ</mi><mi>i</mi></msub><mo>⁢</mo><msub><mi>𝐅</mi><mi>𝐢</mi></msub></mrow></mrow><mo lspace="0em">.</mo></mrow></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(4)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">We derive the motion field equation by taking the derivative of the projection function in Equation <a href="#S3.E4" title="In III-B Implied Trajectories ‣ III Attitude Estimation from Monocular Omnidirectional Events ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a>, with respect to time and substituting in Equation <a href="#S3.E3" title="In III-B Implied Trajectories ‣ III Attitude Estimation from Monocular Omnidirectional Events ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>. We obtain the following motion field equation <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib24" title="Facts on optic flow" class="ltx_ref">11</a>]</cite>:</p>
+<table id="S3.E5" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S3.E5.m1" class="ltx_Math" alttext="V(\mathbf{d_{i}})=\sigma_{i}((\mathbf{T}\cdot\mathbf{d_{i}})\mathbf{d_{i}}-%
+\mathbf{T})-\mathbf{R}\times\mathbf{d_{i}}" display="block"><mrow><mrow><mi>V</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msub><mi>𝐝</mi><mi>𝐢</mi></msub><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mrow><msub><mi>σ</mi><mi>i</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mrow><mrow><mrow><mo stretchy="false">(</mo><mrow><mi>𝐓</mi><mo lspace="0.222em" rspace="0.222em">⋅</mo><msub><mi>𝐝</mi><mi>𝐢</mi></msub></mrow><mo stretchy="false">)</mo></mrow><mo>⁢</mo><msub><mi>𝐝</mi><mi>𝐢</mi></msub></mrow><mo>−</mo><mi>𝐓</mi></mrow><mo stretchy="false">)</mo></mrow></mrow><mo>−</mo><mrow><mi>𝐑</mi><mo lspace="0.222em" rspace="0.222em">×</mo><msub><mi>𝐝</mi><mi>𝐢</mi></msub></mrow></mrow></mrow></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(5)</span></td>
+</tr></tbody>
+</table>
+</div>
+<div id="S3.SS2.p2" class="ltx_para">
+<p class="ltx_p">Using Equation <a href="#S3.E5" title="In III-B Implied Trajectories ‣ III Attitude Estimation from Monocular Omnidirectional Events ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>, we can find the system of differential equations which govern the event trajectory of a feature point <math id="S3.SS2.p2.m1" class="ltx_Math" alttext="\mathbf{F_{i}}" display="inline"><msub><mi>𝐅</mi><mi>𝐢</mi></msub></math> on a unit sphere, when the omnidirectional monocular event sensor is undergoing planar motion with rotational velocity of <math id="S3.SS2.p2.m2" class="ltx_Math" alttext="\omega" display="inline"><mi>ω</mi></math> (radian per unit time) and translational velocity of <math id="S3.SS2.p2.m3" class="ltx_Math" alttext="(u,v)" display="inline"><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow></math> (radian per unit time). For planar motion, <math id="S3.SS2.p2.m4" class="ltx_Math" alttext="R=(0,0,\omega)" display="inline"><mrow><mi>R</mi><mo>=</mo><mrow><mo stretchy="false">(</mo><mn>0</mn><mo>,</mo><mn>0</mn><mo>,</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow></mrow></math> and <math id="S3.SS2.p2.m5" class="ltx_Math" alttext="T/||F_{i}||=(u,v,0)" display="inline"><mrow><mrow><mi>T</mi><mo>/</mo><mrow><mo stretchy="false">‖</mo><msub><mi>F</mi><mi>i</mi></msub><mo stretchy="false">‖</mo></mrow></mrow><mo>=</mo><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo>,</mo><mn>0</mn><mo stretchy="false">)</mo></mrow></mrow></math>. Unlike <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib24" title="Facts on optic flow" class="ltx_ref">11</a>]</cite>, we assume all features lie on a plane <math id="S3.SS2.p2.m6" class="ltx_Math" alttext="P" display="inline"><mi>P</mi></math> parameterized by <math id="S3.SS2.p2.m7" class="ltx_Math" alttext="\theta" display="inline"><mi>θ</mi></math>, <math id="S3.SS2.p2.m8" class="ltx_Math" alttext="\varphi" display="inline"><mi>φ</mi></math>, and <math id="S3.SS2.p2.m9" class="ltx_Math" alttext="Z" display="inline"><mi>Z</mi></math>, where <math id="S3.SS2.p2.m10" class="ltx_Math" alttext="Z" display="inline"><mi>Z</mi></math> is the normal distance between the camera’s optical axis and the plane, <math id="S3.SS2.p2.m11" class="ltx_Math" alttext="\theta" display="inline"><mi>θ</mi></math> is the relative rotation around the <math id="S3.SS2.p2.m12" class="ltx_Math" alttext="x" display="inline"><mi>x</mi></math>-axis (roll), and <math id="S3.SS2.p2.m13" class="ltx_Math" alttext="\varphi" display="inline"><mi>φ</mi></math> is the relative rotation around the <math id="S3.SS2.p2.m14" class="ltx_Math" alttext="y" display="inline"><mi>y</mi></math>-axis (pitch). We now constraint <math id="S3.SS2.p2.m15" class="ltx_Math" alttext="\sigma_{i}" display="inline"><msub><mi>σ</mi><mi>i</mi></msub></math> to represent the distance between a captured feature <math id="S3.SS2.p2.m16" class="ltx_Math" alttext="\mathbf{F_{i}}" display="inline"><msub><mi>𝐅</mi><mi>𝐢</mi></msub></math> and the plane <math id="S3.SS2.p2.m17" class="ltx_Math" alttext="P" display="inline"><mi>P</mi></math>. For a small time duration <math id="S3.SS2.p2.m18" class="ltx_Math" alttext="d\mathcal{T}=t_{N}-t_{1}" display="inline"><mrow><mrow><mi>d</mi><mo>⁢</mo><mi class="ltx_font_mathcaligraphic">𝒯</mi></mrow><mo>=</mo><mrow><msub><mi>t</mi><mi>N</mi></msub><mo>−</mo><msub><mi>t</mi><mn>1</mn></msub></mrow></mrow></math> we use the following transformation:</p>
+</div>
+<div id="S3.SS2.p3" class="ltx_para">
+<table id="S3.E6" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S3.E6.m1" class="ltx_Math" alttext="\begin{bmatrix}x^{ref}_{s}\\
+y^{ref}_{s}\\
+z^{ref}_{s}\end{bmatrix}=\begin{bmatrix}x_{s}\\
+y_{s}\\
+z_{s}\end{bmatrix}-d\mathcal{T}\times\sigma_{i}\left[(ux_{s}+vy_{s})\begin{%
+bmatrix}x_{s}\\
+y_{s}\\
+z_{s}\end{bmatrix}-\begin{bmatrix}u-\omega y_{s}\\
+v+\omega x_{s}\\
+0\end{bmatrix}\right]" display="block"><mrow><mrow><mo>[</mo><mtable displaystyle="true" rowspacing="0pt"><mtr><mtd><msubsup><mi mathsize="0.800em">x</mi><mi mathsize="0.800em">s</mi><mrow><mi mathsize="0.800em">r</mi><mo>⁢</mo><mi mathsize="0.800em">e</mi><mo>⁢</mo><mi mathsize="0.800em">f</mi></mrow></msubsup></mtd></mtr><mtr><mtd><msubsup><mi mathsize="0.800em">y</mi><mi mathsize="0.800em">s</mi><mrow><mi mathsize="0.800em">r</mi><mo>⁢</mo><mi mathsize="0.800em">e</mi><mo>⁢</mo><mi mathsize="0.800em">f</mi></mrow></msubsup></mtd></mtr><mtr><mtd><msubsup><mi mathsize="0.800em">z</mi><mi mathsize="0.800em">s</mi><mrow><mi mathsize="0.800em">r</mi><mo>⁢</mo><mi mathsize="0.800em">e</mi><mo>⁢</mo><mi mathsize="0.800em">f</mi></mrow></msubsup></mtd></mtr></mtable><mo>]</mo></mrow><mo mathsize="0.800em">=</mo><mrow><mrow><mo>[</mo><mtable displaystyle="true" rowspacing="0pt"><mtr><mtd><msub><mi mathsize="0.800em">x</mi><mi mathsize="0.800em">s</mi></msub></mtd></mtr><mtr><mtd><msub><mi mathsize="0.800em">y</mi><mi mathsize="0.800em">s</mi></msub></mtd></mtr><mtr><mtd><msub><mi mathsize="0.800em">z</mi><mi mathsize="0.800em">s</mi></msub></mtd></mtr></mtable><mo>]</mo></mrow><mo mathsize="0.800em">−</mo><mrow><mrow><mrow><mi mathsize="0.800em">d</mi><mo>⁢</mo><mi class="ltx_font_mathcaligraphic" mathsize="0.800em">𝒯</mi></mrow><mo lspace="0.222em" mathsize="0.800em" rspace="0.222em">×</mo><msub><mi mathsize="0.800em">σ</mi><mi mathsize="0.800em">i</mi></msub></mrow><mo>⁢</mo><mrow><mo>[</mo><mrow><mrow><mrow><mo maxsize="0.800em" minsize="0.800em">(</mo><mrow><mrow><mi mathsize="0.800em">u</mi><mo>⁢</mo><msub><mi mathsize="0.800em">x</mi><mi mathsize="0.800em">s</mi></msub></mrow><mo mathsize="0.800em">+</mo><mrow><mi mathsize="0.800em">v</mi><mo>⁢</mo><msub><mi mathsize="0.800em">y</mi><mi mathsize="0.800em">s</mi></msub></mrow></mrow><mo maxsize="0.800em" minsize="0.800em">)</mo></mrow><mo>⁢</mo><mrow><mo>[</mo><mtable displaystyle="true" rowspacing="0pt"><mtr><mtd><msub><mi mathsize="0.800em">x</mi><mi mathsize="0.800em">s</mi></msub></mtd></mtr><mtr><mtd><msub><mi mathsize="0.800em">y</mi><mi mathsize="0.800em">s</mi></msub></mtd></mtr><mtr><mtd><msub><mi mathsize="0.800em">z</mi><mi mathsize="0.800em">s</mi></msub></mtd></mtr></mtable><mo>]</mo></mrow></mrow><mo mathsize="0.800em">−</mo><mrow><mo>[</mo><mtable displaystyle="true" rowspacing="0pt"><mtr><mtd><mrow><mi mathsize="0.800em">u</mi><mo mathsize="0.800em">−</mo><mrow><mi mathsize="0.800em">ω</mi><mo>⁢</mo><msub><mi mathsize="0.800em">y</mi><mi mathsize="0.800em">s</mi></msub></mrow></mrow></mtd></mtr><mtr><mtd><mrow><mi mathsize="0.800em">v</mi><mo mathsize="0.800em">+</mo><mrow><mi mathsize="0.800em">ω</mi><mo>⁢</mo><msub><mi mathsize="0.800em">x</mi><mi mathsize="0.800em">s</mi></msub></mrow></mrow></mtd></mtr><mtr><mtd><mn mathsize="0.800em">0</mn></mtd></mtr></mtable><mo>]</mo></mrow></mrow><mo>]</mo></mrow></mrow></mrow></mrow></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6)</span></td>
+</tr></tbody>
+</table>
+</div>
+<div id="S3.SS2.p4" class="ltx_para">
+<p class="ltx_p">We denote the transformation in Equation <a href="#S3.E6" title="In III-B Implied Trajectories ‣ III Attitude Estimation from Monocular Omnidirectional Events ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6</span></a> as <math id="S3.SS2.p4.m1" class="ltx_Math" alttext="\mathbf{T}" display="inline"><mi>𝐓</mi></math>, which transforms an event intersecting a unit sphere at <math id="S3.SS2.p4.m2" class="ltx_Math" alttext="\mathbf{d_{i}}=(x_{s},y_{s},z_{s})" display="inline"><mrow><msub><mi>𝐝</mi><mi>𝐢</mi></msub><mo>=</mo><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mi>s</mi></msub><mo>,</mo><msub><mi>y</mi><mi>s</mi></msub><mo>,</mo><msub><mi>z</mi><mi>s</mi></msub><mo stretchy="false">)</mo></mrow></mrow></math> to <math id="S3.SS2.p4.m3" class="ltx_Math" alttext="\mathbf{d_{i}^{ref}}=(x^{ref}_{s},y^{ref}_{s},z^{ref}_{s})" display="inline"><mrow><msubsup><mi>𝐝</mi><mi>𝐢</mi><mi>𝐫𝐞𝐟</mi></msubsup><mo>=</mo><mrow><mo stretchy="false">(</mo><msubsup><mi>x</mi><mi>s</mi><mrow><mi>r</mi><mo>⁢</mo><mi>e</mi><mo>⁢</mo><mi>f</mi></mrow></msubsup><mo>,</mo><msubsup><mi>y</mi><mi>s</mi><mrow><mi>r</mi><mo>⁢</mo><mi>e</mi><mo>⁢</mo><mi>f</mi></mrow></msubsup><mo>,</mo><msubsup><mi>z</mi><mi>s</mi><mrow><mi>r</mi><mo>⁢</mo><mi>e</mi><mo>⁢</mo><mi>f</mi></mrow></msubsup><mo stretchy="false">)</mo></mrow></mrow></math> for a given attitude estimation for parameters <math id="S3.SS2.p4.m4" class="ltx_Math" alttext="(\theta,\varphi)" display="inline"><mrow><mo stretchy="false">(</mo><mi>θ</mi><mo>,</mo><mi>φ</mi><mo stretchy="false">)</mo></mrow></math> such that</p>
+<table id="S3.E7" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S3.E7.m1" class="ltx_math_unparsed" alttext="\mathbf{d^{ref}}=\mathbf{T}((x_{s},y_{s},z_{s}),d\mathcal{T};&lt;\theta,\varphi&gt;)." display="block"><mrow><msup><mi>𝐝</mi><mi>𝐫𝐞𝐟</mi></msup><mo>=</mo><mi>𝐓</mi><mrow><mo stretchy="false">(</mo><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mi>s</mi></msub><mo>,</mo><msub><mi>y</mi><mi>s</mi></msub><mo>,</mo><msub><mi>z</mi><mi>s</mi></msub><mo stretchy="false">)</mo></mrow><mo>,</mo><mi>d</mi><mi class="ltx_font_mathcaligraphic">𝒯</mi><mo>;</mo><mo lspace="0em">&lt;</mo><mi>θ</mi><mo>,</mo><mi>φ</mi><mo rspace="0em">&gt;</mo><mo stretchy="false">)</mo></mrow><mo lspace="0em">.</mo></mrow></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(7)</span></td>
+</tr></tbody>
+</table>
+</div>
+</section>
+<section id="S3.SS3" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">III-C </span><span class="ltx_text ltx_font_italic">Quantifying Alignment</span>
+</h3>
+
+<div id="S3.SS3.p1" class="ltx_para">
+<p class="ltx_p">Consider a group of <math id="S3.SS3.p1.m1" class="ltx_Math" alttext="N" display="inline"><mi>N</mi></math> events triggered in time interval <math id="S3.SS3.p1.m2" class="ltx_Math" alttext="T({e_{i}}=\{x_{i},y_{i},t_{i},p_{i}\}^{N}_{i=1})" display="inline"><mrow><mi>T</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mrow><msub><mi>e</mi><mi>i</mi></msub><mo>=</mo><msubsup><mrow><mo stretchy="false">{</mo><msub><mi>x</mi><mi>i</mi></msub><mo>,</mo><msub><mi>y</mi><mi>i</mi></msub><mo>,</mo><msub><mi>t</mi><mi>i</mi></msub><mo>,</mo><msub><mi>p</mi><mi>i</mi></msub><mo stretchy="false">}</mo></mrow><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></msubsup></mrow><mo stretchy="false">)</mo></mrow></mrow></math> collected from an omnidirectional monocular event camera undergoing planar motion. Assume velocities <math id="S3.SS3.p1.m3" class="ltx_Math" alttext="(u,v,\omega)" display="inline"><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo>,</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow></math> and normal depth <math id="S3.SS3.p1.m4" class="ltx_Math" alttext="Z" display="inline"><mi>Z</mi></math> are obtained from additional sensors. For each candidate set of attitude parameters <math id="S3.SS3.p1.m5" class="ltx_math_unparsed" alttext="&lt;\theta,\varphi&gt;" display="inline"><mrow><mo>&lt;</mo><mi>θ</mi><mo>,</mo><mi>φ</mi><mo>&gt;</mo></mrow></math>, we first apply the calibration matrix C as discussed in Section <a href="#S3.SS1" title="III-A Omnidirectional Model and Calibration ‣ III Attitude Estimation from Monocular Omnidirectional Events ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">III-A</span></a>, transforming pixel locations <math id="S3.SS3.p1.m6" class="ltx_Math" alttext="(x,y)" display="inline"><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow></math> to unit-length direction vectors <math id="S3.SS3.p1.m7" class="ltx_Math" alttext="\mathbf{d_{i}}" display="inline"><msub><mi>𝐝</mi><mi>𝐢</mi></msub></math>. The radial depths <math id="S3.SS3.p1.m8" class="ltx_Math" alttext="1/\sigma" display="inline"><mrow><mn>1</mn><mo>/</mo><mi>σ</mi></mrow></math> for each event are calculated from <math id="S3.SS3.p1.m9" class="ltx_Math" alttext="\theta" display="inline"><mi>θ</mi></math>, <math id="S3.SS3.p1.m10" class="ltx_Math" alttext="\varphi" display="inline"><mi>φ</mi></math>, and <math id="S3.SS3.p1.m11" class="ltx_Math" alttext="Z" display="inline"><mi>Z</mi></math>. This is done by first generating the plane equation then finding the line-plane intersection of each direction vector <math id="S3.SS3.p1.m12" class="ltx_Math" alttext="\mathbf{d_{i}}" display="inline"><msub><mi>𝐝</mi><mi>𝐢</mi></msub></math> with the plane. From here, transformation <math id="S3.SS3.p1.m13" class="ltx_Math" alttext="\mathbf{T}" display="inline"><mi>𝐓</mi></math> is applied as described by Equation <a href="#S3.E6" title="In III-B Implied Trajectories ‣ III Attitude Estimation from Monocular Omnidirectional Events ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6</span></a>, obtaining the estimated origin locations <math id="S3.SS3.p1.m14" class="ltx_Math" alttext="\mathbf{d^{ref}}" display="inline"><msup><mi>𝐝</mi><mi>𝐫𝐞𝐟</mi></msup></math> at time <math id="S3.SS3.p1.m15" class="ltx_Math" alttext="t_{1}" display="inline"><msub><mi>t</mi><mn>1</mn></msub></math> for each event. Finally, we apply the inverse calibration matrix <math id="S3.SS3.p1.m16" class="ltx_Math" alttext="C^{-1}" display="inline"><msup><mi>C</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup></math> to project the scene locations <math id="S3.SS3.p1.m17" class="ltx_Math" alttext="(x^{ref}_{s},y^{ref}_{s},z^{ref}_{s})" display="inline"><mrow><mo stretchy="false">(</mo><msubsup><mi>x</mi><mi>s</mi><mrow><mi>r</mi><mo>⁢</mo><mi>e</mi><mo>⁢</mo><mi>f</mi></mrow></msubsup><mo>,</mo><msubsup><mi>y</mi><mi>s</mi><mrow><mi>r</mi><mo>⁢</mo><mi>e</mi><mo>⁢</mo><mi>f</mi></mrow></msubsup><mo>,</mo><msubsup><mi>z</mi><mi>s</mi><mrow><mi>r</mi><mo>⁢</mo><mi>e</mi><mo>⁢</mo><mi>f</mi></mrow></msubsup><mo stretchy="false">)</mo></mrow></math> back to the image plane, as denoted by <math id="S3.SS3.p1.m18" class="ltx_Math" alttext="(x^{ref}_{s},y^{ref}_{s})" display="inline"><mrow><mo stretchy="false">(</mo><msubsup><mi>x</mi><mi>s</mi><mrow><mi>r</mi><mo>⁢</mo><mi>e</mi><mo>⁢</mo><mi>f</mi></mrow></msubsup><mo>,</mo><msubsup><mi>y</mi><mi>s</mi><mrow><mi>r</mi><mo>⁢</mo><mi>e</mi><mo>⁢</mo><mi>f</mi></mrow></msubsup><mo stretchy="false">)</mo></mrow></math>. This complete transformation is represented as warp <math id="S3.SS3.p1.m19" class="ltx_Math" alttext="\mathbf{W}" display="inline"><mi>𝐖</mi></math>:</p>
+<table id="S3.E8" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S3.E8.m1" class="ltx_math_unparsed" alttext="(x^{ref}_{s},y^{ref}_{s})=\mathbf{W}((x_{i},y_{i}),d\mathcal{T};&lt;\theta,%
+\varphi&gt;)." display="block"><mrow><mrow><mo stretchy="false">(</mo><msubsup><mi>x</mi><mi>s</mi><mrow><mi>r</mi><mo>⁢</mo><mi>e</mi><mo>⁢</mo><mi>f</mi></mrow></msubsup><mo>,</mo><msubsup><mi>y</mi><mi>s</mi><mrow><mi>r</mi><mo>⁢</mo><mi>e</mi><mo>⁢</mo><mi>f</mi></mrow></msubsup><mo stretchy="false">)</mo></mrow><mo>=</mo><mi>𝐖</mi><mrow><mo stretchy="false">(</mo><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>,</mo><msub><mi>y</mi><mi>i</mi></msub><mo stretchy="false">)</mo></mrow><mo>,</mo><mi>d</mi><mi class="ltx_font_mathcaligraphic">𝒯</mi><mo>;</mo><mo lspace="0em">&lt;</mo><mi>θ</mi><mo>,</mo><mi>φ</mi><mo rspace="0em">&gt;</mo><mo stretchy="false">)</mo></mrow><mo lspace="0em">.</mo></mrow></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8)</span></td>
+</tr></tbody>
+</table>
+</div>
+<div id="S3.SS3.p2" class="ltx_para">
+<p class="ltx_p">From these warped pixel locations, we construct a 2D histogram using kernel density estimation (KDE). The kernel <math id="S3.SS3.p2.m1" class="ltx_Math" alttext="K" display="inline"><mi>K</mi></math> is the Gaussian kernel, and the bandwidth <math id="S3.SS3.p2.m2" class="ltx_Math" alttext="w" display="inline"><mi>w</mi></math> is selected based on the Improved Sheather Jones (ISJ) algorithm <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib25" title="A reliable data-based bandwidth selection method for kernel density estimation" class="ltx_ref">20</a>]</cite>. The 2D histogram is defined as the following:</p>
+<table id="S3.E9" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S3.E9.m1" class="ltx_Math" alttext="H(x^{ref}_{s},y^{ref}_{s})=\frac{1}{nw^{2}}\sum\limits^{N}_{i=1}K(\frac{x^{ref%
+}_{s}-x^{ref}_{s_{i}}}{w},\frac{y^{ref}_{s}-y^{ref}_{s_{i}}}{w})." display="block"><mrow><mrow><mrow><mi>H</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msubsup><mi>x</mi><mi>s</mi><mrow><mi>r</mi><mo>⁢</mo><mi>e</mi><mo>⁢</mo><mi>f</mi></mrow></msubsup><mo>,</mo><msubsup><mi>y</mi><mi>s</mi><mrow><mi>r</mi><mo>⁢</mo><mi>e</mi><mo>⁢</mo><mi>f</mi></mrow></msubsup><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mfrac><mn>1</mn><mrow><mi>n</mi><mo>⁢</mo><msup><mi>w</mi><mn>2</mn></msup></mrow></mfrac><mo>⁢</mo><mrow><munderover><mo movablelimits="false">∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><mrow><mi>K</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mfrac><mrow><msubsup><mi>x</mi><mi>s</mi><mrow><mi>r</mi><mo>⁢</mo><mi>e</mi><mo>⁢</mo><mi>f</mi></mrow></msubsup><mo>−</mo><msubsup><mi>x</mi><msub><mi>s</mi><mi>i</mi></msub><mrow><mi>r</mi><mo>⁢</mo><mi>e</mi><mo>⁢</mo><mi>f</mi></mrow></msubsup></mrow><mi>w</mi></mfrac><mo>,</mo><mfrac><mrow><msubsup><mi>y</mi><mi>s</mi><mrow><mi>r</mi><mo>⁢</mo><mi>e</mi><mo>⁢</mo><mi>f</mi></mrow></msubsup><mo>−</mo><msubsup><mi>y</mi><msub><mi>s</mi><mi>i</mi></msub><mrow><mi>r</mi><mo>⁢</mo><mi>e</mi><mo>⁢</mo><mi>f</mi></mrow></msubsup></mrow><mi>w</mi></mfrac><mo stretchy="false">)</mo></mrow></mrow></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(9)</span></td>
+</tr></tbody>
+</table>
+</div>
+<div id="S3.SS3.p3" class="ltx_para">
+<p class="ltx_p">The closer the candidate attitude parameters <math id="S3.SS3.p3.m1" class="ltx_math_unparsed" alttext="&lt;\theta,\varphi&gt;" display="inline"><mrow><mo>&lt;</mo><mi>θ</mi><mo>,</mo><mi>φ</mi><mo>&gt;</mo></mrow></math> are to the true attitude, the more the warped initial feature locations <math id="S3.SS3.p3.m2" class="ltx_Math" alttext="(x^{ref}_{s},y^{ref}_{s})" display="inline"><mrow><mo stretchy="false">(</mo><msubsup><mi>x</mi><mi>s</mi><mrow><mi>r</mi><mo>⁢</mo><mi>e</mi><mo>⁢</mo><mi>f</mi></mrow></msubsup><mo>,</mo><msubsup><mi>y</mi><mi>s</mi><mrow><mi>r</mi><mo>⁢</mo><mi>e</mi><mo>⁢</mo><mi>f</mi></mrow></msubsup><mo stretchy="false">)</mo></mrow></math> converge, leading to a sharp histogram with high-value bins. As the candidate attitude parameters stray from the ground truth values, the warped locations diverge from one another, leading to an unsharp or distorted histogram with low-value bins. An ideal loss function would be minimized as the histogram sharpens and collates into high-value bins, and a naive solution would be to take the variance of the histogram. However, this does not account for the wide-field optics resulting in a variation in the solid angle for each pixel. In practice, this means that the central portion of the camera’s field of view is overrepresented in the histogram while the periphery is underrepresented. To overcome this, we construct a loss that compares the bin values in a peripheral ring to the overall bin values of the histogram:</p>
+<table id="S3.E10" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S3.E10.m1" class="ltx_Math" alttext="\mathcal{L}(\theta,\varphi)=\sum[\mathcal{H}_{masked}&gt;Q_{0.75}(\mathcal{H})]," display="block"><mrow><mrow><mrow><mi class="ltx_font_mathcaligraphic">ℒ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>θ</mi><mo>,</mo><mi>φ</mi><mo stretchy="false">)</mo></mrow></mrow><mo rspace="0.111em">=</mo><mrow><mo movablelimits="false" rspace="0em">∑</mo><mrow><mo stretchy="false">[</mo><mrow><msub><mi class="ltx_font_mathcaligraphic">ℋ</mi><mrow><mi>m</mi><mo>⁢</mo><mi>a</mi><mo>⁢</mo><mi>s</mi><mo>⁢</mo><mi>k</mi><mo>⁢</mo><mi>e</mi><mo>⁢</mo><mi>d</mi></mrow></msub><mo>&gt;</mo><mrow><msub><mi>Q</mi><mn>0.75</mn></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi class="ltx_font_mathcaligraphic">ℋ</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><mo stretchy="false">]</mo></mrow></mrow></mrow><mo>,</mo></mrow></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(10)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">where <math id="S3.SS3.p3.m3" class="ltx_Math" alttext="\mathcal{H}_{masked}" display="inline"><msub><mi class="ltx_font_mathcaligraphic">ℋ</mi><mrow><mi>m</mi><mo>⁢</mo><mi>a</mi><mo>⁢</mo><mi>s</mi><mo>⁢</mo><mi>k</mi><mo>⁢</mo><mi>e</mi><mo>⁢</mo><mi>d</mi></mrow></msub></math> is the peripheral ring of the histogram and <math id="S3.SS3.p3.m4" class="ltx_Math" alttext="Q_{0.75}(\mathcal{H})" display="inline"><mrow><msub><mi>Q</mi><mn>0.75</mn></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi class="ltx_font_mathcaligraphic">ℋ</mi><mo stretchy="false">)</mo></mrow></mrow></math> is the third quantile of the 2D histogram.</p>
+</div>
+<div id="S3.SS3.p4" class="ltx_para">
+<p class="ltx_p">The peripheral ring mask is generated by first projecting the original event window onto the <math id="S3.SS3.p4.m1" class="ltx_Math" alttext="x" display="inline"><mi>x</mi></math>- and <math id="S3.SS3.p4.m2" class="ltx_Math" alttext="y" display="inline"><mi>y</mi></math>-axes, finding the regions above a threshold of <math id="S3.SS3.p4.m3" class="ltx_Math" alttext="Q_{0.4}" display="inline"><msub><mi>Q</mi><mn>0.4</mn></msub></math> along each axis’ projection, then finding the largest connected region to eliminate outliers. These connected regions form a box to inscribe the mask ellipse into. The ring thickness is a hyperparameter chosen from two calibration test cases. Our algorithm in its totality is described in short in Algorithm <a href="#algorithm1" title="In III-C Quantifying Alignment ‣ III Attitude Estimation from Monocular Omnidirectional Events ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>.</p>
+</div>
+<figure id="algorithm1" class="ltx_float ltx_algorithm">
+<div class="ltx_listing ltx_lst_numbers_left ltx_listing">
+<div class="ltx_listingline">
+<span class="ltx_text ltx_font_bold">Parameters :</span> <math id="algorithm1.m1" class="ltx_Math" alttext="(\theta_{c},\varphi_{c})" display="inline"><mrow><mo stretchy="false">(</mo><msub><mi>θ</mi><mi>c</mi></msub><mo>,</mo><msub><mi>φ</mi><mi>c</mi></msub><mo stretchy="false">)</mo></mrow></math>
+</div>
+<div class="ltx_listingline">
+<span class="ltx_text ltx_font_bold">Inputs:</span> <math id="algorithm1.m2" class="ltx_Math" alttext="e_{i},d\mathcal{T},(u,v,\omega),\varsigma" display="inline"><mrow><msub><mi>e</mi><mi>i</mi></msub><mo>,</mo><mrow><mi>d</mi><mo>⁢</mo><mi class="ltx_font_mathcaligraphic">𝒯</mi></mrow><mo>,</mo><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo>,</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow><mo>,</mo><mi>ς</mi></mrow></math>
+</div>
+<div class="ltx_listingline">
+
+</div>
+<div class="ltx_listingline">1ex
+</div>
+<div class="ltx_listingline">
+<span class="ltx_text ltx_font_bold">foreach</span> <em class="ltx_emph ltx_font_italic"><math id="algorithm1.m3" class="ltx_math_unparsed" alttext="&lt;\theta,\varphi&gt;" display="inline"><mrow><mo>&lt;</mo><mi>θ</mi><mo>,</mo><mi>φ</mi><mo>&gt;</mo></mrow></math> in <math id="algorithm1.m4" class="ltx_Math" alttext="(\theta_{c},\varphi_{c})" display="inline"><mrow><mo stretchy="false">(</mo><msub><mi>θ</mi><mi>c</mi></msub><mo>,</mo><msub><mi>φ</mi><mi>c</mi></msub><mo stretchy="false">)</mo></mrow></math></em> <span class="ltx_text ltx_font_bold">do</span> 
+</div>
+<div class="ltx_listingline"> <span class="ltx_rule" style="width:1px;height:100%;--ltx-bg-color:black;display:inline-block;"> </span> 
+<span class="ltx_text ltx_font_bold">foreach</span> <em class="ltx_emph ltx_font_italic"><math id="algorithm1.m5" class="ltx_Math" alttext="e_{i}" display="inline"><msub><mi>e</mi><mi>i</mi></msub></math></em> <span class="ltx_text ltx_font_bold">do</span> 
+</div>
+<div class="ltx_listingline"> <span class="ltx_rule" style="width:1px;height:100%;--ltx-bg-color:black;display:inline-block;"> </span>  <span class="ltx_rule" style="width:1px;height:100%;--ltx-bg-color:black;display:inline-block;"> </span> 
+<math id="algorithm1.m6" class="ltx_math_unparsed" alttext="(x^{ref}_{s},y^{ref}_{s})=\mathbf{W}((x_{i},y_{i}),d\mathcal{T};&lt;\theta,%
+\varphi&gt;)" display="inline"><mrow><mrow><mo stretchy="false">(</mo><msubsup><mi>x</mi><mi>s</mi><mrow><mi>r</mi><mo>⁢</mo><mi>e</mi><mo>⁢</mo><mi>f</mi></mrow></msubsup><mo>,</mo><msubsup><mi>y</mi><mi>s</mi><mrow><mi>r</mi><mo>⁢</mo><mi>e</mi><mo>⁢</mo><mi>f</mi></mrow></msubsup><mo stretchy="false">)</mo></mrow><mo>=</mo><mi>𝐖</mi><mrow><mo stretchy="false">(</mo><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>,</mo><msub><mi>y</mi><mi>i</mi></msub><mo stretchy="false">)</mo></mrow><mo>,</mo><mi>d</mi><mi class="ltx_font_mathcaligraphic">𝒯</mi><mo>;</mo><mo lspace="0em">&lt;</mo><mi>θ</mi><mo>,</mo><mi>φ</mi><mo rspace="0em">&gt;</mo><mo stretchy="false">)</mo></mrow></mrow></math>;
+
+</div>
+<div class="ltx_listingline"> <span class="ltx_rule" style="width:1px;height:100%;--ltx-bg-color:black;display:inline-block;"> </span>  end foreach
+</div>
+<div class="ltx_listingline"> <span class="ltx_rule" style="width:1px;height:100%;--ltx-bg-color:black;display:inline-block;"> </span> <math id="algorithm1.m7" class="ltx_Math" alttext="\mathcal{L}(\theta,\varphi)=\sum\left[\mathcal{H}_{\text{masked}}&gt;Q_{0.75}(%
+\mathcal{H})\right]" display="inline"><mrow><mrow><mi class="ltx_font_mathcaligraphic">ℒ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>θ</mi><mo>,</mo><mi>φ</mi><mo stretchy="false">)</mo></mrow></mrow><mo rspace="0.111em">=</mo><mrow><mo rspace="0em">∑</mo><mrow><mo>[</mo><mrow><msub><mi class="ltx_font_mathcaligraphic">ℋ</mi><mtext>masked</mtext></msub><mo>&gt;</mo><mrow><msub><mi>Q</mi><mn>0.75</mn></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi class="ltx_font_mathcaligraphic">ℋ</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><mo>]</mo></mrow></mrow></mrow></math>;
+
+</div>
+<div class="ltx_listingline"> end foreach
+</div>
+<div class="ltx_listingline">
+</div>
+<div class="ltx_listingline">1ex<span class="ltx_text ltx_font_bold">return</span> <math id="algorithm1.m8" class="ltx_Math" alttext="(\theta^{*},\varphi^{*})=\mathop{\mathbf{argmin}}\limits_{&lt;\theta,\varphi&gt;}%
+\mathcal{L}(\theta_{c},\varphi_{c})" display="inline"><mrow><mrow><mo stretchy="false">(</mo><msup><mi>θ</mi><mo>∗</mo></msup><mo>,</mo><msup><mi>φ</mi><mo>∗</mo></msup><mo stretchy="false">)</mo></mrow><mo rspace="0.1389em">=</mo><mrow><munder><mo lspace="0.1389em" movablelimits="false" rspace="0.167em">𝐚𝐫𝐠𝐦𝐢𝐧</mo><mrow><mrow><mi></mi><mo>&lt;</mo><mi>θ</mi></mrow><mo>,</mo><mrow><mi>φ</mi><mo>&gt;</mo><mi></mi></mrow></mrow></munder><mrow><mi class="ltx_font_mathcaligraphic">ℒ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msub><mi>θ</mi><mi>c</mi></msub><mo>,</mo><msub><mi>φ</mi><mi>c</mi></msub><mo stretchy="false">)</mo></mrow></mrow></mrow></mrow></math>;
+</div>
+<div class="ltx_listingline">
+
+</div>
+</div>
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_float"><span class="ltx_text ltx_font_bold">Algorithm 1</span> </span>Attitude Estimation Algorithm</figcaption>
+</figure>
+</section>
+</section>
+<section id="S4" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">IV </span><span class="ltx_text ltx_font_smallcaps">Experiments</span>
+</h2>
+
+<div id="S4.p1" class="ltx_para">
+<p class="ltx_p">The omnidirectional event camera consisted of a <math id="S4.p1.m1" class="ltx_Math" alttext="195^{\circ}" display="inline"><msup><mn>195</mn><mo>∘</mo></msup></math> fisheye lens with a 4.7mm image circle from Commonlands LLC mounted on a iniVation DAVIS346 DVS event camera. The camera was calibrated as explained in Section <a href="#S3.SS1" title="III-A Omnidirectional Model and Calibration ‣ III Attitude Estimation from Monocular Omnidirectional Events ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">III-A</span></a> from captured checkerboard calibration data captured with the camera’s integrated conventional grayscale image sensor. This was then placed on a custom built linear stage with 3D printed brackets to control the camera angle in relation to the target scene. Two different scenes were used: a checkerboard and satellite imagery of an agricultural field. Photos of the prototype as well as the scenes used are shown in Figure <a href="#S3.F2" title="Figure 2 ‣ III Attitude Estimation from Monocular Omnidirectional Events ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>.</p>
+</div>
+<div id="S4.p2" class="ltx_para">
+<p class="ltx_p">For the first set of experiments, the camera was placed 0.1m and 0.2m away from the target plane. The camera’s pitch and roll were sequentially positioned at <math id="S4.p2.m1" class="ltx_Math" alttext="-20^{\circ},-10^{\circ},10^{\circ}," display="inline"><mrow><mrow><mrow><mo>−</mo><msup><mn>20</mn><mo>∘</mo></msup></mrow><mo>,</mo><mrow><mo>−</mo><msup><mn>10</mn><mo>∘</mo></msup></mrow><mo>,</mo><msup><mn>10</mn><mo>∘</mo></msup></mrow><mo>,</mo></mrow></math> and <math id="S4.p2.m2" class="ltx_Math" alttext="20^{\circ}" display="inline"><msup><mn>20</mn><mo>∘</mo></msup></math>; and the camera was moved along the linear stage at <math id="S4.p2.m3" class="ltx_Math" alttext="-75" display="inline"><mrow><mo>−</mo><mn>75</mn></mrow></math>mm/s and <math id="S4.p2.m4" class="ltx_Math" alttext="5" display="inline"><mn>5</mn></math>mm/s along the camera’s <math id="S4.p2.m5" class="ltx_Math" alttext="y-" display="inline"><mrow><mi>y</mi><mo>−</mo></mrow></math>axis. By performing this experiment for the two different scenes, we collected 32 sets of data. Our algorithm was performed on each set of data and the estimated attitude compared to the ground truth measurements.</p>
+</div>
+<figure id="S4.F3" class="ltx_figure">
+<div class="ltx_flex_figure">
+<div class="ltx_flex_cell ltx_flex_size_1"><img src="figs/dvSave-2026_01_26_13_52_52.png" id="S4.F3.g1" class="ltx_graphics ltx_centering ltx_figure_panel ltx_img_landscape" width="598" height="207" alt="Refer to caption"></div>
+<div class="ltx_flex_break"></div>
+<div class="ltx_flex_cell ltx_flex_size_1"><img src="figs/2026-03-02_21-51-25.png" id="S4.F3.g2" class="ltx_graphics ltx_centering ltx_figure_panel ltx_img_landscape" width="598" height="207" alt="Refer to caption"></div>
+</div>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 3: </span>Real results from our hardware prototype. The first column shows the histogram generated from the output of the warp transformation described by Equation <a href="#S3.E8" title="In III-C Quantifying Alignment ‣ III Attitude Estimation from Monocular Omnidirectional Events ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">8</span></a> given the ground truth attitude values. The second column shows the histogram generated with the estimated attitude values. The third column shows the loss plot over a set of candidate attitude parameters, with the ground truth attitude marked with a red dot and the estimated attitude marked with a white cross <math id="S4.F3.m2" class="ltx_Math" alttext="(\times)" display="inline"><mrow><mo stretchy="false">(</mo><mo lspace="0em" rspace="0em">×</mo><mo stretchy="false">)</mo></mrow></math>. The final column shows a representation of the estimated plane orientation overlayed onto of the ground truth orientation.</figcaption>
+</figure>
+<div id="S4.p3" class="ltx_para">
+<p class="ltx_p">The procedure for the second set of experiments was similar, with the camera distances, velocities, and target scenes remaining the same. The pitch and roll were sequentially set at <math id="S4.p3.m1" class="ltx_Math" alttext="-30^{\circ},-15^{\circ},0^{\circ},15^{\circ}," display="inline"><mrow><mrow><mrow><mo>−</mo><msup><mn>30</mn><mo>∘</mo></msup></mrow><mo>,</mo><mrow><mo>−</mo><msup><mn>15</mn><mo>∘</mo></msup></mrow><mo>,</mo><msup><mn>0</mn><mo>∘</mo></msup><mo>,</mo><msup><mn>15</mn><mo>∘</mo></msup></mrow><mo>,</mo></mrow></math> and <math id="S4.p3.m2" class="ltx_Math" alttext="30^{\circ}" display="inline"><msup><mn>30</mn><mo>∘</mo></msup></math>, resulting in 23 collected sets of data. After estimated the attitude for each set of data, the result was instead compared to the pitch and roll as estimated from IMU data collected from the camera’s internal IMU.</p>
+</div>
+<div id="S4.p4" class="ltx_para">
+<p class="ltx_p">Example outputs for both experiment sets are shown in Figure <a href="#S4.F3" title="Figure 3 ‣ IV Experiments ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>. As shown in Table <a href="#S4.T2" title="TABLE II ‣ IV Experiments ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">II</span></a>, our algorithm estimated attitude regularly within <math id="S4.p4.m1" class="ltx_Math" alttext="5^{\circ}" display="inline"><msup><mn>5</mn><mo>∘</mo></msup></math> accuracy. The IMU comparisons in Table <a href="#S4.T3" title="TABLE III ‣ IV Experiments ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">III</span></a> performed similarly, though the roll estimations exhibited a larger discrepancy. This is due to our experimental setup having motion only along one direction, which resulted in an ambiguous IMU-based roll estimation. In these cases, our algorithm outperforms the IMU-based estimation, as it does not have this ambiguity with one directional motion.</p>
+</div>
+<figure id="S4.T2" class="ltx_table">
+
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_table">TABLE II: </span>Hardware Attitude Estimation Compared to Ground Truth</figcaption><div class="ltx_flex_figure">
+<div class="ltx_flex_cell ltx_flex_size_1">
+<table class="ltx_tabular ltx_centering ltx_figure_panel ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_center ltx_border_r ltx_border_tt"><span class="ltx_text ltx_font_bold">MAE</span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt">
+<math id="S4.T2.m1" class="ltx_Math" alttext="\mathbf{&lt;2^{\circ}}" display="inline"><mrow><mi></mi><mo>&lt;</mo><msup><mn>𝟐</mn><mo>∘</mo></msup></mrow></math> <span class="ltx_text ltx_font_bold">(%)</span>
+</td>
+<td class="ltx_td ltx_align_center ltx_border_tt">
+<math id="S4.T2.m2" class="ltx_Math" alttext="\mathbf{&lt;5^{\circ}}" display="inline"><mrow><mi></mi><mo>&lt;</mo><msup><mn>𝟓</mn><mo>∘</mo></msup></mrow></math> <span class="ltx_text ltx_font_bold">(%)</span>
+</td>
+<td class="ltx_td ltx_align_center ltx_border_tt">
+<math id="S4.T2.m3" class="ltx_Math" alttext="\mathbf{&lt;10^{\circ}}" display="inline"><mrow><mi></mi><mo>&lt;</mo><msup><mn>𝟏𝟎</mn><mo>∘</mo></msup></mrow></math> <span class="ltx_text ltx_font_bold">(%)</span>
+</td>
+<td class="ltx_td ltx_align_center ltx_border_tt">
+<math id="S4.T2.m4" class="ltx_Math" alttext="\mathbf{&lt;15^{\circ}}" display="inline"><mrow><mi></mi><mo>&lt;</mo><msup><mn>𝟏𝟓</mn><mo>∘</mo></msup></mrow></math> <span class="ltx_text ltx_font_bold">(%)</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_center ltx_border_t" colspan="5"><span class="ltx_text ltx_font_italic">Experiment Set 1</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_center ltx_border_r ltx_border_t"><span class="ltx_text ltx_font_bold">Combined</span></td>
+<td class="ltx_td ltx_align_center ltx_border_t"> 18.75</td>
+<td class="ltx_td ltx_align_center ltx_border_t"> 59.38</td>
+<td class="ltx_td ltx_align_center ltx_border_t">100</td>
+<td class="ltx_td ltx_align_center ltx_border_t">100</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_center ltx_border_r">
+<span class="ltx_text ltx_font_bold">Pitch</span> <math id="S4.T2.m5" class="ltx_Math" alttext="\mathbf{(\theta)}" display="inline"><mrow><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo></mrow></math>
+</td>
+<td class="ltx_td ltx_align_center"> 31.25</td>
+<td class="ltx_td ltx_align_center"> 68.75</td>
+<td class="ltx_td ltx_align_center"> 93.75</td>
+<td class="ltx_td ltx_align_center">100</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_center ltx_border_r">
+<span class="ltx_text ltx_font_bold">Roll</span> <math id="S4.T2.m6" class="ltx_Math" alttext="\mathbf{(\varphi)}" display="inline"><mrow><mo stretchy="false">(</mo><mi>φ</mi><mo stretchy="false">)</mo></mrow></math>
+</td>
+<td class="ltx_td ltx_align_center">  6.25</td>
+<td class="ltx_td ltx_align_center"> 65.63</td>
+<td class="ltx_td ltx_align_center"> 93.75</td>
+<td class="ltx_td ltx_align_center">100</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_center ltx_border_tt" colspan="5"><span class="ltx_text ltx_font_italic">Experiment Set 2</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_center ltx_border_r ltx_border_t"><span class="ltx_text ltx_font_bold">Combined</span></td>
+<td class="ltx_td ltx_align_center ltx_border_t"> 21.74</td>
+<td class="ltx_td ltx_align_center ltx_border_t"> 73.91</td>
+<td class="ltx_td ltx_align_center ltx_border_t">100</td>
+<td class="ltx_td ltx_align_center ltx_border_t">100</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_center ltx_border_r">
+<span class="ltx_text ltx_font_bold">Pitch</span> <math id="S4.T2.m7" class="ltx_Math" alttext="\mathbf{(\theta)}" display="inline"><mrow><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo></mrow></math>
+</td>
+<td class="ltx_td ltx_align_center"> 43.48</td>
+<td class="ltx_td ltx_align_center"> 69.57</td>
+<td class="ltx_td ltx_align_center">100</td>
+<td class="ltx_td ltx_align_center">100</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_center ltx_border_bb ltx_border_r">
+<span class="ltx_text ltx_font_bold">Roll</span> <math id="S4.T2.m8" class="ltx_Math" alttext="\mathbf{(\varphi)}" display="inline"><mrow><mo stretchy="false">(</mo><mi>φ</mi><mo stretchy="false">)</mo></mrow></math>
+</td>
+<td class="ltx_td ltx_align_center ltx_border_bb"> 47.83</td>
+<td class="ltx_td ltx_align_center ltx_border_bb"> 69.57</td>
+<td class="ltx_td ltx_align_center ltx_border_bb"> 95.65</td>
+<td class="ltx_td ltx_align_center ltx_border_bb"> 95.65</td>
+</tr>
+</table>
+</div>
+<div class="ltx_flex_break"></div>
+<div class="ltx_flex_cell ltx_flex_size_1">
+<p class="ltx_p ltx_figure_panel">The percentage of estimations within the specified degrees of accuracy compared to the ground truth camera attitude. Experiment Set 1 consisted of 32 experiments ranging from <math id="S4.T2.m9" class="ltx_Math" alttext="-20^{\circ}" display="inline"><mrow><mo>−</mo><msup><mn>20</mn><mo>∘</mo></msup></mrow></math> to <math id="S4.T2.m10" class="ltx_Math" alttext="20^{\circ}" display="inline"><msup><mn>20</mn><mo>∘</mo></msup></math> for both pitch <math id="S4.T2.m11" class="ltx_Math" alttext="\theta" display="inline"><mi>θ</mi></math> and roll <math id="S4.T2.m12" class="ltx_Math" alttext="\varphi" display="inline"><mi>φ</mi></math>. Experiment Set 2 consisted of 23 experiments ranging from <math id="S4.T2.m13" class="ltx_Math" alttext="-30^{\circ}" display="inline"><mrow><mo>−</mo><msup><mn>30</mn><mo>∘</mo></msup></mrow></math> to <math id="S4.T2.m14" class="ltx_Math" alttext="30^{\circ}" display="inline"><msup><mn>30</mn><mo>∘</mo></msup></math> for both pitch <math id="S4.T2.m15" class="ltx_Math" alttext="\theta" display="inline"><mi>θ</mi></math> and roll <math id="S4.T2.m16" class="ltx_Math" alttext="\varphi" display="inline"><mi>φ</mi></math>. The ”Combined” row is the Mean Absolute Error (MAE) across both pitch and roll. The ”Pitch” and ”Roll” columns are the MAE for each component separate from the other.</p>
+</div>
+</div>
+</figure>
+<figure id="S4.T3" class="ltx_table">
+
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_table">TABLE III: </span>Hardware Attitude Estimation Compared to IMU Estimation</figcaption><div class="ltx_flex_figure">
+<div class="ltx_flex_cell ltx_flex_size_1">
+<table class="ltx_tabular ltx_centering ltx_figure_panel ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_center ltx_border_r ltx_border_tt"><span class="ltx_text ltx_font_bold">MAE</span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt">
+<math id="S4.T3.m1" class="ltx_Math" alttext="\mathbf{&lt;2^{\circ}}" display="inline"><mrow><mi></mi><mo>&lt;</mo><msup><mn>𝟐</mn><mo>∘</mo></msup></mrow></math> <span class="ltx_text ltx_font_bold">(%)</span>
+</td>
+<td class="ltx_td ltx_align_center ltx_border_tt">
+<math id="S4.T3.m2" class="ltx_Math" alttext="\mathbf{&lt;5^{\circ}}" display="inline"><mrow><mi></mi><mo>&lt;</mo><msup><mn>𝟓</mn><mo>∘</mo></msup></mrow></math> <span class="ltx_text ltx_font_bold">(%)</span>
+</td>
+<td class="ltx_td ltx_align_center ltx_border_tt">
+<math id="S4.T3.m3" class="ltx_Math" alttext="\mathbf{&lt;10^{\circ}}" display="inline"><mrow><mi></mi><mo>&lt;</mo><msup><mn>𝟏𝟎</mn><mo>∘</mo></msup></mrow></math> <span class="ltx_text ltx_font_bold">(%)</span>
+</td>
+<td class="ltx_td ltx_align_center ltx_border_tt">
+<math id="S4.T3.m4" class="ltx_Math" alttext="\mathbf{&lt;15^{\circ}}" display="inline"><mrow><mi></mi><mo>&lt;</mo><msup><mn>𝟏𝟓</mn><mo>∘</mo></msup></mrow></math> <span class="ltx_text ltx_font_bold">(%)</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_center ltx_border_t" colspan="5"><span class="ltx_text ltx_font_italic">Experiment Set 2</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_center ltx_border_r ltx_border_t"><span class="ltx_text ltx_font_bold">Combined</span></td>
+<td class="ltx_td ltx_align_center ltx_border_t"> 13.04</td>
+<td class="ltx_td ltx_align_center ltx_border_t"> 39.13</td>
+<td class="ltx_td ltx_align_center ltx_border_t"> 69.57</td>
+<td class="ltx_td ltx_align_center ltx_border_t"> 91.30</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_center ltx_border_r">
+<span class="ltx_text ltx_font_bold">Pitch</span> <math id="S4.T3.m5" class="ltx_Math" alttext="\mathbf{(\theta)}" display="inline"><mrow><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo></mrow></math>
+</td>
+<td class="ltx_td ltx_align_center"> 34.78</td>
+<td class="ltx_td ltx_align_center"> 65.22</td>
+<td class="ltx_td ltx_align_center"> 91.30</td>
+<td class="ltx_td ltx_align_center">100</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_center ltx_border_bb ltx_border_r">
+<span class="ltx_text ltx_font_bold">Roll</span> <math id="S4.T3.m6" class="ltx_Math" alttext="\mathbf{(\varphi)}" display="inline"><mrow><mo stretchy="false">(</mo><mi>φ</mi><mo stretchy="false">)</mo></mrow></math>
+</td>
+<td class="ltx_td ltx_align_center ltx_border_bb">  8.70</td>
+<td class="ltx_td ltx_align_center ltx_border_bb"> 30.43</td>
+<td class="ltx_td ltx_align_center ltx_border_bb"> 65.22</td>
+<td class="ltx_td ltx_align_center ltx_border_bb"> 78.26</td>
+</tr>
+</table>
+</div>
+<div class="ltx_flex_break"></div>
+<div class="ltx_flex_cell ltx_flex_size_1">
+<p class="ltx_p ltx_figure_panel">The percentage of estimations within the specified degrees of accuracy compared to camera attitude estimated from IMU data. Experiment Set 2 consisted of 23 experiments ranging from <math id="S4.T3.m7" class="ltx_Math" alttext="-30^{\circ}" display="inline"><mrow><mo>−</mo><msup><mn>30</mn><mo>∘</mo></msup></mrow></math> to <math id="S4.T3.m8" class="ltx_Math" alttext="30^{\circ}" display="inline"><msup><mn>30</mn><mo>∘</mo></msup></math> for both pitch <math id="S4.T3.m9" class="ltx_Math" alttext="\theta" display="inline"><mi>θ</mi></math> and roll <math id="S4.T3.m10" class="ltx_Math" alttext="\varphi" display="inline"><mi>φ</mi></math>. The ”Combined” row is the MAE across both pitch and roll. The ”Pitch” and ”Roll” columns are the MAE for each component separate from the other.</p>
+</div>
+</div>
+</figure>
+</section>
+<section id="S5" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">V </span><span class="ltx_text ltx_font_smallcaps">Future Work</span>
+</h2>
+
+<div id="S5.p1" class="ltx_para">
+<p class="ltx_p">Our methodology could be extended in several ways. Here we outline a few of these avenues for future work:</p>
+</div>
+<div id="S5.p2" class="ltx_para ltx_noindent">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Optimization via Stochastic Gradient Descent (SGD):</span> Instead of a grid search, the attitude could be estimated through SGD using automatic differentiation to calculate the gradients. The optimization would be initialized from the previous attitude estimation and be bounded by known UAV parameters such as tilt limit. The confidence of the estimated minima is intimately tied to the curvature of the objective function. This curvature can be quantified by the double derivative of the function at every point:</p>
+<table id="S5.E11" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S5.E11.m1" class="ltx_math_unparsed" alttext="C_{\alpha}=\frac{d^{2}}{d\alpha^{2}}\left[\mathcal{L}(\theta,\varphi)\right]%
+\bigg\rvert_{\begin{subarray}{c}\theta=\theta^{*},\\
+\varphi=\varphi^{*}\end{subarray}}\text{ for }\alpha\triangleq(\theta,\varphi)." display="block"><mrow><msub><mi>C</mi><mi>α</mi></msub><mo>=</mo><mfrac><msup><mi>d</mi><mn>2</mn></msup><mrow><mi>d</mi><mo>⁢</mo><msup><mi>α</mi><mn>2</mn></msup></mrow></mfrac><mrow><mo>[</mo><mi class="ltx_font_mathcaligraphic">ℒ</mi><mrow><mo stretchy="false">(</mo><mi>θ</mi><mo>,</mo><mi>φ</mi><mo stretchy="false">)</mo></mrow><mo>]</mo></mrow><mo maxsize="2.100em" minsize="2.100em" stretchy="true">|</mo><msub><mi></mi><mtable rowspacing="0pt"><mtr><mtd><mrow><mrow><mi>θ</mi><mo>=</mo><msup><mi>θ</mi><mo>∗</mo></msup></mrow><mo>,</mo></mrow></mtd></mtr><mtr><mtd><mrow><mi>φ</mi><mo>=</mo><msup><mi>φ</mi><mo>∗</mo></msup></mrow></mtd></mtr></mtable></msub><mtext> for </mtext><mi>α</mi><mo>≜</mo><mo stretchy="false">(</mo><mi>θ</mi><mo>,</mo><mi>φ</mi><mo stretchy="false">)</mo><mo lspace="0em">.</mo></mrow></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(11)</span></td>
+</tr></tbody>
+</table>
+</div>
+<div id="S5.p3" class="ltx_para ltx_noindent">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Extension to Similar Tasks:</span> Our methodology could be extended to similar tasks such as visual odometry and depth estimation. If another system in the UAV payload captures or estimates agent orientation, we can instead optimize for depth. If another system captures or estimates depth, we can instead estimate the agent’s velocities. The advantage here would remain the same—estimation directly from an event-set, without the need for reference frames or calculating optical flow.</p>
+</div>
+</section>
+<section id="S6" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">VI </span><span class="ltx_text ltx_font_smallcaps">Conclusion</span>
+</h2>
+
+<div id="S6.p1" class="ltx_para">
+<p class="ltx_p">Our algorithm introduces a method of solving for pitch and roll directly from an event-set. This provides an additional data point apart from traditional estimations that rely on drift-prone IMU measurements, while also imparting the inherent benefits of speed and power and bandwidth efficiency gained by using an event camera. We demonstrated our algorithm on real data from a hardware prototype, showing close adherence to ground truth measurements and IMU estimations. Additionally, our experiments showed increased robustness over ambiguous IMU-based estimations for cases with one directional motion.</p>
+</div>
+</section>
+<section id="bib" class="ltx_bibliography">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+
+<ul id="bib.L1" class="ltx_biblist">
+<li id="bib.bib14" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[1]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_year"> (2002)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A new approach to linear filtering and prediction problems</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://api.semanticscholar.org/CorpusID:1242324" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="II Related Work ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li id="bib.bib22" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[2]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">G. Adiv</span><span class="ltx_text ltx_bib_year"> (1989)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Inherent ambiguities in recovering 3-d motion and structure from a noisy flow field</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">IEEE Transactions on Pattern Analysis and Machine Intelligence</span> <span class="ltx_text ltx_bib_volume">11</span> (<span class="ltx_text ltx_bib_number">5</span>), <span class="ltx_text ltx_bib_pages"> pp. 477–489</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://dx.doi.org/10.1109/34.24780" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p3" title="I Introduction ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span>
+</li>
+<li id="bib.bib15" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[3]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">H. Al-Jlailaty and M. M. Mansour</span><span class="ltx_text ltx_bib_year"> (2022-11-01)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Efficient attitude estimators: a tutorial and survey</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Journal of Signal Processing Systems</span> <span class="ltx_text ltx_bib_volume">94</span> (<span class="ltx_text ltx_bib_number">11</span>), <span class="ltx_text ltx_bib_pages"> pp. 1309–1343</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1939-8115</span>,
+<a href="https://dx.doi.org/10.1007/s11265-020-01620-4" title="" class="ltx_ref doi ltx_bib_external">Document</a>,
+<a href="https://doi.org/10.1007/s11265-020-01620-4" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="II Related Work ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li id="bib.bib19" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[4]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">G. Balamurugan, J. Valarmathi, and V. P. S. Naidu</span><span class="ltx_text ltx_bib_year"> (2016)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Survey on uav navigation in gps denied environments</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">2016 International Conference on Signal Processing, Communication, Power and Embedded System (SCOPES)</span>,
+</span>
+<span class="ltx_bibblock">Vol. <span class="ltx_text ltx_bib_volume"></span>, <span class="ltx_text ltx_bib_pages"> pp. 198–204</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://dx.doi.org/10.1109/SCOPES.2016.7955787" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="II Related Work ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li id="bib.bib10" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[5]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Bazin, I. Kweon, C. Demonceaux, and P. Vasseur</span><span class="ltx_text ltx_bib_year"> (2008)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">UAV attitude estimation by vanishing points in catadioptric images</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">2008 IEEE International Conference on Robotics and Automation</span>,
+</span>
+<span class="ltx_bibblock">Vol. <span class="ltx_text ltx_bib_volume"></span>, <span class="ltx_text ltx_bib_pages"> pp. 2743–2749</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://dx.doi.org/10.1109/ROBOT.2008.4543626" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.T1" title="In II Related Work ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">TABLE I</span></a>,
+<a href="#S2.p2" title="II Related Work ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li id="bib.bib23" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[6]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Conroy, G. Gremillion, B. Ranganathan, and J. S. Humbert</span><span class="ltx_text ltx_bib_year"> (2009-10-01)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Implementation of wide-field integration of optic flow for autonomous quadrotor navigation</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Autonomous Robots</span> <span class="ltx_text ltx_bib_volume">27</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages"> pp. 189–198</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1573-7527</span>,
+<a href="https://dx.doi.org/10.1007/s10514-009-9140-0" title="" class="ltx_ref doi ltx_bib_external">Document</a>,
+<a href="https://doi.org/10.1007/s10514-009-9140-0" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p3" title="I Introduction ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span>
+</li>
+<li id="bib.bib11" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[7]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">C. Demonceaux, P. Vasseur, and C. Pegard</span><span class="ltx_text ltx_bib_year"> (2006)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Omnidirectional vision on uav for attitude computation</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings 2006 IEEE International Conference on Robotics and Automation, 2006. ICRA 2006.</span>,
+</span>
+<span class="ltx_bibblock">Vol. <span class="ltx_text ltx_bib_volume"></span>, <span class="ltx_text ltx_bib_pages"> pp. 2842–2847</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://dx.doi.org/10.1109/ROBOT.2006.1642132" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.T1" title="In II Related Work ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">TABLE I</span></a>,
+<a href="#S2.p2" title="II Related Work ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li id="bib.bib20" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[8]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. Falanga, S. Kim, and D. Scaramuzza</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">How fast is too fast? the role of perception latency in high-speed sense and avoid</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">IEEE Robotics and Automation Letters</span> <span class="ltx_text ltx_bib_volume">4</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages"> pp. 1884–1891</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://dx.doi.org/10.1109/LRA.2019.2898117" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p2" title="I Introduction ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span>
+</li>
+<li id="bib.bib21" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[9]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">G. Gallego, T. Delbrück, G. Orchard, C. Bartolozzi, B. Taba, A. Censi, S. Leutenegger, A. J. Davison, J. Conradt, K. Daniilidis, and D. Scaramuzza</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Event-based vision: a survey</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">IEEE Transactions on Pattern Analysis and Machine Intelligence</span> <span class="ltx_text ltx_bib_volume">44</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages"> pp. 154–180</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://dx.doi.org/10.1109/TPAMI.2020.3008413" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p2" title="I Introduction ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a href="#S1.p5" title="I Introduction ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span>
+</li>
+<li id="bib.bib2" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[10]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">C. Kessler, C. Ascher, N. Frietsch, M. Weinmann, and G. F. Trommer</span><span class="ltx_text ltx_bib_year"> (2010)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Vision-based attitude estimation for indoor navigation using vanishing points and lines</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">IEEE/ION Position, Location and Navigation Symposium</span>,
+</span>
+<span class="ltx_bibblock">Vol. <span class="ltx_text ltx_bib_volume"></span>, <span class="ltx_text ltx_bib_pages"> pp. 310–318</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://dx.doi.org/10.1109/PLANS.2010.5507247" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.T1" title="In II Related Work ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">TABLE I</span></a>,
+<a href="#S2.p2" title="II Related Work ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li id="bib.bib24" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[11]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. J. Koenderink and A. J. van Doorn</span><span class="ltx_text ltx_bib_year"> (1987-06-01)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Facts on optic flow</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Biological Cybernetics</span> <span class="ltx_text ltx_bib_volume">56</span> (<span class="ltx_text ltx_bib_number">4</span>), <span class="ltx_text ltx_bib_pages"> pp. 247–254</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1432-0770</span>,
+<a href="https://dx.doi.org/10.1007/BF00365219" title="" class="ltx_ref doi ltx_bib_external">Document</a>,
+<a href="https://doi.org/10.1007/BF00365219" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.SS2.p1" title="III-B Implied Trajectories ‣ III Attitude Estimation from Monocular Omnidirectional Events ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§III-B</span></a>,
+<a href="#S3.SS2.p2" title="III-B Implied Trajectories ‣ III Attitude Estimation from Monocular Omnidirectional Events ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§III-B</span></a>.
+</span>
+</li>
+<li id="bib.bib18" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[12]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Y. Lu, Z. Xue, G. Xia, and L. Zhang</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A survey on vision-based uav navigation</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Geo-spatial Information Science</span> <span class="ltx_text ltx_bib_volume">21</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages"> pp. 21–32</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://dx.doi.org/10.1080/10095020.2017.1420509" title="" class="ltx_ref doi ltx_bib_external">Document</a>,
+<a href="https://doi.org/10.1080/10095020.2017.1420509" title="" class="ltx_ref ltx_bib_external">Link</a>,
+<span class="ltx_text ltx_bib_external">https://doi.org/10.1080/10095020.2017.1420509</span></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="II Related Work ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li id="bib.bib1" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[13]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">I. F. Mondragón, P. Campoy, C. Martinez, and M. Olivares</span><span class="ltx_text ltx_bib_year"> (2010)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Omnidirectional vision applied to unmanned aerial vehicles (uavs) attitude and heading estimation</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Robotics and Autonomous Systems</span> <span class="ltx_text ltx_bib_volume">58</span> (<span class="ltx_text ltx_bib_number">6</span>), <span class="ltx_text ltx_bib_pages"> pp. 809–819</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">Omnidirectional Robot Vision</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0921-8890</span>,
+<a href="https://dx.doi.org/https%3A//doi.org/10.1016/j.robot.2010.02.012" title="" class="ltx_ref doi ltx_bib_external">Document</a>,
+<a href="https://www.sciencedirect.com/science/article/pii/S0921889010000576" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.T1" title="In II Related Work ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">TABLE I</span></a>,
+<a href="#S2.p2" title="II Related Work ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li id="bib.bib8" class="ltx_bibitem ltx_bib_incollection">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[14]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">R. J. D. Moore</span><span class="ltx_text ltx_bib_year"> (2011)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A bio-inspired stereo vision system for guidance of autonomous aircraft</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Advances in Theory and Applications of Stereo Vision</span>,  <span class="ltx_text ltx_bib_editor">A. Bhatti (Ed.)</span>,
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://dx.doi.org/10.5772/13184" title="" class="ltx_ref doi ltx_bib_external">Document</a>,
+<a href="https://doi.org/10.5772/13184" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.T1" title="In II Related Work ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">TABLE I</span></a>,
+<a href="#S2.p2" title="II Related Work ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li id="bib.bib12" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[15]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Natraj, D. S. Ly, D. Eynard, C. Demonceaux, and P. Vasseur</span><span class="ltx_text ltx_bib_year"> (2013-01-01)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Omnidirectional vision for uav: applications to attitude, motion and altitude estimation for day and night conditions</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Journal of Intelligent &amp; Robotic Systems</span> <span class="ltx_text ltx_bib_volume">69</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages"> pp. 459–473</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1573-0409</span>,
+<a href="https://dx.doi.org/10.1007/s10846-012-9752-z" title="" class="ltx_ref doi ltx_bib_external">Document</a>,
+<a href="https://doi.org/10.1007/s10846-012-9752-z" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.T1" title="In II Related Work ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">TABLE I</span></a>,
+<a href="#S2.p2" title="II Related Work ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li id="bib.bib16" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[16]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Raskaliyev, S. H. Patel, T. M. Sobh, and A. Ibrayev</span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">GNSS-based attitude determination techniques—a comprehensive literature survey</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">IEEE Access</span> <span class="ltx_text ltx_bib_volume">8</span> (<span class="ltx_text ltx_bib_number"></span>), <span class="ltx_text ltx_bib_pages"> pp. 24873–24886</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://dx.doi.org/10.1109/ACCESS.2020.2970083" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="II Related Work ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li id="bib.bib4" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[17]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">N. A. Rawashdeh, O. A. Rawashdeh, and B. H. Sababha</span><span class="ltx_text ltx_bib_year"> (2017)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Vision-based sensing of uav attitude and altitude from downward in-flight images</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Journal of Vibration and Control</span> <span class="ltx_text ltx_bib_volume">23</span> (<span class="ltx_text ltx_bib_number">5</span>), <span class="ltx_text ltx_bib_pages"> pp. 827–841</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://dx.doi.org/10.1177/1077546315586492" title="" class="ltx_ref doi ltx_bib_external">Document</a>,
+<a href="https://doi.org/10.1177/1077546315586492" title="" class="ltx_ref ltx_bib_external">Link</a>,
+<span class="ltx_text ltx_bib_external">https://doi.org/10.1177/1077546315586492</span></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.T1" title="In II Related Work ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">TABLE I</span></a>,
+<a href="#S2.p2" title="II Related Work ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li id="bib.bib13" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[18]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. Scaramuzza, A. Martinelli, and R. Siegwart</span><span class="ltx_text ltx_bib_year"> (2006)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A flexible technique for accurate omnidirectional camera calibration and structure from motion</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Fourth IEEE International Conference on Computer Vision Systems (ICVS’06)</span>,
+</span>
+<span class="ltx_bibblock">Vol. <span class="ltx_text ltx_bib_volume"></span>, <span class="ltx_text ltx_bib_pages"> pp. 45–45</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://dx.doi.org/10.1109/ICVS.2006.3" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.SS1.p1" title="III-A Omnidirectional Model and Calibration ‣ III Attitude Estimation from Monocular Omnidirectional Events ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§III-A</span></a>.
+</span>
+</li>
+<li id="bib.bib17" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[19]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. E. R. Shabayek, C. Demonceaux, O. Morel, and D. Fofi</span><span class="ltx_text ltx_bib_year"> (2012-01-01)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Vision based uav attitude estimation: progress and insights</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Journal of Intelligent &amp; Robotic Systems</span> <span class="ltx_text ltx_bib_volume">65</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages"> pp. 295–308</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1573-0409</span>,
+<a href="https://dx.doi.org/10.1007/s10846-011-9588-y" title="" class="ltx_ref doi ltx_bib_external">Document</a>,
+<a href="https://doi.org/10.1007/s10846-011-9588-y" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="II Related Work ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li id="bib.bib25" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[20]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. J. Sheather and M. C. Jones</span><span class="ltx_text ltx_bib_year"> (1991)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A reliable data-based bandwidth selection method for kernel density estimation</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Journal of the Royal Statistical Society. Series B (Methodological)</span> <span class="ltx_text ltx_bib_volume">53</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages"> pp. 683–690</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 00359246</span>,
+<a href="http://www.jstor.org/stable/2345597" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.SS3.p2" title="III-C Quantifying Alignment ‣ III Attitude Estimation from Monocular Omnidirectional Events ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§III-C</span></a>.
+</span>
+</li>
+<li id="bib.bib7" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[21]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">H. Stuckey, A. Al-Radaideh, L. Sun, and W. Tang</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A spatial localization and attitude estimation system for unmanned aerial vehicles using a single dynamic vision sensor</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">IEEE Sensors Journal</span> <span class="ltx_text ltx_bib_volume">22</span> (<span class="ltx_text ltx_bib_number">15</span>), <span class="ltx_text ltx_bib_pages"> pp. 15497–15507</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://dx.doi.org/10.1109/JSEN.2022.3187423" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p4" title="I Introduction ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a href="#S2.T1" title="In II Related Work ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">TABLE I</span></a>,
+<a href="#S2.p3" title="II Related Work ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li id="bib.bib9" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[22]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Tarhan and E. Altuğ</span><span class="ltx_text ltx_bib_year"> (2011-06-01)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">EKF based attitude estimation and stabilization of a quadrotor uav using vanishing points in catadioptric images</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Journal of Intelligent &amp; Robotic Systems</span> <span class="ltx_text ltx_bib_volume">62</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages"> pp. 587–607</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1573-0409</span>,
+<a href="https://dx.doi.org/10.1007/s10846-010-9459-y" title="" class="ltx_ref doi ltx_bib_external">Document</a>,
+<a href="https://doi.org/10.1007/s10846-010-9459-y" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.T1" title="In II Related Work ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">TABLE I</span></a>,
+<a href="#S2.p2" title="II Related Work ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li id="bib.bib3" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[23]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Z. Wang, X. Li, X. Zhang, Y. Bai, and C. Zheng</span><span class="ltx_text ltx_bib_year"> (2021)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">An attitude estimation method based on monocular vision and inertial sensor fusion for indoor navigation</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">IEEE Sensors Journal</span> <span class="ltx_text ltx_bib_volume">21</span> (<span class="ltx_text ltx_bib_number">23</span>), <span class="ltx_text ltx_bib_pages"> pp. 27051–27061</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://dx.doi.org/10.1109/JSEN.2021.3119289" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.T1" title="In II Related Work ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">TABLE I</span></a>,
+<a href="#S2.p2" title="II Related Work ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li id="bib.bib6" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[24]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Y. Wu, J. Xu, D. Li, Y. Xie, H. Cao, F. Li, and Z. Yang</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">FlyTracker: motion tracking and obstacle detection for drones using event cameras</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">IEEE INFOCOM 2023 - IEEE Conference on Computer Communications</span>,
+</span>
+<span class="ltx_bibblock">Vol. <span class="ltx_text ltx_bib_volume"></span>, <span class="ltx_text ltx_bib_pages"> pp. 1–10</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://dx.doi.org/10.1109/INFOCOM53939.2023.10228976" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p4" title="I Introduction ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a href="#S2.T1" title="In II Related Work ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">TABLE I</span></a>,
+<a href="#S2.p3" title="II Related Work ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li id="bib.bib5" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[25]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Zhao, F. Lin, K. Peng, X. Dong, B. M. Chen, and T. H. Lee</span><span class="ltx_text ltx_bib_year"> (2016-03-01)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Vision-aided estimation of attitude, velocity, and inertial measurement bias for uav stabilization</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Journal of Intelligent &amp; Robotic Systems</span> <span class="ltx_text ltx_bib_volume">81</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages"> pp. 531–549</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1573-0409</span>,
+<a href="https://dx.doi.org/10.1007/s10846-015-0206-2" title="" class="ltx_ref doi ltx_bib_external">Document</a>,
+<a href="https://doi.org/10.1007/s10846-015-0206-2" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.T1" title="In II Related Work ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">TABLE I</span></a>,
+<a href="#S2.p2" title="II Related Work ‣ UAV Attitude Estimation from Monocular Omnidirectional Events" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+</ul>
+</section>
+</article>
+</div>
+<footer class="ltx_page_footer">
+<div class="ltx_page_logo">Generated  on Mon Apr 20 22:18:32 2026 by <a href="http://dlmf.nist.gov/LaTeXML/" class="ltx_LaTeXML_logo"><span style="letter-spacing:-0.2em; margin-right:0.1em;">L<span class="ltx_font_smallcaps" style="position:relative; bottom:2.2pt;">a</span>T<span class="ltx_font_smallcaps" style="font-size:120%;position:relative; bottom:-0.2ex;">e</span></span><span style="font-size:90%; position:relative; bottom:-0.2ex;">XML</span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==" alt="Mascot Sammy"></a>
+</div></footer>
+</div>
+</body>
+</html>

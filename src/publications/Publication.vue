@@ -114,6 +114,8 @@ function onInlineLinkKeydown(event: KeyboardEvent, url: string): void {
 
 .title {
   margin: 0;
+  display: flex;
+  width: 100%;
 }
 
 a {
