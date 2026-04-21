@@ -1,15 +1,30 @@
 <script setup lang="ts">
-defineProps<{
+import { computed } from "vue";
+import images, { stem } from "./images";
+
+const props = defineProps<{
   name: string;
   image: string;
   links: { [text: string]: string };
   large?: boolean;
 }>();
+
+const src = computed(() => {
+  if (/^(https?:)?\//.test(props.image)) return props.image;
+  const id = stem(props.image);
+  const resolved = images[id];
+  if (!resolved) {
+    throw new Error(
+      `People.vue: image ${id} not found in ${JSON.stringify(images)}`,
+    );
+  }
+  return resolved;
+});
 </script>
 
 <template>
   <div class="person" :class="{ large }">
-    <img :src="image" :alt="name" class="photo" />
+    <img :src="src" :alt="name" class="photo" />
     <h3 class="name">{{ name }}</h3>
     <div class="description"><slot /></div>
     <div class="links">

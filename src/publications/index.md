@@ -20,7 +20,7 @@ const Koppal = {
     title="Test Example"
     venue="WACV 2026"
     :authors="['Michael Tomadakis', 'Rebecca Borissova', 'Yuxuan Zhang', Koppal]"
-    link='https://focus.ece.ufl.edu/research/augmenting-with-nerfs-fast-relocalization-on-densified-datasets/'
+    link='/research/2025/nerf-relocalization/'
     :links="{
         PDF: '/publications/pdf/2026-Augmenting-MT.pdf',
         HTML: '/out.html',
@@ -31,7 +31,7 @@ const Koppal = {
     title="Augmenting with NeRFs: Fast Relocalization on Densified Datasets"
     venue="WACV 2026"
     :authors="['Michael Tomadakis', 'Rebecca Borissova', 'Yuxuan Zhang', Koppal]"
-    link='https://focus.ece.ufl.edu/research/augmenting-with-nerfs-fast-relocalization-on-densified-datasets/'
+    link='/research/2025/nerf-relocalization/'
     :links="{
         PDF: '/publications/pdf/2026-Augmenting-MT.pdf',
     }"
@@ -41,6 +41,7 @@ const Koppal = {
     title="Towards a non-Fourier event-based opto-electronic convolution accelerator"
     venue="Optics Express 2026"
     :authors="['Hannah Kirkland', 'Trung H. Le', 'Piper Taylor', 'Mehran Keivanimehr', 'Isaac J. Sledge', Koppal]"
+    link='/research/2026/incoherent-optical-computing/'
     :links="{
         PDF: '/publications/pdf/2026-Towards-HK.pdf',
     }"
@@ -114,7 +115,7 @@ const Koppal = {
     title="Design of an Adaptive Lightweight LiDAR to Decouple Robot-Camera Geometry"
     venue="IEEE Transactions on Robotics 2024"
     :authors="['Yuyang Chen', 'Dingkang Wang', 'Lenworth Thomas', 'Karthik Dantu', Koppal]"
-    link='https://focus.ece.ufl.edu/research/design-of-an-adaptive-lightweight-lidar-to-decouple-robot-camera-geometry/'
+    link='/research/2024/lightweight-lidar/'
     :links="{
         PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2024/02/23-0818_03_MS.pdf',
     }"
@@ -124,7 +125,7 @@ const Koppal = {
     title="FoveaSPAD: Exploiting Depth Priors for Adaptive and Efficient Single-Photon 3D Imaging"
     venue="Transactions on Computational Imaging 2024"
     :authors="['Justin Folden', 'Atul Ingle', Koppal]"
-    link='https://focus.ece.ufl.edu/research/foveaspad-exploiting-depth-priors-for-adaptive-and-efficient-single-photon-3d-imaging/'
+    link='/research/2024/foveaspad/'
     :links="{
         PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2024/12/FoveaSPAD_TCI_2024.pdf',
     }"
@@ -134,6 +135,7 @@ const Koppal = {
     title="FoveaCam++: Systems-Level Advances for Long Range Multi-Object High-Resolution Tracking"
     venue="IROS 2024"
     :authors="['Yuxuan Zhang', Koppal]"
+    link='/research/2024/foveacam-plus/'
     :links="{
         PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2024/08/IROS-FoveaCamPlus.pdf',
         Poster: 'https://focus.ece.ufl.edu/wp-content/uploads/2024/10/Poster.V2.A0.pdf',
@@ -249,7 +251,7 @@ const Koppal = {
     title="Schrodinger's Camera: First Steps Towards a Quantum-Based Privacy Preserving Camera"
     venue="arXiv 2023 | TCV CVPRW 2023 | WiCV CVPRW 2023 (extended abstract)"
     :authors="['Hannah Kirkland', Koppal]"
-        link='https://focus.ece.ufl.edu/research/schrodingerscamera/'
+        link='/research/2023/schrodinger-cam/'
     :links="{
         PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/06/Schrodingers_Camera_Quantum-Based_Privacy_Preserving_Camera_CVPRW_2023.pdf',
         CODE: 'https://github.com/teawizardry/schrodingers-camera',
@@ -260,7 +262,7 @@ const Koppal = {
     title="Energy-Efficient Adaptive 3D Sensing"
     venue="CVPR 2023"
     :authors="['Brevin Tilmon', 'Zhanghao Sun', Koppal, 'Yicheng Wu', 'Georgios Evangelidis', 'Ramzi Zahreddine', 'Guru Krishnan', 'Sizhuo Ma', 'Jian Wang']"
-    link='https://btilmon.github.io/e3d.html'
+    link='/research/2023/e3d/'
     :links="{
         PDF: 'https://btilmon.github.io/pubs/CVPR_2023_Energy_Efficient_Adaptive_3D_Sensing.pdf',
     }"
@@ -279,6 +281,7 @@ const Koppal = {
     title="Event-based Dual Photography for Transparent Scene Reconstruction"
     venue="Optics Letters 2023"
     :authors="['Xiaomeng Liu', 'Joshua D. Rego', 'Suren Jayasuriya', Koppal]"
+    link='/research/2023/event-dual-photo/'
     :links="{
         PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/06/events-based_dual_photography.pdf',
     }"
@@ -311,7 +314,7 @@ const Koppal = {
     title="SaccadeCam: Adaptive Visual Attention for Monocular Depth Sensing"
     venue="International Conference on Computer Vision (ICCV) 2021"
     :authors="['B. Tilmon', Koppal]"
-    link='https://focus.ece.ufl.edu/research/saccadecam-adaptive-visual-attention-for-monocular-depth-sensing/'
+    link='/research/2021/saccadecam/'
     :links="{
         PDF: 'https://arxiv.org/abs/2103.12981',
     }"
@@ -321,6 +324,7 @@ const Koppal = {
     title="A Monolithic Forward-View Optical Scanner by a Pair of Upright MEMS Mirrors on a SiOB for LiDAR Applications"
     venue="Journal of Microelectromechanical Systems"
     :authors="['D. Wang', 'D. Zheng', Koppal, 'B. Sun', 'H. Xie']"
+    link='/research/2018/wide-angle-mems/'
     :links="{
         PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/A_Monolithic_Forward-View_Optical_Scanner_by_a_Pair_of_Upright_MEMS_Mirrors_on_a_SiOB_for_LiDAR_Applications.pdf',
     }"
@@ -330,6 +334,7 @@ const Koppal = {
     title="Dense Lissajous Sampling and Interpolation for Dynamic Light-Transport"
     venue="Optics Express 2021"
     :authors="['X. Liu', 'K. Henderson', 'J. Rego', 'S. Jayasuriya', Koppal]"
+    link='/research/2021/lissajous-light-transport/'
     :links="{
         PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/03/Dense_Lissajous_Sampling_and_Interpolation_for_Dynamic_Light_Transport__revised_.pdf',
     }"
@@ -339,6 +344,7 @@ const Koppal = {
     title="A Miniature LiDAR with a Detached MEMS Scanner for Micro-robotics"
     venue="IEEE Sensors Journal 2021"
     :authors="['D. Wang', 'H. Xie', 'L. Thomas', Koppal]"
+    link='/research/2018/wide-angle-mems/'
     :links="{
         PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/A_miniature_LiDAR_with_a_detached_MEMS_scanner_for_micro-robotics.pdf',
     }"
@@ -348,6 +354,7 @@ const Koppal = {
     title="Fast Foveating Cameras for Dense Adaptive Resolution"
     venue="IEEE Transactions on Pattern Analysis and Machine Intelligence (PAMI) 2021"
     :authors="['B. Tilmon', 'E. Jain', 'S. Ferrari', Koppal]"
+    link='/research/2020/foveacam/'
     :links="{
         PDF: 'https://btilmon.github.io/pubs/FoveaCam_PAMI.pdf',
     }"
@@ -357,6 +364,7 @@ const Koppal = {
     title="Design and Fabrication of a Forward View Scanner on SIOB with Latch Structure for Improved Vertical Orientation"
     venue="IEEE International Conference on Micro Electrical Mechanical Systems (MEMS) 2021"
     :authors="['D. Wang', 'D. Zheng', Koppal, 'B. Sun', 'H. Xie']"
+    link='/research/2018/wide-angle-mems/'
     :links="{
         PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/MEMS2021_dingkang7.pdf',
     }"
@@ -378,6 +386,7 @@ const Koppal = {
     title="Adaptive Fovea for Scanning Depth Sensors"
     venue="International Journal of Robotics Research (IJRR) 2020"
     :authors="['Z. Tasneem', 'C. Adhivarahan', 'D. Wang', 'H. Xie', 'K. Dantu', Koppal]"
+    link='/research/2018/adaptive-depth/'
     :links="{
         PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/Adaptive_LiDAR.pdf',
     }"
@@ -397,7 +406,7 @@ const Koppal = {
     title="FoveaCam: A MEMS Mirror-Enabled Foveating Camera"
     venue="International Conference on Computational Photography (ICCP) 2020"
     :authors="['B. Tilmon', 'E. Jain', 'S. Ferrari', Koppal]"
-    link='https://focus.ece.ufl.edu/research/foveating-cameras/'
+    link='/research/2020/foveacam/'
     :links="{
         CODE: 'https://github.com/btilmon/foveaCam_ICCP',
         PDF: 'https://btilmon.github.io/pubs/foveaCam_iccp20.pdf',
@@ -408,7 +417,7 @@ const Koppal = {
     title="Design and Calibration of a Fast Flying-Dot Projector for Dynamic Light Transport Acquisition"
     venue="Transactions on Computational Imaging (TCI) 2020"
     :authors="['K. Henderson', 'X. Liu', 'J. Folden', 'B. Tilmon', 'S. Jayasuriya', Koppal]"
-    link='https://focus.ece.ufl.edu/research/wide-angle-mems-mirrors-and-micro-vision-sensors/'
+    link='/research/2020/flying-dot/'
     :links="{
         PDF: 'https://btilmon.github.io/pubs/tci20.pdf',
     }"
@@ -418,6 +427,7 @@ const Koppal = {
     title="Proximity-based Sensor Fusion of Depth Cameras and Isotropic Rad-detectors"
     venue="Transactions on Nuclear Science 2020"
     :authors="['K. Henderson', 'X. Liu', 'K. Stadnikia', 'A. Martin', 'A. Enqvist', Koppal]"
+    link='/research/2017/radiological-fusion/'
     :links="{
         PDF: 'https://drive.google.com/file/d/1JKCWlOEMoxyuejAfYZPipwsCDZgz3FGf/view?usp=sharing',
     }"
@@ -436,6 +446,7 @@ const Koppal = {
     title="A low-voltage, low-current, digital-driven MEMS mirror for low-power LiDAR"
     venue="IEEE Sensors Letters 2020"
     :authors="['D. Wang', 'L. Thomas', Koppal, 'Y. Ding', 'H. Xie']"
+    link='/research/2018/wide-angle-mems/'
     :links="{
         PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/IEEE_Sensor_Low_Power_MEMS_liDAR_0613.pdf',
     }"
@@ -445,6 +456,7 @@ const Koppal = {
     title="A Monolithic Forward-View MEMS Laser Scanner With Decoupled Raster Scanning and Enlarged Scanning Angle for Micro LiDAR Applications"
     venue="Journal of Microelectromechanical Systems 2020"
     :authors="['D. Wang', Koppal, 'H. Xie']"
+    link='/research/2018/wide-angle-mems/'
     :links="{
         PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/09123864.pdf',
     }"
@@ -456,6 +468,7 @@ const Koppal = {
     title="A Compact Omnidirectional Laser Scanner Based on an Electrothermal Tripod MEMS Mirror for LiDAR"
     venue="Transducers 2019"
     :authors="['D. Wang', 'C. Watkins', Koppal, 'M. Li', 'Y. Ding', 'H. Xie']"
+    link='/research/2018/wide-angle-mems/'
     :links="{
         PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/A_COMPACT_MEMS-BASED_WIDE-ANGLE_OPTICAL_SCANNER_OMN_2017_Abstract.pdf',
     }"
@@ -465,6 +478,7 @@ const Koppal = {
     title="A Large Aperture 2-Axis Electrothermal MEMS Mirror for Compact 3-D LiDAR"
     venue="International Conference on Optical MEMS and Nanophotonics (OMN) 2019"
     :authors="['D. Wang', 'C. Watkins', 'M. Aradhya', Koppal, 'H. Xie']"
+    link='/research/2018/wide-angle-mems/'
     :links="{
         PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/A-Large-Aperture-2-Axis-Electrothermal-MEMS-Mirror-for-Compact-3D-LiDAR.pdf',
     }"
@@ -474,7 +488,7 @@ const Koppal = {
     title="Revealing Scenes by Inverting Structure from Motion Reconstructions"
     venue="Best Paper Finalist | Conference on Computer Vision and Pattern Recognition (CVPR) 2019"
     :authors="['F. Pittaluga', Koppal, 'S. Kang', 'S. Sinha']"
-    link='https://www.francescopittaluga.com/invsfm/'
+    link='/research/2019/privacy-cameras/'
     :links="{
         PDF: 'https://arxiv.org/pdf/1904.03303.pdf',
     }"
@@ -484,6 +498,7 @@ const Koppal = {
     title="EyeVEIL: Degrading Iris Authentication in Eye-Tracking Headsets"
     venue="ACM Symposium on Eye Tracking Research &amp; Applications (ETRA) 2019"
     :authors="['B. John', Koppal, 'E. Jain']"
+    link='/research/2019/privacy-cameras/'
     :links="{
         PDF: 'https://jainlab.cise.ufl.edu/documents/2019_ETRA_pre_print_eyeVEIL.pdf',
     }"
@@ -493,6 +508,7 @@ const Koppal = {
     title="Learning Privacy Preserving Encodings through Adversarial Training"
     venue="IEEE Winter Conference on Applications of Computer Vision (WACV) 2019"
     :authors="['F. Pittaluga', Koppal, 'A. Chakrabarti']"
+    link='/research/2019/privacy-cameras/'
     :links="{
         PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/wacv-20191.pdf',
     }"
@@ -504,7 +520,7 @@ const Koppal = {
     title="Directionally Controlled Time-of-Flight Ranging for Mobile Sensing Platforms"
     venue="Robotics: Science and Systems (RSS) 2018"
     :authors="['Z. Tasneem', 'D. Wang', 'H. Xie', Koppal]"
-    link='https://focus.ece.ufl.edu/research/adaptive-depth-sensing/'
+    link='/research/2018/adaptive-depth/'
     :links="{
         PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/05/p11.pdf',
     }"
@@ -514,6 +530,7 @@ const Koppal = {
     title="An Integrated Forward-View 2-Axis MEMS Scanner for Compact 3D LIDAR"
     venue="Winner of Best Student Paper Award | NEMS 2018"
     :authors="['D. Wang', 'S. S. Rojas', 'Al. Shuping', 'Z. Tasneem', Koppal, 'H. Xie']"
+    link='/research/2018/wide-angle-mems/'
     :links="{
         PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/IEEE-NEMS-2018.pdf',
     }"
@@ -523,6 +540,7 @@ const Koppal = {
     title="A Compact 3D LIDAR Based on an Electrothermal Two-Axis MEMS Scanner for Small UAV"
     venue="SPIE 2018"
     :authors="['D. Wang', 'S. Strassle', 'A. Stainsby', 'Y. Bai', Koppal, 'et al.']"
+    link='/research/2018/wide-angle-mems/'
     :links="{
         PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/05/SPIE-DCS-2018-1.pdf',
     }"
@@ -541,6 +559,7 @@ const Koppal = {
     title="Data Fusion for a Vision-Aided Radiological Detection System: Calibration Algorithm Performance"
     venue="Nuclear Instruments and Methods in Physics A"
     :authors="['K. Stadnikia', 'K. Henderson', 'A. Martin', 'P. Riley', Koppal, 'A. Enqvist']"
+    link='/research/2017/radiological-fusion/'
     :links="{
         PDF: 'https://www.sciencedirect.com/science/article/abs/pii/S0168900218301499',
     }"
@@ -552,7 +571,7 @@ const Koppal = {
     title="Tracking Radioactive Sources through Sensor Fusion of Omnidirectional LIDAR and Isotropic Rad-detectors"
     venue="3DV 2017"
     :authors="['K. Henderson', 'K. Stadnikia', 'A. Martin', 'A. Enqvist', Koppal]"
-    link='https://focus.ece.ufl.edu/research/3d-vision-and-radiological-sensor-fusion/'
+    link='/research/2017/radiological-fusion/'
     :links="{
         PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/3DV_2017_Paper_Final_V3.pdf',
     }"
@@ -571,6 +590,7 @@ const Koppal = {
     title="Situational Information Guidance for Revised Detection Limits"
     venue="Nuclear Science Symposium/Medical Imaging Conference 2017"
     :authors="['K. Stadnikia', 'K. Henderson', Koppal, 'A. Enqvist']"
+    link='/research/2017/radiological-fusion/'
     :links="{
         PDF: 'https://ieeexplore.ieee.org/document/8532883',
     }"
@@ -580,6 +600,7 @@ const Koppal = {
     title="A Compact MEMS-Based Wide-Angle Optical Scanner"
     venue="OMN 2017"
     :authors="['B. Yang', 'L. Zhou', 'X. Zhang', 'D. Wang', Koppal, 'H. Xie']"
+    link='/research/2018/wide-angle-mems/'
     :links="{
         PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/A_COMPACT_MEMS-BASED_WIDE-ANGLE_OPTICAL_SCANNER_OMN_2017_Abstract.pdf',
     }"
@@ -599,6 +620,7 @@ const Koppal = {
     title="Pre-Capture Privacy for Small Vision Sensors"
     venue="IEEE Transactions on Pattern Analysis and Machine Intelligence, 2017"
     :authors="['F. Pittaluga', Koppal]"
+    link='/research/2019/privacy-cameras/'
     :links="{
         PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/05/precapture_privacy_for_small_vision_sensors.pdf',
     }"
@@ -638,7 +660,7 @@ const Koppal = {
     title="A Wide-angle Immersed MEMS Mirror and Its Application in Optical Coherence Tomography"
     venue="International Conference on Optical MEMS and Nanophotonics, 2016"
     :authors="['X. Zhang', 'L. Zhou', 'C. Duan', 'D. Zheng', Koppal, 'H. Xie']"
-    link='https://focus.ece.ufl.edu/research/adaptive-depth-sensing/'
+    link='/research/2018/wide-angle-mems/'
     :links="{
         PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/OMN2016_Immersed-ISC.pdf',
     }"
@@ -648,6 +670,7 @@ const Koppal = {
     title="Sensor-level Privacy for Thermal Cameras"
     venue="International Conference on Computational Photography, 2016"
     :authors="['F. Pittaluga', 'A. Zivkovic', Koppal]"
+    link='/research/2019/privacy-cameras/'
     :links="{
         PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/OMN2016_Immersed-ISC.pdf',
     }"
@@ -657,7 +680,7 @@ const Koppal = {
     title="Wide-angle Structured Light with a Scanning MEMS Mirror in Liquid"
     venue="Optics Express 2016"
     :authors="['X. Zhang', Koppal, 'R. Zhang', 'L. Zhou', 'E. Butler', 'H. Xie']"
-    link='https://focus.ece.ufl.edu/research/adaptive-depth-sensing/'
+    link='/research/2018/wide-angle-mems/'
     :links="{
         PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/05/optics_express_2016.pdf',
     }"
@@ -678,7 +701,7 @@ const Koppal = {
     title="Low-Cost Depth and Radiological Sensor Fusion to Detect Moving Sources"
     venue="3DV 2015"
     :authors="['P. Riley', 'A. Enqvist', Koppal]"
-    link='https://focus.ece.ufl.edu/research/3d-vision-and-radiological-sensor-fusion/'
+    link='/research/2017/radiological-fusion/'
     :links="{
         PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/3dv_2015_paper.pdf',
     }"
@@ -688,6 +711,7 @@ const Koppal = {
     title="Privacy Preserving Optics for Miniature Vision Sensors"
     venue="Conference on Computer Vision and Pattern Recognition, 2015"
     :authors="['F. Pittaluga', Koppal]"
+    link='/research/2019/privacy-cameras/'
     :links="{
         PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/05/precapture_privacy_for_small_vision_sensors.pdf',
     }"
@@ -697,7 +721,7 @@ const Koppal = {
     title="Data Fusion for a Vision-Radiological System for Source Tracking and Discovery"
     venue="Advancements in Nuclear Instrumentation Measurement Methods and their Applic., 2015"
     :authors="['A. Enqvist', Koppal]"
-    link='https://focus.ece.ufl.edu/research/3d-vision-and-radiological-sensor-fusion/'
+    link='/research/2017/radiological-fusion/'
 />
 
 <Publication
@@ -714,7 +738,7 @@ const Koppal = {
     title="MEMS Mirrors Submerged in Liquid for Wide-angle Scanning"
     venue="International Conference on Solid-State Sensors, Actuators and Microsystems, 2015"
     :authors="['X. Zhang', 'R. Zhang', Koppal, 'L. Butler', 'X. Cheng', 'H. Xie']"
-    link='https://focus.ece.ufl.edu/research/wide-angle-mems-mirrors-and-micro-vision-sensors/'
+    link='/research/2018/wide-angle-mems/'
     :links="{
         PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/xioyang_OSA.pdf',
     }"
@@ -736,7 +760,7 @@ const Koppal = {
     title="Towards wide-angle micro vision sensors"
     venue="Transactions on Pattern Analysis and Machine Intelligence, 2013 (Invited paper for special issue)"
     :authors="[Koppal, 'I. Gkioulekas', 'T. Young', 'H. Park', 'K. Crozier', 'G. Barrows', 'T. Zickler']"
-    link='https://focus.ece.ufl.edu/research/wide-angle-micro-vision-sensors/'
+    link='/research/2011/micro-vision-sensors/'
     :links="{
         PDF: 'http://www.cs.cmu.edu/~ILIM/publications/PDFs/KYN-IJCV11.pdf',
     }"
@@ -770,7 +794,7 @@ const Koppal = {
     title="A viewer-centric editor for stereoscopic cinema"
     venue="IEEE Computer Graphics and Applications, 2011"
     :authors="[Koppal, 'L. Zitnick', 'M. Cohen', 'S. Kang', 'B. Ressler', 'A. Colburn']"
-    link='https://focus.ece.ufl.edu/research/editing-stereoscopic-content/'
+    link='/research/2010/stereo-editing/'
     :links="{
         PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/stereoscopy.pdf',
     }"
@@ -780,7 +804,7 @@ const Koppal = {
     title="Wide-angle micro sensors for vision on a tight budget"
     venue="Conference on Computer Vision and Pattern Recognition, 2011 (Oral Presentation, 4% acceptance rate)"
     :authors="[Koppal, 'I. Gkioulekas', 'T. Zickler', 'G. Barrows']"
-    link='https://focus.ece.ufl.edu/research/wide-angle-micro-vision-sensors/'
+    link='/research/2011/micro-vision-sensors/'
     :links="{
         PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2023/04/WideAngleMicro_CVPR2011.pdf',
     }"

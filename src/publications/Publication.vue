@@ -1,45 +1,25 @@
 <script setup lang="ts">
 import { StyleValue } from "vue";
 
-const props = defineProps<{
+defineProps<{
   title: string;
-  authors?: (
-    | string
-    | {
-        name: string;
-        link: string;
-        style?: StyleValue;
-      }
-  )[];
+  authors?: (string | { name: string; link: string; style?: StyleValue })[];
   links?: { [text: string]: string };
   venue?: string;
   link?: string;
 }>();
 
-function openExternalLink(url: string): void {
-  window.open(url, "_blank", "noopener,noreferrer");
-}
-
-function onInlineLinkClick(event: MouseEvent, url: string): void {
-  event.preventDefault();
-  event.stopPropagation();
-  openExternalLink(url);
-}
-
-function onInlineLinkKeydown(event: KeyboardEvent, url: string): void {
-  if (event.key !== "Enter" && event.key !== " ") return;
-  event.preventDefault();
-  event.stopPropagation();
-  openExternalLink(url);
+function externalAttrs(url: string) {
+  return /^([a-z][a-z0-9+.-]*:|\/\/)/i.test(url)
+    ? { target: "_blank", rel: "noopener noreferrer" }
+    : {};
 }
 </script>
 
 <template>
   <div class="publication">
     <h4 class="title">
-      <a v-if="link" :href="link" target="_blank" rel="noopener noreferrer">{{
-        title
-      }}</a>
+      <a v-if="link" :href="link" v-bind="externalAttrs(link)">{{ title }}</a>
       <span v-else>{{ title }}</span>
     </h4>
     <div v-if="authors" class="authors">
@@ -48,17 +28,15 @@ function onInlineLinkKeydown(event: KeyboardEvent, url: string): void {
         :key="index"
         style="text-wrap: nowrap"
       >
-        <span
+        <a
           v-if="typeof author === 'object'"
           class="inline-link"
-          role="link"
-          tabindex="0"
-          :style="author.style ?? {}"
-          @click="onInlineLinkClick($event, author.link)"
-          @keydown="onInlineLinkKeydown($event, author.link)"
+          :href="author.link"
+          v-bind="externalAttrs(author.link)"
+          :style="author.style"
         >
           {{ author.name }}
-        </span>
+        </a>
         <span v-else>{{ author }}</span>
         <span class="divider">,&nbsp;</span>
       </span>
@@ -68,15 +46,9 @@ function onInlineLinkKeydown(event: KeyboardEvent, url: string): void {
         v-for="[text, linkUrl] in Object.entries(links ?? {})"
         :key="text"
       >
-        <span
-          class="inline-link"
-          role="link"
-          tabindex="0"
-          @click="onInlineLinkClick($event, linkUrl)"
-          @keydown="onInlineLinkKeydown($event, linkUrl)"
-        >
+        <a class="inline-link" :href="linkUrl" v-bind="externalAttrs(linkUrl)">
           {{ text }}
-        </span>
+        </a>
         <span class="divider"> | </span>
       </template>
       <span v-if="venue">{{ venue }}</span>
@@ -86,30 +58,24 @@ function onInlineLinkKeydown(event: KeyboardEvent, url: string): void {
 
 <style scoped>
 .publication {
-  margin: 0;
-  position: relative;
+  margin: 0 0 0 -1.4ch;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: top;
-  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
   color: inherit;
   text-decoration: none;
-  border: 1px solid transparent;
-  border-radius: 12px;
-  padding: 12px;
+  border-left: 0.4ch solid transparent;
+  padding: 12px 0 12px 1ch;
+  gap: 6px;
   transition:
-    border-color 0.1s,
-    background-color 0.1s;
-  &:not(:hover) a {
-    text-decoration: none;
-  }
+    background-color 0.1s,
+    border-color 0.1s;
 }
 
 .publication:hover,
 .publication:focus-visible {
   background-color: var(--vp-c-bg-soft);
-  border-color: var(--vp-c-brand-soft);
+  border-left-color: var(--vp-c-border);
 }
 
 .title {
@@ -128,9 +94,8 @@ a {
 .authors,
 .links {
   display: flex;
-  justify-content: flex-start;
   flex-wrap: wrap;
-  line-height: 24px;
+  line-height: 1.2em;
   font-size: 14px;
   font-weight: 500;
   color: var(--vp-c-text-2);
@@ -142,24 +107,17 @@ a {
 
 .links {
   user-select: none;
-  margin-left: auto;
-  justify-content: flex-end;
 }
 
 .links > * {
-  margin: 0 4px;
+  margin-right: 8px;
 }
 
 .inline-link {
-  color: inherit;
   text-decoration: underline;
-  cursor: pointer;
 }
 
-.authors > :last-child > .divider {
-  display: none;
-}
-
+.authors > :last-child > .divider,
 .links > .divider:last-child {
   display: none;
 }
