@@ -23,7 +23,7 @@ const Koppal = {
     link='/research/2025/nerf-relocalization/'
     :links="{
         PDF: '/publications/pdf/2026-Augmenting-MT.pdf',
-        HTML: '/out.html',
+        HTML: '/skeeter/out.html',
     }"
 />
 

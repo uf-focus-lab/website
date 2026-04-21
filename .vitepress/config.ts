@@ -16,7 +16,7 @@ export default defineConfig({
     logo: "/home/focus.png",
     nav: [
       { text: "News", link: "/news/" },
-      { text: "Research", link: "/research/" },
+      { text: "Research", link: "/research/", activeMatch: "^/research(/|$)" },
       { text: "Publications", link: "/publications/" },
       { text: "Team", link: "/team/" },
       { text: "About", link: "/about/" },
