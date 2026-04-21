@@ -23,6 +23,7 @@ import ufEceLogo from "../logo/uf-ece.png";
         >
           <img
             :src="ufEceLogo"
+            class="uf-ece-logo"
             alt="UF Electrical and Computer Engineering"
             loading="lazy"
           />
@@ -36,6 +37,12 @@ import ufEceLogo from "../logo/uf-ece.png";
     </div>
   </section>
 </template>
+
+<style>
+html.dark .affiliation img.uf-ece-logo {
+  filter: saturate(0) brightness(10);
+}
+</style>
 
 <style scoped>
 .hero {

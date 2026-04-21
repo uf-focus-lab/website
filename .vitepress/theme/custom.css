@@ -10,9 +10,9 @@
 }
 
 .dark {
-  --vp-c-brand-1: hsl(212, 100%, 70%);
-  --vp-c-brand-2: hsl(212, 100%, 75%);
-  --vp-c-brand-3: hsl(212, 100%, 60%);
+  --vp-c-brand-1: hsl(212, 100%, 60%);
+  --vp-c-brand-2: hsl(212, 100%, 50%);
+  --vp-c-brand-3: hsl(212, 100%, 40%);
   --vp-c-brand-soft: hsla(212, 100%, 70%, 0.15);
   --vp-c-text: var(--vp-c-text-1);
   --vp-c-text-1: hsl(0, 0%, 100%);
