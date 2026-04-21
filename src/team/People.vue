@@ -52,6 +52,11 @@ defineProps<{
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   align-self: start;
 }
+:global(.dark) .photo {
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
+}
 .name {
   grid-area: name;
   font-size: 1.25rem;

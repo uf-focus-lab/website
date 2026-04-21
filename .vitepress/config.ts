@@ -11,14 +11,11 @@ export default defineConfig({
   themeConfig: {
     logo: "/home/focus.png",
     nav: [
+      { text: "News", link: "/news/" },
       { text: "Research", link: "/research/" },
       { text: "Publications", link: "/publications/" },
       { text: "Team", link: "/team/" },
-      { text: "Teaching", link: "/teaching/" },
-      { text: "Funding", link: "/funding/" },
-      { text: "Facilities", link: "/facilities/" },
-      { text: "News", link: "/news/" },
-      { text: "Contact", link: "/contact/" },
+      { text: "About", link: "/about/" },
     ],
     outline: false,
     socialLinks: [{ icon: "github", link: "https://github.com/uf-focus-lab/" }],

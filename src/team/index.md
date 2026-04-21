@@ -132,19 +132,32 @@ Logan Burns is an undergraduate student at the University of Florida majoring in
 
 ### Doctoral Students
 
-[Justin Folden](https://jfolden.github.io/) Thesis: Foveated Depth Sensing (2024)
+- [**Justin Folden**](https://jfolden.github.io/)
 
-[Brevin Tilmon](http://btilmon.github.io) - Quidient Thesis:  Foveated Computational Imaging (2023)
+  Thesis: Foveated Depth Sensing (2024)
 
-Xiaomeng Liu Thesis: Lightweight Light Transport for Non-line-of-sight Imaging (2022)
+- [**Brevin Tilmon**](http://btilmon.github.io) - Quidient
 
-Dingkang Wang – Texas Instruments Thesis: Quasi-static Scanning and Monolithic Forward Scanning Electrothermal MEMS Mirrors for LIDAR (2021)
+  Thesis: Foveated Computational Imaging (2023)
 
-Kristofer Henderson – Lockheed Martin Thesis: Sensor Fusion for Non-Line-of-Sight Visualization and Imaging (2020)
+- **Xiaomeng Liu**
+  Thesis: Lightweight Light Transport for Non-line-of-sight Imaging (2022)
 
-[Francesco Pittaluga](https://www.francescopittaluga.com/) – NEC Labs Thesis: Privacy Preserving Computational Cameras (2019)
+- **Dingkang Wang** – Texas Instruments
 
-Xiaoyang Zhang (PhD co-advised with Dr. Huikai Xie) – Apple Thesis: Robust Electrothermally Actuated Scanner for Fiberoptic Endoscopic Imaging and Wide-angle Optics (2016)
+  Thesis: Quasi-static Scanning and Monolithic Forward Scanning Electrothermal MEMS Mirrors for LIDAR (2021)
+
+- **Kristofer Henderson** – Lockheed Martin
+
+  Thesis: Sensor Fusion for Non-Line-of-Sight Visualization and Imaging (2020)
+
+- [**Francesco Pittaluga**](https://www.francescopittaluga.com/) – NEC Labs
+
+  Thesis: Privacy Preserving Computational Cameras (2019)
+
+- **Xiaoyang Zhang** (PhD co-advised with Dr. Huikai Xie) – Apple
+
+  Thesis: Robust Electrothermally Actuated Scanner for Fiberoptic Endoscopic Imaging and Wide-angle Optics (2016)
 
 ### Master’s and Undergraduate Students
 

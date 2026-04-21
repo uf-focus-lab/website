@@ -17,9 +17,14 @@ hero:
       text: Team
       link: /team/
   image:
-    src: /hero.svg
+    src: /home/camera-Decunt.png
     alt: FOCUS Lab
 ---
+
+<script setup lang="ts">
+import { VPHomeSponsors } from 'vitepress/theme'
+import { funders } from './funding'
+</script>
 
 <style>
 b {
@@ -30,22 +35,24 @@ b {
     max-width: 60vw;
     margin: 0.4em 0 0 0;
 }
+/* Hide the "support us" heart that VPHomeSponsors ships with — we're showing
+   research funders, not open-source sponsors. */
+.VPHomeSponsors .love { display: none; }
+
+.vp-sponsor-grid.medium .vp-sponsor-grid-image {
+    max-width: 120px;
+    max-height: 48px;
+}
 </style>
 
+<span>
 Part of the Electrical and Computer Engineering Department at the University of Florida.
-
 </span>
+
 <span style="font-size:1.25vmax">
 
 _Our research areas are **computer vision** and **computational photography.**_
 
 </span>
 
-### **The Florida Optics and Computational Sensor Lab** is part of the Electrical and Computer Engineering Department at the University of Florida.
-
-#### Our research areas are **computer vision** and **computational photography.**
-
-### Exploring the intersection of computing and light
-
-## Exploring the intersection of computing and light
-
+<VPHomeSponsors :data="funders" />
