@@ -1,11 +1,11 @@
-import dhs from "./dhs.png";
-import nsf from "./nsf.png";
-import onr from "./onr.png";
-import usda from "./usda.png";
-import mirrorcle from "./mirrorcle.png";
-import microsoft from "./microsoft.png";
-import mist from "./mist.png";
-import amazon from "./amazon.png";
+import dhs from "./dhs.webp";
+import nsf from "./nsf.webp";
+import onr from "./onr.webp";
+import usda from "./usda.webp";
+import mirrorcle from "./mirrorcle.webp";
+import microsoft from "./microsoft.webp";
+import mist from "./mist.webp";
+import amazon from "./amazon.webp";
 
 export const funders = [
   {

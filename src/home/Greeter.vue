@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import p1 from "./hero/1-1.png";
-import p2 from "./hero/2-1.png";
-import p3 from "./hero/3-1.png";
-import p4 from "./hero/4.png";
-import p5 from "./hero/5.png";
-import p6 from "./hero/6.png";
-import p7 from "./hero/7.png";
-import p8 from "./hero/8.png";
-import p9 from "./hero/9.png";
-import p10 from "./hero/10.png";
+import p1 from "./greeter/1-1.webp";
+import p2 from "./greeter/2-1.webp";
+import p3 from "./greeter/3-1.webp";
+import p4 from "./greeter/4.webp";
+import p5 from "./greeter/5.webp";
+import p6 from "./greeter/6.webp";
+import p7 from "./greeter/7.webp";
+import p8 from "./greeter/8.webp";
+import p9 from "./greeter/9.webp";
+import p10 from "./greeter/10.webp";
 
 type Piece = {
   href: string;

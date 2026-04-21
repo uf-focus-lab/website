@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Greeter from "./Greeter.vue";
-import ufEceLogo from "../logo/uf-ece.png";
+import ufEceLogo from "../logo/uf-ece.webp";
 </script>
 
 <template>
