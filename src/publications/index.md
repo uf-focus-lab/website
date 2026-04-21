@@ -22,7 +22,7 @@ const Koppal = {
     :authors="['Michael Tomadakis', 'Rebecca Borissova', 'Yuxuan Zhang', Koppal]"
     link='https://focus.ece.ufl.edu/research/augmenting-with-nerfs-fast-relocalization-on-densified-datasets/'
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2025/12/CAMERAREADY.pdf',
+        PDF: '/publications/pdf/2026-Augmenting-MT.pdf',
     }"
 />
 
@@ -31,7 +31,7 @@ const Koppal = {
     venue="Optics Express 2026"
     :authors="['Hannah Kirkland', 'Trung H. Le', 'Piper Taylor', 'Mehran Keivanimehr', 'Isaac J. Sledge', Koppal]"
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2026/03/oe-34-6-10173.pdf',
+        PDF: '/publications/pdf/2026-Towards-HK.pdf',
     }"
 />
 
@@ -40,7 +40,7 @@ const Koppal = {
     venue="ICASPP 2026"
     :authors="['Joshua D. Rego', Koppal, 'Suren Jayasuriya']"
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2026/02/ICASSP_2026___Event_EPI_Depth.pdf',
+        PDF: '/publications/pdf/2026-Event-JR.pdf',
     }"
 />
 
@@ -49,7 +49,7 @@ const Koppal = {
     venue="Sensors 2026"
     :authors="['Namrata Dutt', 'Daeun Choi', 'Yiannis Ampatzidis', 'Won Suk Lee', Koppal, 'Xu Wang']"
     :links="{
-        PDF: 'https://focus.ece.ufl.edu/wp-content/uploads/2026/03/sensors-26-01935.pdf',
+        PDF: '/publications/pdf/2026-RD-GuideNet-ND.pdf',
     }"
 />
 

@@ -1,12 +1,16 @@
 ---
 date: 2023-03-17
+aside: false
 ---
+
+<span style="font-size: 1.9vmax;">
 
 **The Florida Optics and Computational Sensor Lab** is part of the Electrical and Computer Engineering Department at the University of Florida.
 
-<span style="color: red; font-weight: bold;">
+</span>
+<span style="font-size:1.25vmax">
 
-Our research areas are **computer vision** and **computational photography.**
+_Our research areas are **computer vision** and **computational photography.**_
 
 </span>
 
@@ -25,7 +29,8 @@ Our research areas are **computer vision** and **computational photography.**
 
 <style scoped>
 .hero-collage {
-    width: 100%;
+  width: 100%;
+  z-index: 1;
 }
 
 .hero-piece {
@@ -66,40 +71,5 @@ Our research areas are **computer vision** and **computational photography.**
 }
 </style>
 
-### **The Florida Optics and Computational Sensor Lab** is part of the Electrical and Computer Engineering Department at the University of Florida.
-
-#### Our research areas are **computer vision** and **computational photography.**
-
-### Exploring the intersection of computing and light
-
 ## Exploring the intersection of computing and light
 
-[layerslider id="1" /]
-
-[layerslider id="4" /]
-
-### University of Florida Gainesville FL
-
-## University of Florida - Gainesville FL
-
-[layerslider id="3" /]
-
-[![image](home/Authentic-Florida-Logo.png)](https://authenticflorida.com/10-best-restaurants-in-gainesville/)
-
-##### [10 BEST Restaurants](https://authenticflorida.com/10-best-restaurants-in-gainesville/)
-
-[![image](home/gainesville.jpg)](https://www.visitgainesville.com/explore/)
-
-##### [Explore Gainesville](https://www.visitgainesville.com/explore/)
-
-[![image](home/sun.jpg)](https://weather.com/weather/tenday/l/Gainesville+FL?canonicalCityId=60abec507069aebac1e447d90076e4b6b558e78de143c7ab0a0dec3d482870fc)
-
-##### [Weather in Gainesville](https://weather.com/weather/tenday/l/Gainesville+FL?canonicalCityId=60abec507069aebac1e447d90076e4b6b558e78de143c7ab0a0dec3d482870fc)
-
-[![image](home/ufl.jpg)](https://www.ufl.edu/)
-
-##### [University of Florida](https://www.ufl.edu/)
-
-[![image](home/ece.jpg)](https://www.ece.ufl.edu/)
-
-##### [ECE Department](https://www.ece.ufl.edu/)
