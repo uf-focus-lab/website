@@ -5,10 +5,12 @@
     "serve": "vitepress build && vitepress serve"
   },
   "devDependencies": {
+    "@lucide/vue": "^1.8.0",
     "@types/markdown-it-container": "^4.0.0",
     "@types/node": "^25.5.2",
     "markdown-it-container": "^4.0.0",
     "markdown-it-mathjax3": "^4.3.2",
+    "typescript": "^6.0.3",
     "vitepress": "^2.0.0-alpha.17"
   }
 }

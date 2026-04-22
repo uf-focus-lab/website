@@ -18,6 +18,7 @@ const Koppal = {
 
 <Publication
     title="Test Example"
+    type="article"
     venue="WACV 2026"
     :authors="['Michael Tomadakis', 'Rebecca Borissova', 'Yuxuan Zhang', Koppal]"
     link='/research/2025/nerf-relocalization/'
@@ -29,6 +30,7 @@ const Koppal = {
 
 <Publication
     title="Augmenting with NeRFs: Fast Relocalization on Densified Datasets"
+    type="inproceedings"
     venue="WACV 2026"
     :authors="['Michael Tomadakis', 'Rebecca Borissova', 'Yuxuan Zhang', Koppal]"
     link='/research/2025/nerf-relocalization/'
@@ -39,6 +41,7 @@ const Koppal = {
 
 <Publication
     title="Towards a non-Fourier event-based opto-electronic convolution accelerator"
+    type="article"
     venue="Optics Express 2026"
     :authors="['Hannah Kirkland', 'Trung H. Le', 'Piper Taylor', 'Mehran Keivanimehr', 'Isaac J. Sledge', Koppal]"
     link='/research/2026/incoherent-optical-computing/'
@@ -49,6 +52,7 @@ const Koppal = {
 
 <Publication
     title="Event Camera Depth Estimation from Epipolar Plane Images"
+    type="inproceedings"
     venue="ICASPP 2026"
     :authors="['Joshua D. Rego', Koppal, 'Suren Jayasuriya']"
     :links="{
@@ -58,6 +62,7 @@ const Koppal = {
 
 <Publication
     title="RD-GuideNet: A Depth-Guided Framework for Robust Detection, Segmentation, and Temporal Tracking of White Button Mushrooms"
+    type="article"
     venue="Sensors 2026"
     :authors="['Namrata Dutt', 'Daeun Choi', 'Yiannis Ampatzidis', 'Won Suk Lee', Koppal, 'Xu Wang']"
     :links="{
@@ -69,12 +74,14 @@ const Koppal = {
 
 <Publication
     title="Fabrication and Characterization of Individually Addressable Electrowetting Microprism Arrays"
+    type="article"
     venue="Frontiers in Optics + Laser Science 2025"
     :authors="['Mahima Rana', 'Samuel D. Gilinsky', 'Eduardo J. Miscles', 'Darwin Quiroz', 'Mo Zohrabi', 'Alexander Hedrick', 'Kaushik Jayaram', Koppal, 'Juliet T. Gopinath', 'Victor M. Bright']"
 />
 
 <Publication
     title="AI-Driven Framework for Generalized Optical Inspection of Printed Circuit Board Interconnects"
+    type="article"
     venue="Journal of Failure Analysis and Prevention, 2025"
     :authors="['P Craig', 'J Pearson', 'S Ghosh', 'N Varshney', Koppal, 'N Asadizanjani']"
     :links="{
@@ -84,6 +91,7 @@ const Koppal = {
 
 <Publication
     title="Physics-Informed Neural Networks for SAM Image Enhancement with a Novel Physics-Constrained Metric for Advanced Semiconductor Packaging Inspection"
+    type="inproceedings"
     venue="2025 IEEE 75th Electronic Components and Technology Conference (ECTC)"
     :authors="['Shajib Ghosh', 'Nitin Varshney', 'Antika Roy', 'Patrick Craig', 'Md Mahfuz Al Hasan', 'Rayhane Ghane-Motlagh', 'Nelly Elsayed', Koppal, 'Navid Asadizanjani']"
     :links="{
@@ -113,6 +121,7 @@ const Koppal = {
 
 <Publication
     title="Design of an Adaptive Lightweight LiDAR to Decouple Robot-Camera Geometry"
+    type="article"
     venue="IEEE Transactions on Robotics 2024"
     :authors="['Yuyang Chen', 'Dingkang Wang', 'Lenworth Thomas', 'Karthik Dantu', Koppal]"
     link='/research/2024/lightweight-lidar/'
@@ -123,6 +132,7 @@ const Koppal = {
 
 <Publication
     title="FoveaSPAD: Exploiting Depth Priors for Adaptive and Efficient Single-Photon 3D Imaging"
+    type="article"
     venue="Transactions on Computational Imaging 2024"
     :authors="['Justin Folden', 'Atul Ingle', Koppal]"
     link='/research/2024/foveaspad/'
@@ -133,6 +143,7 @@ const Koppal = {
 
 <Publication
     title="FoveaCam++: Systems-Level Advances for Long Range Multi-Object High-Resolution Tracking"
+    type="inproceedings"
     venue="IROS 2024"
     :authors="['Yuxuan Zhang', Koppal]"
     link='/research/2024/foveacam-plus/'
@@ -145,6 +156,7 @@ const Koppal = {
 
 <Publication
     title="HyperPRI: A dataset of hyperspectral images for underground plant root study"
+    type="article"
     venue="Computers and Electronics in Agriculture"
     :authors="['Spencer J. Chang', 'Ritesh Chowdhry', 'Yangyang Song', 'Tomas Mejia', 'Anna Hampton', 'Shelby Kucharski', 'T.M. Sazzad', 'Yuxuan Zhang', Koppal, 'Chris H. Wilson', 'Stefan Gerber', 'Barry Tillman', 'Marcio F.R. Resende', 'William M. Hammond', 'Alina Zare']"
     :links="{
@@ -172,6 +184,7 @@ const Koppal = {
 
 <Publication
     title="Hyperspectral Signals in the Soil: Plant-soil Hydraulic Connection and Disequilibrium as Mechanisms of Drought Tolerance and Rapid Recovery"
+    type="article"
     venue="Plant, Cell &amp; Environment"
     :authors="['Yangyang Song', 'Gerard Sapes', 'Spencer Chang', 'Ritesh Chowdhry', 'Tomas Mejia', 'Anna Hampton', 'Shelby Kucharski', 'Shahiar Sazzad TM', 'Yuxuan Zhang', 'Barry L. Tillman', 'Marcio Resende F R', Koppal, 'Chris Wilson', 'Stefan Gerber', 'Alina Zare', 'William Hammond']"
     :links="{
@@ -181,6 +194,7 @@ const Koppal = {
 
 <Publication
     title="Confocal Bistatic LIDAR in Scattering Media"
+    type="article"
     venue="SPIE Defense + Commercial Sensing 2024"
     :authors="['J. Folden', 'D. Alley', 'D. Illig', 'L. Mullen', Koppal]"
     :links="{
@@ -190,6 +204,7 @@ const Koppal = {
 
 <Publication
     title="Demystifying Edge Cases in Advanced IC Packaging Inspection through Novel Explainable AI Metrics"
+    type="article"
     venue="ECTC 2024"
     :authors="['S. Ghosh', 'A. Roy', 'M. Al Hasan Md', 'P. Craig', 'N. Varshney', Koppal, 'N. Asadizanjani']"
     :links="{
@@ -199,6 +214,7 @@ const Koppal = {
 
 <Publication
     title="Exploring physics-informed machine learning for system matrix formulation in x-ray imaging forward models"
+    type="article"
     venue="SPIE Optical Engineering 2024"
     :authors="['Shajib Ghosh', 'Nitin Varshney', 'Md Mahfuz Al Hasan', 'Antika Roy', 'Patrick Craig', Koppal, 'Hamed Dalir', 'Navid Asadizanjani']"
     :links="{
@@ -210,6 +226,7 @@ const Koppal = {
 
 <Publication
     title="Optical Automated Interconnect Inspection of Printed Circuit Boards"
+    type="inproceedings"
     venue="ISTFA 2024"
     :authors="['P. Craig', 'J. Pearson', 'S. Ghosh', 'N. Varshney', Koppal, 'N. Asadizanjani']"
     :links="{
@@ -219,6 +236,7 @@ const Koppal = {
 
 <Publication
     title="SHIELD-PCB: Securing Hardware Inspection with Enhanced Learning and Defense against Adversarial Examples in Printed Circuit Board Images"
+    type="article"
     venue="Applications of Machine Learning 2024"
     :authors="['S. Ghosh', 'A. Roy', 'N. Varshney', 'P. Craig', 'M.M. Al Hasan', Koppal, 'H. Dalir', '...']"
     :links="{
@@ -228,6 +246,7 @@ const Koppal = {
 
 <Publication
     title="Optimizing Deep Learning Performance in PCB X-Ray Inspection through Synthetic Data Tuner"
+    type="article"
     venue="Applications of Machine Learning 2024"
     :authors="['S. Ghosh', 'M.M. Al Hasan', 'P. Craig', 'A. Roy', 'N. Varshney', Koppal, 'H. Dalir', '...']"
     :links="{
@@ -239,6 +258,7 @@ const Koppal = {
 
 <Publication
     title="HyperPRI: A Dataset of Hyperspectral Images for Underground Plant Root Study"
+    type="inproceedings"
     venue="CVPPA ICCV 2023"
     :authors="['Yangyang Song', 'Gerard Sapes', 'Spencer Jordan Chang', 'Retish Chowdhry', 'Tomas Mejia', 'Anna Hampton', 'Shelby Kucharski', 'TM Shahriar Sazzad', 'Yuxuan Zhang', Koppal, 'Alina Zare', 'Stefan Gerber', 'Chris H Wilson', 'William Hammond']"
     link='https://github.com/GatorSense/HyperPRI'

@@ -6,4 +6,4 @@ A fundamental challenge in robot perception is the coupling of the sensor pose a
 
 [Full Text](/2024-TRO-lightweight-lidar.pdf)
 
-[embed]https://www.youtube.com/watch?v=FN1JnWIOJ3Y[/embed]
+<Youtube v="FN1JnWIOJ3Y" />

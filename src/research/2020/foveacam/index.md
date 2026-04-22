@@ -8,4 +8,4 @@ Most cameras today photograph their entire visual field. In contrast, decades of
 
 [ICCP 2020](/2020-ICCP-foveacam.pdf) | [PAMI 2021](/2021-PAMI-foveacam.pdf) | [Code](https://github.com/btilmon/foveaCam) | [Supplementary](./pami-supplementary.pdf)
 
-https://www.youtube.com/watch?v=3KN6kDavKc4
+<Youtube v="3KN6kDavKc4" />

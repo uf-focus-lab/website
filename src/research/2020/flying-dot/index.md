@@ -10,4 +10,4 @@ Event Data Download (47.0 GB)
 
 **Design and Calibration of a Fast Flying-Dot Projector for Dynamic Light Transport Acquisition** Kristofer Henderson, Xiaomeng Liu, Justin Folden, Brevin Tilmon, Suren Jayasuriya, Sanjeev Koppal Transactions on Computational Imaging 2020
 
-https://www.youtube.com/watch?v=i3QoMehqsKk
+<Youtube v="i3QoMehqsKk" />

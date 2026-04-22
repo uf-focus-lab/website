@@ -6,4 +6,4 @@ Light-transport represents the complex interactions of light in a scene. Fast, c
 
 [Paper](/2021-OpticsExpress-dense-lissajous.pdf) (Optics Express 2021)
 
-https://www.youtube.com/watch?v=6pN-843fRH0
+<Youtube v="6pN-843fRH0" />

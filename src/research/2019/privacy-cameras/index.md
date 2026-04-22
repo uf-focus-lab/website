@@ -6,7 +6,7 @@ Major advances in computer vision and the mobile revolution have set the stage f
 
 Francesco Pittaluga, Sanjeev J. Koppal, Sing Bing Kang, Sudipta Sinha
 
-https://www.youtube.com/watch?v=M4U9sXE84rY
+<Youtube v="M4U9sXE84rY" />
 
 Many 3D vision systems utilize pose and localization from a pre-captured 3D point cloud. Such 3D models are often obtained using structure from motion (SfM), after which the images are discarded to preserve privacy. In this paper, we show, for the first time, that SfM point clouds retain enough information to reveal scene appearance and compromise privacy. We present a privacy attack that reconstructs color images of the scene from the point cloud. Our method is based on a cascaded U-Net that takes as input, a 2D image of the points from a chosen viewpoint as well as point depth, color, and SIFT descriptors and outputs an image of the scene from that viewpoint. Unlike previous SIFT inversion methods, we handle highly sparse and irregular inputs and tackle the issue of many unknowns, namely, SIFT keypoint orientation and scale, image source, and 3D point visibility. We evaluate our attack algorithm on public datasets (MegaDepth and NYU Depth V2) and analyze the significance of the point cloud attributes. Finally, we synthesize novel views to create compelling virtual tours of scenes.
 
@@ -26,7 +26,7 @@ PAPERS: [PDF](/2019-WACV-privacy-preserving-encodings.pdf)
 
 Francesco Pittaluga, Sanjeev J. Koppal
 
-https://www.youtube.com/watch?v=JmDfbMMuWao
+<Youtube v="JmDfbMMuWao" />
 
 The next wave of micro and nano devices will create a world with trillions of small networked cameras. This will lead to increased concerns about privacy and security. Most privacy preserving algorithms for computer vision are applied after image/video data has been captured. We propose to use privacy preserving optics that filter or block sensitive information directly from the incident light-field before sensor measurements are made, adding a new layer of privacy. In addition to balancing the privacy and utility of the captured data, we address trade-offs unique to miniature vision sensors, such as achieving high-quality field-of-view and resolution within the constraints of mass and volume. Our privacy preserving optics enable applications such as depth sensing, full-body motion tracking, people counting, blob detection and privacy preserving face recognition. While we demonstrate applications on macro-scale devices (smartphones, webcams, etc.) our theory has impact for smaller devices.
 
@@ -36,7 +36,7 @@ PAPERS: [PAMI 2017](/2017-PAMI-precapture-privacy.pdf) [CVPR 2015](./privacy-opt
 
 Francesco Pittaluga, Aleksandar Zivkovic, Sanjeev J. Koppal
 
-https://www.youtube.com/watch?v=xEpOkyo2beI
+<Youtube v="xEpOkyo2beI" />
 
 As cameras turn ubiquitous, balancing privacy and utility becomes crucial. To achieve both, we enforce privacy at the sensor level, as incident photons are converted into an electrical signal and then digitized into image measurements. We present sensor protocols and accompanying algorithms that degrade facial information for thermal sensors, where there is usually a clear distinction between humans and the scene. By manipulating the sensor processes of gain, digitization, exposure time, and bias voltage, we are able to provide privacy during the actual image formation process and the original face data is never directly captured or stored. We show privacy-preserving thermal imaging applications such as temperature segmentation, night vision, gesture recognition and HDR imaging
 

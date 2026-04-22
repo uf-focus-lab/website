@@ -1,27 +1,25 @@
 <script setup lang="ts">
-import { StyleValue } from "vue";
+import { computed } from "vue";
+import Cite from "./Cite.vue";
+import type { Publication } from "./types";
+type Mode = "list" | "banner";
+const props = defineProps<Publication & { tag?: string; mode?: Mode }>();
+const mode = computed(() => props.mode ?? "list");
 
-defineProps<{
-  title: string;
-  authors?: (string | { name: string; link: string; style?: StyleValue })[];
-  links?: { [text: string]: string };
-  venue?: string;
-  link?: string;
-}>();
-
-function externalAttrs(url: string) {
-  return /^([a-z][a-z0-9+.-]*:|\/\/)/i.test(url)
-    ? { target: "_blank", rel: "noopener noreferrer" }
-    : {};
+function linkAttrs(href: string) {
+  return /^([a-z][a-z0-9+.-]*:|\/\/)/i.test(href)
+    ? { href, target: "_blank", rel: "noopener noreferrer" }
+    : { href };
 }
 </script>
 
 <template>
   <div class="publication">
-    <h4 class="title">
-      <a v-if="link" :href="link" v-bind="externalAttrs(link)">{{ title }}</a>
+    <component :is="mode === 'banner' ? 'h2' : 'h4'" class="title">
+      <a v-if="link && mode === 'list'" v-bind="linkAttrs(link)">{{ title }}</a>
       <span v-else>{{ title }}</span>
-    </h4>
+      <Cite :publication="props" style="width: 2ch" />
+    </component>
     <div v-if="authors" class="authors">
       <span
         v-for="(author, index) in authors"
@@ -29,10 +27,9 @@ function externalAttrs(url: string) {
         style="text-wrap: nowrap"
       >
         <a
-          v-if="typeof author === 'object'"
+          v-if="typeof author === 'object' && author.link"
           class="inline-link"
-          :href="author.link"
-          v-bind="externalAttrs(author.link)"
+          v-bind="linkAttrs(author.link)"
           :style="author.style"
         >
           {{ author.name }}
@@ -46,7 +43,7 @@ function externalAttrs(url: string) {
         v-for="[text, linkUrl] in Object.entries(links ?? {})"
         :key="text"
       >
-        <a class="inline-link" :href="linkUrl" v-bind="externalAttrs(linkUrl)">
+        <a class="inline-link" v-bind="linkAttrs(linkUrl)">
           {{ text }}
         </a>
         <span class="divider"> | </span>
@@ -82,6 +79,7 @@ function externalAttrs(url: string) {
   margin: 0;
   display: flex;
   width: 100%;
+  position: relative;
 }
 
 a {
@@ -120,5 +118,19 @@ a {
 .authors > :last-child > .divider,
 .links > .divider:last-child {
   display: none;
+}
+
+.title :deep(.cite) {
+  position: absolute;
+  left: calc(100%);
+  top: 0;
+  width: 5ch;
+  opacity: 0;
+  padding: 0.2em 1ch;
+}
+
+.publication:hover :deep(.cite),
+.publication:focus-within :deep(.cite) {
+  opacity: 1;
 }
 </style>

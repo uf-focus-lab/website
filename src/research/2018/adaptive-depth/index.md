@@ -6,7 +6,7 @@ Recovering scene geometry is an important research problem in robotics. More rec
 
 Zaid Tasneem, Dingkang Wang, Huikai Xie, Sanjeev J. Koppal RSS 2018
 
-https://www.youtube.com/watch?v=6DajCjH0vMI
+<Youtube v="6DajCjH0vMI" />
 
 Scanning time-of-flight (TOF) sensors obtain depth measurements by directing modulated light beams across a scene. We demonstrate that control of the directional scanning patterns can enable novel algorithms and applications. Our analysis occurs entirely in the angular domain and consists of two ideas. First, we show how to exploit the angular support of the light beam to improve reconstruction results. Second, we describe how to control the light beam direction in a way that maximizes a well-known information theoretic measure. Using these two ideas, we demonstrate novel applications such as adaptive TOF sensing, LIDAR zoom, LIDAR edge sensing for gradient-based reconstruction and energy efficient LIDAR scanning. Our contributions can apply equally to sensors using mechanical, opto-electronic or MEMS-based approaches to modulate the light beam, and we show results here on a MEMS mirror-based LIDAR system.
 
