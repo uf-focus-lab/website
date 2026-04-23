@@ -84,9 +84,6 @@ export default function colocatedAssets(): Plugin {
           fileName,
           source: await readFile(abs),
         });
-        console.log(
-          `[colocated-assets] emit ${fileName}  ←  ${relative(SRC, filename)}`,
-        );
       }
     },
     configureServer(server) {
