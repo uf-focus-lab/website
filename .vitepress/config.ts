@@ -1,4 +1,5 @@
 import { defineConfig } from "vitepress";
+import svgLoader from "./plugins/svg-loader";
 import newsMarkdown from "./plugins/news";
 import colocatedAssets from "./plugins/colocated-assets";
 
@@ -15,10 +16,10 @@ export default defineConfig({
   // The colocated-assets plugin emits the file to dist/, so skip the check.
   ignoreDeadLinks: [/\.(pptx?|docx?|xlsx?)(?:[?#].*)?$/i],
   vite: {
-    plugins: [newsMarkdown(), colocatedAssets()],
+    plugins: [svgLoader(), newsMarkdown(), colocatedAssets()],
   },
   themeConfig: {
-    logo: "/home/focus.png",
+    siteTitle: false,
     nav: [
       { text: "News", link: "/news/" },
       { text: "Research", link: "/research/", activeMatch: "^/research(/|$)" },

@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import Greeter from "./Greeter.vue";
 import ufEceLogo from "../logo/uf-ece.webp";
+import Brand from "../logo/Brand.vue";
 </script>
 
 <template>
   <section class="hero">
     <div class="hero-inner">
       <div class="hero-text">
-        <p class="brand">FOCUS Lab</p>
+        <p class="brand-wrap"><Brand class="hero-brand" /></p>
         <h1>The Florida Optics &amp; Computational Sensor Lab</h1>
         <p class="tagline">
           <span>Comp. Photo</span>
@@ -72,17 +73,14 @@ html.dark .affiliation img.uf-ece-logo {
   min-width: 0;
 }
 
-.brand {
-  display: inline-block;
+.brand-wrap {
+  color: var(--vp-c-brand);
+  font-size: 48px;
   margin: 0 0 16px;
-  padding: 4px 12px;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--vp-c-brand-1);
-  background: var(--vp-c-brand-soft);
-  border-radius: 999px;
+  padding: 8px 2px;
+  border-top: 2px solid var(--vp-c-brand-soft);
+  border-bottom: 2px solid var(--vp-c-brand-soft);
+  width: max-content;
 }
 
 h1 {
@@ -199,6 +197,12 @@ h1 {
 }
 
 @media (max-width: 860px) {
+  .brand-wrap {
+    border: none;
+    width: 100%;
+    font-size: 36px;
+    text-align: center;
+  }
   .hero-inner {
     grid-template-columns: 1fr;
   }

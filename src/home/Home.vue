@@ -51,14 +51,9 @@ const featured = [
           <span class="accent">faster, smaller, smarter</span>.
         </h2>
         <p class="lede">
-          Part of the
-          <a
-            href="https://www.ece.ufl.edu/"
-            target="_blank"
-            rel="noopener noreferrer"
-            >Electrical &amp; Computer Engineering Department</a
-          >
-          at the University of Florida, we work at the intersection of
+          FOCUS Lab is part of the Electrical &amp; Computer Engineering
+          Department at the University of Florida, we work at the intersection
+          of
           <b>computer vision</b>, <b>computational photography</b>, and
           <b>novel optical hardware</b>.
         </p>
@@ -104,7 +99,6 @@ const featured = [
         </div>
       </div>
     </section>
-
   </div>
 </template>
 
@@ -294,6 +288,9 @@ const featured = [
 }
 
 @media (max-width: 640px) {
+  .eyebrow {
+    letter-spacing: 0;
+  }
   .cta-inner {
     flex-direction: column;
     align-items: flex-start;
