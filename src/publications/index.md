@@ -17,18 +17,6 @@ const Koppal = {
 # 2026
 
 <Publication
-    title="Test Example"
-    type="article"
-    venue="WACV 2026"
-    :authors="['Michael Tomadakis', 'Rebecca Borissova', 'Yuxuan Zhang', Koppal]"
-    link='/research/2025/nerf-relocalization/'
-    :links="{
-        PDF: '/publications/pdf/2026-Augmenting-MT.pdf',
-        HTML: '/skeeter/out.html',
-    }"
-/>
-
-<Publication
     title="Augmenting with NeRFs: Fast Relocalization on Densified Datasets"
     type="inproceedings"
     venue="WACV 2026"
