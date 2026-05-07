@@ -6,8 +6,21 @@ type Mode = "list" | "banner";
 const props = defineProps<Publication & { tag?: string; mode?: Mode }>();
 const mode = computed(() => props.mode ?? "list");
 
+function isExternalLink(href: string) {
+  return /^([a-z][a-z0-9+.-]*:|\/\/)/i.test(href);
+}
+
+function stem(href: string) {
+  return href.replace(/\/?$/, "").split("/").pop() ?? href;
+}
+
+function isAssetLink(href: string) {
+  const suffix = stem(href).split(".").pop();
+  return suffix && !["html", "md"].includes(suffix);
+}
+
 function linkAttrs(href: string) {
-  return /^([a-z][a-z0-9+.-]*:|\/\/)/i.test(href)
+  return isExternalLink(href) || isAssetLink(href)
     ? { href, target: "_blank", rel: "noopener noreferrer" }
     : { href };
 }
