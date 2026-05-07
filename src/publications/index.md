@@ -23,7 +23,7 @@ const Koppal = {
     :authors="['Michael Tomadakis', 'Rebecca Borissova', 'Yuxuan Zhang', Koppal]"
     link='/research/2025/nerf-relocalization/'
     :links="{
-        PDF: '/publications/pdf/2026-Augmenting-MT.pdf',
+        PDF: '/2026-WACV-augmenting-with-nerfs.pdf',
     }"
 />
 
@@ -34,7 +34,7 @@ const Koppal = {
     :authors="['Hannah Kirkland', 'Trung H. Le', 'Piper Taylor', 'Mehran Keivanimehr', 'Isaac J. Sledge', Koppal]"
     link='/research/2026/incoherent-optical-computing/'
     :links="{
-        PDF: '/publications/pdf/2026-Towards-HK.pdf',
+        PDF: '/2026-OpticsExpress-non-fourier-event-convolution.pdf',
     }"
 />
 
@@ -44,7 +44,7 @@ const Koppal = {
     venue="ICASPP 2026"
     :authors="['Joshua D. Rego', Koppal, 'Suren Jayasuriya']"
     :links="{
-        PDF: '/publications/pdf/2026-Event-JR.pdf',
+        PDF: '/2026-ICASSP-event-camera-depth-epipolar.pdf',
     }"
 />
 
@@ -54,7 +54,7 @@ const Koppal = {
     venue="Sensors 2026"
     :authors="['Namrata Dutt', 'Daeun Choi', 'Yiannis Ampatzidis', 'Won Suk Lee', Koppal, 'Xu Wang']"
     :links="{
-        PDF: '/publications/pdf/2026-RD-GuideNet-ND.pdf',
+        PDF: '/2026-Sensors-rd-guidenet.pdf',
     }"
 />
 
@@ -206,7 +206,7 @@ const Koppal = {
     venue="SPIE Optical Engineering 2024"
     :authors="['Shajib Ghosh', 'Nitin Varshney', 'Md Mahfuz Al Hasan', 'Antika Roy', 'Patrick Craig', Koppal, 'Hamed Dalir', 'Navid Asadizanjani']"
     :links="{
-        PDF: '/131521W.pdf',
+        PDF: '/2024-SPIE-physics-informed-ml.pdf',
         Poster: '/2024-SPIE-physics-informed-ml-poster.pdf',
         'SPIE Optical Engineering': 'https://www.spiedigitallibrary.org/conference-proceedings-of-spie/13152/3027381/Exploring-physics-informed-machine-learning-for-system-matrix-formulation-in/10.1117/12.3027381.full',
     }"
