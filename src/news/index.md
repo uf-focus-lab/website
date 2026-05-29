@@ -9,11 +9,14 @@ import Item from "./Item.vue";
 
 ## 2026
 
+@05/30
+Our paper *FoveaCam Duo: Foveated Stereo for Standoff Depth Sensing* was accepted to ICCP 2026. Congrats to the authors!
+
 @04/03
 Dr. Koppal will be an AC for BMVC 2026.
 
 @03/15
-Our paper Towards a Non-Fourier Event-Based Opto-Electronic Convolution Accelerator was accepted to Optics Express. Congrats to Hannah, the coauthors, and our collaborators in the NSWC!
+Our paper *Towards a Non-Fourier Event-Based Opto-Electronic Convolution Accelerator* was accepted to Optics Express. Congrats to Hannah, the coauthors, and our collaborators in the NSWC!
 
 @03/10
 FOCUS lab and collaborators in Dr. Navid's group win ECTC Intel Best Student Paper Award!
@@ -27,7 +30,7 @@ Dr. Koppal will be an area chair for ECCV 2026. Happy New Year!
 ## 2025
 
 @11/15
-Congrats to Michael Tomadakis and his FOCUS lab co-authors on the accepted WACV 2026 paper "Augmenting with NeRFs: Fast Relocalization on Densified Datasets".
+Congrats to Michael Tomadakis and his FOCUS lab co-authors on the accepted WACV 2026 paper "*Augmenting with NeRFs: Fast Relocalization on Densified Datasets*".
 
 @10/14
 FOCUS lab received an Amazon grant on removing rolling shutter effects. Congrats to our collaborators in UF ECE, Dr. Woodard and Dr. Islam!
