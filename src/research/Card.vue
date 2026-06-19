@@ -1,7 +1,8 @@
 <script setup lang="ts">
 defineProps<{
   title: string;
-  image: string;
+  image?: string;
+  imageComponent?: any;
   link?: string;
 }>();
 </script>
@@ -11,8 +12,17 @@ defineProps<{
     :is="link ? 'a' : 'div'"
     :href="link"
     class="featured"
-    :style="{ backgroundImage: `url(${image})` }"
   >
+    <component
+      :is="imageComponent"
+      v-if="imageComponent"
+      class="media media-svg"
+    />
+    <div
+      v-else-if="image"
+      class="media media-image"
+      :style="{ backgroundImage: `url(${image})` }"
+    />
     <div class="overlay">
       <h3 class="title">{{ title }}</h3>
     </div>
@@ -24,15 +34,33 @@ defineProps<{
   display: block;
   position: relative;
   aspect-ratio: 2 / 3;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   border-radius: 12px;
   overflow: hidden;
   text-decoration: none;
   color: #fff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.media {
+  position: absolute;
+  inset: 0;
+}
+
+.media-image {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.media-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: linear-gradient(180deg, #f7f9fc 0%, #edf2f8 100%);
+  color: #1f2937;
+  transform: translateY(-13%);
+  transform-origin: center top;
 }
 
 .featured:hover {
