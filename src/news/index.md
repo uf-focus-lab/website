@@ -9,6 +9,8 @@ import Item from "./Item.vue";
 
 ## 2026
 
+@06/16
+Our paper *Anchor Points for Monocular Depth Estimation Under Severe Rolling Shutter Ego-Motion* was accepted to IROS 2026! Congradulations to the authors in the FOCUS lab and our collaborators in the RoboPI Lab!
 @05/30
 Our paper *FoveaCam Duo: Foveated Stereo for Standoff Depth Sensing* was accepted to ICCP 2026. Congrats to the authors!
 

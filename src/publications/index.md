@@ -17,6 +17,17 @@ const Koppal = {
 # 2026
 
 <Publication
+    title="FoveaCam Duo: Foveated Stereo for Standoff Depth Sensing"
+    type="inproceedings"
+    venue="ICCP 2026"
+    :authors="['Yuxuan Zhang', 'Jacob Carter', 'Hannah Kirkland', 'Micheal Tomadakis', 'Noah Ralph', Koppal]"
+    link='/research/2026/foveacam-duo'
+    :links="{
+        PDF: '/2026-ICCP-FoveaCamDuo.pdf',
+    }"
+/>
+
+<Publication
     title="Augmenting with NeRFs: Fast Relocalization on Densified Datasets"
     type="inproceedings"
     venue="WACV 2026"

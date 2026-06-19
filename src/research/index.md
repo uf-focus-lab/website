@@ -6,6 +6,7 @@ next: false
 
 <script setup>
 import Card from './Card.vue';
+import FoveaCamDuoDevice from './2026/foveacam-duo/figures/device.svg';
 import imgNonFourier from './featured/non-fourier.jpg';
 import imgNeRF from './featured/nerf.png';
 import imgAdaptiveLiDAR from './featured/adaptive-lidar.png';
@@ -25,6 +26,11 @@ h2:first-child {
 ## Featured Projects
 
 <div class="featured-grid">
+  <Card
+    title="FoveaCam Duo: Foveated Stereo for Standoff Depth Sensing"
+    :image-component="FoveaCamDuoDevice"
+    link="/research/2026/foveacam-duo/"
+  />
   <Card
     title="Non-Fourier Event-Based Opto-electronic Convolution Accelerator"
     :image="imgNonFourier"
@@ -50,11 +56,11 @@ h2:first-child {
     :image="imgAdaptiveLidar"
     link="/research/2023/e3d/"
   />
-  <Card
+  <!-- <Card
     title="Schrödinger’s Camera: First Steps Towards a Quantum-Based Privacy Preserving Camera"
     :image="imgSchrodinger"
     link="/research/2023/schrodinger-cam/"
-  />
+  /> -->
 </div>
 
 <style scoped>
