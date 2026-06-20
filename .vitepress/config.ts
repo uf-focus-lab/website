@@ -1,5 +1,5 @@
 import { defineConfig } from "vitepress";
-import svgLoader from "./plugins/svg-loader";
+import svgLoader from "@zhangyx1998/svg-loader";
 import newsMarkdown from "./plugins/news";
 import colocatedAssets from "./plugins/colocated-assets";
 
