@@ -24,6 +24,7 @@ const Koppal = {
     link='/research/2026/foveacam-duo'
     :links="{
         PDF: '/2026-ICCP-FoveaCamDuo.pdf',
+        Project: '/research/2026/foveacam-duo/',
     }"
 />
 
