@@ -3,14 +3,19 @@ import { VPHomeSponsors } from "vitepress/theme";
 import Hero from "./Hero.vue";
 import Card from "../research/Card.vue";
 import { funders } from "../logo/";
+import FoveaCamDuoDevice from "../research/2026/foveacam-duo/figures/device.svg";
 
 import imgNonFourier from "../research/featured/non-fourier.jpg";
 import imgNeRF from "../research/featured/nerf.png";
 import imgAdaptiveLiDAR from "../research/featured/adaptive-lidar.png";
 import imgFoveaCamPlus from "../research/featured/foveacam-plus.png";
-import imgSchrodinger from "../research/featured/schrodinger-camera.png";
 
 const featured = [
+    {
+    title: "FoveaCam Duo: Foveated Stereo for Standoff Depth Sensing",
+  imageComponent: FoveaCamDuoDevice,
+    link: "/research/2026/foveacam-duo",
+  },
   {
     title: "Non-Fourier Event-Based Opto-electronic Convolution Accelerator",
     image: imgNonFourier,
@@ -31,11 +36,11 @@ const featured = [
     image: imgAdaptiveLiDAR,
     link: "/research/2024/lightweight-lidar/",
   },
-  {
-    title: "Schrödinger’s Camera: Quantum-Based Privacy Preserving Camera",
-    image: imgSchrodinger,
-    link: "/research/2023/schrodinger-cam/",
-  },
+  // {
+  //   title: "Schrödinger’s Camera: Quantum-Based Privacy Preserving Camera",
+  //   image: imgSchrodinger,
+  //   link: "/research/2023/schrodinger-cam/",
+  // },
 ];
 </script>
 
@@ -71,6 +76,7 @@ const featured = [
           :key="p.link"
           :title="p.title"
           :image="p.image"
+          :image-component="p.imageComponent"
           :link="p.link"
         />
       </div>
