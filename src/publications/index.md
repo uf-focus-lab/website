@@ -19,7 +19,7 @@ const Koppal = {
 <Publication
     title="FoveaCam Duo: Foveated Stereo for Standoff Depth Sensing"
     type="inproceedings"
-    venue="ICCP 2026"
+    venue="ICCP / PAMI 2026"
     :authors="['Yuxuan Zhang', 'Jacob Carter', 'Hannah Kirkland', 'Micheal Tomadakis', 'Noah Ralph', Koppal]"
     link='/research/2026/foveacam-duo'
     :links="{
