@@ -16,7 +16,7 @@ _Rolling shutter (RS) cameras are widely deployed in robotic systems due to thei
 
 <!-- [Full Text (PDF)](./paper.pdf) -->
 
-### Full Text Available Soon!
+[Full Text (PDF)](./paper.pdf)
 <!-- <div class="figure-block">
     <Device />
 </div>

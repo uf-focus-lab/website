@@ -9,9 +9,20 @@ import imgNonFourier from "../research/featured/non-fourier.jpg";
 import imgNeRF from "../research/featured/nerf.png";
 import imgAdaptiveLiDAR from "../research/featured/adaptive-lidar.png";
 import imgFoveaCamPlus from "../research/featured/foveacam-plus.png";
+import imgRollingShutter from "../research/featured/rolling-shutter.png";
 
 const featured = [
+  // {
+  //   title: "Anchor Points for Monocular Depth Estimation Under Severe Rolling Shutter Ego-motion",
+  // imageComponent: imgNonFourier,
+  //   link: "/research/2026/rolling-shutter-anchor-point",
+  // },
     {
+    title: "Anchor Points for Monocular Depth Estimation Under Severe Rolling Shutter Ego-motion",
+    image: imgRollingShutter,
+    link: "/research/2026/rolling-shutter-anchor-point/",
+  },
+  {
     title: "FoveaCam Duo: Foveated Stereo for Standoff Depth Sensing",
   imageComponent: FoveaCamDuoDevice,
     link: "/research/2026/foveacam-duo",
@@ -31,11 +42,11 @@ const featured = [
     image: imgFoveaCamPlus,
     link: "/research/2024/foveacam-plus/",
   },
-  {
-    title: "Adaptive Lightweight LiDAR to Decouple Robot-Camera Geometry",
-    image: imgAdaptiveLiDAR,
-    link: "/research/2024/lightweight-lidar/",
-  },
+  // {
+  //   title: "Adaptive Lightweight LiDAR to Decouple Robot-Camera Geometry",
+  //   image: imgAdaptiveLiDAR,
+  //   link: "/research/2024/lightweight-lidar/",
+  // },
   // {
   //   title: "Schrödinger’s Camera: Quantum-Based Privacy Preserving Camera",
   //   image: imgSchrodinger,
