@@ -23,7 +23,7 @@ const Koppal = {
     :authors="['Jacob Carter', 'Vaishnav Ramesh', 'Md Jahidul Islam', Koppal]"
     link="/research/2026/rolling-shutter-anchor-point"
     :links="{
-        // PDF: '/2026-ICCP-FoveaCamDuo.pdf',
+        PDF: '/research/2026/rolling-shutter-anchor-point/paper.pdf',
         Project: '/research/2026/rolling-shutter-anchor-point/',
     }"
 />
