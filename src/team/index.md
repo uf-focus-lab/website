@@ -81,12 +81,6 @@ Thiago Cuevas holds a Bachelor’s degree in Control and Automation Engineering 
 
 ## Undergraduate Students
 
-### Trung Le
-
-<People name="Trung Le" image="trung-le" :links="{email: 'mailto:trung.le@ufl.edu'}">
-Trung is a Undergraduate Junior student majoring in Electrical Engineering. His research interests include computational photography and optical computing.
-</People>
-
 ### Ajna Topic
 
 <People name="Ajna Topic" image="ajna-topic" :links="{email: 'mailto:ajnatopic@ufl.edu'}">
@@ -162,14 +156,18 @@ Logan Burns is an undergraduate student at the University of Florida majoring in
 
 ### Master’s and Undergraduate Students
 
+#### Class of 2026
+
++ ** Trung Le** (BS) - PhD candidate at University of Southern California
+
 #### Class of 2025
 
-+ **Piper Taylor** - Scientist at Eglin AFB
++ **Piper Taylor** (BS) - Scientist at Eglin AFB
 
 #### Class of 2024
 
 + **Jackson Arnold** (MS)
-+ **Chloe Petrosino** (BS) - PhD Candidate at Duke University
++ **Chloe Petrosino** (BS) - PhD candidate at Duke University
 
 #### Class of 2023
 
