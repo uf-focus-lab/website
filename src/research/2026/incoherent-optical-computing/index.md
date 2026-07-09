@@ -8,4 +8,6 @@ _The current advancement of neural networks has led to a resurgence of research 
 
 [Optics Express (Open Access)](https://doi.org/10.1364/OE.584235)
 
+[Poster](./poster.pdf)
+
 ![image](./figure.jpg)
