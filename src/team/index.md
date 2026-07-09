@@ -158,7 +158,7 @@ Logan Burns is an undergraduate student at the University of Florida majoring in
 
 #### Class of 2026
 
-+ ** Trung Le** (BS) - PhD candidate at University of Southern California
++ **Trung Le** (BS) - PhD candidate at University of Southern California
 
 #### Class of 2025
 
