@@ -11,9 +11,9 @@ import imgAdaptiveLiDAR from "../research/featured/adaptive-lidar.png";
 import imgFoveaCamPlus from "../research/featured/foveacam-plus.png";
 
 const featured = [
-    {
+  {
     title: "FoveaCam Duo: Foveated Stereo for Standoff Depth Sensing",
-  imageComponent: FoveaCamDuoDevice,
+    imageComponent: FoveaCamDuoDevice,
     link: "/research/2026/foveacam-duo",
   },
   {

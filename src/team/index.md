@@ -81,20 +81,10 @@ Thiago Cuevas holds a Bachelor’s degree in Control and Automation Engineering 
 
 ## Undergraduate Students
 
-### Trung Le
-
-<People name="Trung Le" image="trung-le" :links="{email: 'mailto:trung.le@ufl.edu'}">
-Trung is a Undergraduate Junior student majoring in Electrical Engineering. His research interests include computational photography and optical computing.
-</People>
-
 ### Ajna Topic
 
 <People name="Ajna Topic" image="ajna-topic" :links="{email: 'mailto:ajnatopic@ufl.edu'}">
 Ajna is a Sophomore Computer Engineering Student at UF. She is interested in microcontrollers, robotics, and optics.
-</People>
-
-<People name="Rebecca Borissova" image="rebecca-borissova" :links="{email: 'mailto:rborissova@ufl.edu'}">
-Rebecca Borissova is an undergraduate student at the University of Florida majoring in Computer Science. Her research interests include Machine Learning, Computer Vision, and Neural Radiance Fields.
 </People>
 
 ### Noah Ralph
@@ -161,6 +151,11 @@ Logan Burns is an undergraduate student at the University of Florida majoring in
   Thesis: Robust Electrothermally Actuated Scanner for Fiberoptic Endoscopic Imaging and Wide-angle Optics (2016)
 
 ### Master’s and Undergraduate Students
+
+#### Class of 2026
+
++ **Trung Le** (BS)
++ **Rebecca Borissova** (BS) - Apple
 
 #### Class of 2025
 
