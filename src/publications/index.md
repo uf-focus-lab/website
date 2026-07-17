@@ -17,9 +17,21 @@ const Koppal = {
 # 2026
 
 <Publication
+    title="Anchor Points for Monocular Depth Estimation Under Severe Rolling Shutter Ego-motion"
+    type="inproceedings"
+    venue="IROS 2026"
+    :authors="['Jacob Carter', 'Vaishnav Ramesh', 'Md Jahidul Islam', Koppal]"
+    link="/research/2026/rolling-shutter-anchor-point"
+    :links="{
+        PDF: '/research/2026/rolling-shutter-anchor-point/paper.pdf',
+        Project: '/research/2026/rolling-shutter-anchor-point/',
+    }"
+/>
+
+<Publication
     title="FoveaCam Duo: Foveated Stereo for Standoff Depth Sensing"
     type="inproceedings"
-    venue="ICCP 2026"
+    venue="ICCP / PAMI 2026"
     :authors="['Yuxuan Zhang', 'Jacob Carter', 'Hannah Kirkland', 'Micheal Tomadakis', 'Noah Ralph', Koppal]"
     link='/research/2026/foveacam-duo'
     :links="{

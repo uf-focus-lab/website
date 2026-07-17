@@ -154,17 +154,17 @@ Logan Burns is an undergraduate student at the University of Florida majoring in
 
 #### Class of 2026
 
-+ **Trung Le** (BS)
++ **Trung Le** (BS) - PhD candidate at University of Southern California
 + **Rebecca Borissova** (BS) - Apple
 
 #### Class of 2025
 
-+ **Piper Taylor** - Scientist at Eglin AFB
++ **Piper Taylor** (BS) - Scientist at Eglin AFB
 
 #### Class of 2024
 
 + **Jackson Arnold** (MS)
-+ **Chloe Petrosino** (BS) - PhD Candidate at Duke University
++ **Chloe Petrosino** (BS) - PhD candidate at Duke University
 
 #### Class of 2023
 

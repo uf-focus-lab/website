@@ -13,6 +13,7 @@ import imgAdaptiveLiDAR from './featured/adaptive-lidar.png';
 import imgFoveaCamPlus from './featured/foveacam-plus.png';
 import imgAdaptiveLidar from './featured/adaptive-lidar.png';
 import imgSchrodinger from './featured/schrodinger-camera.png';
+import rollingShutter from './featured/rolling-shutter.jpg'
 </script>
 
 <style scoped>
@@ -26,6 +27,11 @@ h2:first-child {
 ## Featured Projects
 
 <div class="featured-grid">
+  <Card
+    title="Anchor Points for Monocular Depth Estimation Under Severe Rolling Shutter Ego-motion"
+    :image="rollingShutter"
+    link="/research/2026/rolling-shutter-anchor-point"
+  />
   <Card
     title="FoveaCam Duo: Foveated Stereo for Standoff Depth Sensing"
     :image-component="FoveaCamDuoDevice"
@@ -51,11 +57,11 @@ h2:first-child {
     :image="imgFoveaCamPlus"
     link="/research/2024/foveacam-plus/"
   />
-  <Card
+  <!-- <Card
     title="Energy-Efficient Adaptive 3D Sensing"
     :image="imgAdaptiveLidar"
     link="/research/2023/e3d/"
-  />
+  /> -->
   <!-- <Card
     title="Schrödinger’s Camera: First Steps Towards a Quantum-Based Privacy Preserving Camera"
     :image="imgSchrodinger"
