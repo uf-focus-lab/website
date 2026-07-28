@@ -9,8 +9,12 @@ import Item from "./Item.vue";
 
 ## 2026
 
+@07/15
+FOCUS lab travelled to Princeton, NJ for ICCP. We had five posters and one amazing talk on Foveacam Duo. Dr. Koppal also won the [ICCP Photography Competition](https://iccp2026.iccp-conference.org/#photocompetition)!
+
 @06/16
 Our paper *Anchor Points for Monocular Depth Estimation Under Severe Rolling Shutter Ego-Motion* was accepted to IROS 2026! Congratulations to the authors in the FOCUS lab and our collaborators in the RoboPI Lab!
+
 @05/30
 Our paper *FoveaCam Duo: Foveated Stereo for Standoff Depth Sensing* was accepted to ICCP 2026. Congrats to the authors!
 
