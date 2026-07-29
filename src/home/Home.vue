@@ -85,23 +85,6 @@ const featured = [
       </header>
       <VPHomeSponsors :data="funders" />
     </section>
-
-    <section class="cta-strip">
-      <div class="cta-inner">
-        <div>
-          <h2>Working with us</h2>
-          <p>
-            We are always looking for curious students and collaborators. Browse
-            recent publications, meet the team, or reach out directly.
-          </p>
-        </div>
-        <div class="cta-buttons">
-          <a class="btn primary" href="/publications/">Publications</a>
-          <a class="btn" href="/team/">Team</a>
-          <a class="btn" href="/about/">Contact</a>
-        </div>
-      </div>
-    </section>
   </div>
 </template>
 
