@@ -81,6 +81,12 @@ Thiago Cuevas holds a Bachelor’s degree in Control and Automation Engineering 
 
 ## Undergraduate Students
 
+### Aryan Thakur
+
+<People name="Aryan Thakur" image="aryan-thakur" :links="{email: 'mailto:aryanthakur@ufl.edu', Website: 'https://aryanthakur.com', GitHub: 'https://github.com/importly'}">
+Aryan is a Computer Science undergraduate at UF. He works on the control stack and model training for an optical convolutional neural network accelerator. His interests include optical computing, high-speed hardware control, and machine learning.
+</People>
+
 ### Ajna Topic
 
 <People name="Ajna Topic" image="ajna-topic" :links="{email: 'mailto:ajnatopic@ufl.edu'}">
