@@ -7,7 +7,6 @@ import FoveaCamDuoDevice from "../research/2026/foveacam-duo/figures/device.svg"
 
 import imgNonFourier from "../research/featured/non-fourier.jpg";
 import imgNeRF from "../research/featured/nerf.png";
-import imgAdaptiveLiDAR from "../research/featured/adaptive-lidar.png";
 import imgFoveaCamPlus from "../research/featured/foveacam-plus.png";
 import imgRollingShutter from "../research/featured/rolling-shutter.png";
 

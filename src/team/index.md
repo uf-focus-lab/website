@@ -67,12 +67,6 @@ Michael is a 2024 Computer Science graduate from the University of Florida. He's
 Jacob graduated from Louisiana State University in 2024 with a B.S. in Computer Science. He is interested in AI, Machine Learning, and Computer Vision.
 </People>
 
-### Mehran Keivanimehr
-
-<People name="Mehran Keivanimehr" image="mehran-keivanimehr" :links="{email: 'mailto:m.keivanimehr@ufl.edu'}">
-Mehran earned a B.S. in Electrical and Computer Engineering from the University of Kashan. His academic interests span artificial intelligence, machine learning, deep learning, and computer vision.
-</People>
-
 ### Thiago Cuevas
 
 <People name="Thiago Cuevas" image="thiago-cuevas" :links="{email: 'mailto:tcuevasmestanza@ufl.edu', GitHub: 'https://github.com/thiagofcm', LinkedIn: 'https://www.linkedin.com/in/thiago-cuevas/'}">
@@ -91,18 +85,6 @@ Ajna is a Sophomore Computer Engineering Student at UF. She is interested in mic
 
 <People name="Noah Ralph" image="noah-ralph" :links="{email: 'mailto:na.ralph@ufl.edu'}">
 Noah Ralph is an undergraduate student at the University of Florida majoring in Electrical Engineering. His interests include 3D printing, Biomechanics, Robotics, and Medical Devices.
-</People>
-
-### Elvin Hernandez
-
-<People name="Elvin Hernandez" image="elvin-hernandez" :links="{email: 'mailto:elvin.hernandez@ufl.edu'}">
-Elvin Hernandez is an undergraduate student at the University of Florida majoring in Electrical Engineering. His research interests include machine learning, MEMS integration and embedded systems, optics/optical computing, and signal processing.
-</People>
-
-### Marcel Bossa
-
-<People name="Marcel Bossa" image="marcel-bossa" :links="{email: 'mailto:marcelbossa@ufl.edu'}">
-Marcel Bossa is a sophomore majoring in computer engineering. His research interests include Computer Vision and Computational Photography.
 </People>
 
 ### Dillon Gutowski
