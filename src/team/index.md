@@ -103,7 +103,7 @@ Dillon is an undergraduate Computer Science student at the University of Florida
 
 <People name="Logan Burns" image="logan-burns" :links="{email: 'mailto:lburns1@ufl.edu'}">
 
-Logan Burns is an undergraduate student at the University of Florida majoring in Electrical Engineering. Their research interests include embedded systems, printed circuit board design, robotics, optical sensing, and mixed-signal circuits. 
+Logan Burns is an undergraduate researcher in the FOCUS Lab, majoring in Electrical Engineering at the University of Florida. She builds thermal instrumentation for embedded computing hardware, and is second author on a manuscript on thermal-adaptive continual learning currently in revision. Her own work predicts the temperatures of board components that carry no sensors, from on-die telemetry alone, and reconstructs a board's full thermal field with no camera in the loop. Her interests are analog and mixed-signal circuits, instrumentation and measurement, and optical sensing.
 </People>
 
 ## Alumni
