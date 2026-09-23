@@ -49,7 +49,7 @@ Hannah is a graduate research assistant in the FOCUS Lab. They graduated with a 
 
 ### Yuxuan Zhang
 
-<People name="Yuxuan Zhang" image="yuxuan-zhang" :links="{email: 'mailto:zhangyuxuan@ufl.edu', Website: 'https://zhangyx.net/', GitHub: 'https://github.com/zhangyx1998'}">
+<People name="Yuxuan Zhang" image="yuxuan-zhang" :links="{email: 'mailto:zhangyuxuan@ufl.edu', Website: 'https://zhangyx.net/', Timeline: 'https://timeline.zhangyx.net/', GitHub: 'https://github.com/zhangyx1998', LinkedIn: 'https://www.linkedin.com/in/zhangyx1998/', Resume: 'https://zhangyx1998.github.io/resume.pdf'}">
 
 Yuxuan is pursuing his Ph.D. in Electrical and Computer Engineering at the University of Florida, after earning his Bachelor's in Physics from Xi'an Jiao Tong University. He builds end-to-end intelligent robotic systems spanning _Machine Learning_, _Software_, _Electrical_, and _Mechanical Engineering_. His current research focuses on _foveated vision systems_, _vergence stereo algorithms_, and their applications in robotics.
 
@@ -142,50 +142,50 @@ Logan Burns is an undergraduate student at the University of Florida majoring in
 
 #### Class of 2026
 
-+ **Trung Le** (BS) - PhD candidate at University of Southern California
-+ **Rebecca Borissova** (BS) - Apple
+- **Trung Le** (BS) - PhD candidate at University of Southern California
+- **Rebecca Borissova** (BS) - Apple
 
 #### Class of 2025
 
-+ **Piper Taylor** (BS) - Scientist at Eglin AFB
+- **Piper Taylor** (BS) - Scientist at Eglin AFB
 
 #### Class of 2024
 
-+ **Jackson Arnold** (MS)
-+ **Chloe Petrosino** (BS) - PhD candidate at Duke University
+- **Jackson Arnold** (MS)
+- **Chloe Petrosino** (BS) - PhD candidate at Duke University
 
 #### Class of 2023
 
-+ **Lianan Armil** (BS)
-+ **Dylan Ogrodowski** (BS) – MS student at University of Florida
+- **Lianan Armil** (BS)
+- **Dylan Ogrodowski** (BS) – MS student at University of Florida
 
 #### Class of 2022
 
-+ **Sophia Rossi** (BS) – Microsoft
-+ **Nicolas Laffineuse** (BS) – Texas Instruments
-+ **Gavin St. John** (BS)
+- **Sophia Rossi** (BS) – Microsoft
+- **Nicolas Laffineuse** (BS) – Texas Instruments
+- **Gavin St. John** (BS)
 
 #### Class of 2021
 
-+ **TJ Thomas** (BS) – PhD candidate at Carnegie Mellon University
+- **TJ Thomas** (BS) – PhD candidate at Carnegie Mellon University
 
 #### Class of 2018
 
-+ **Zaid Tasneem** (MS) – PhD candidate at Rice University
+- **Zaid Tasneem** (MS) – PhD candidate at Rice University
 
 #### Class of 2017
 
-+ **Nahien Chowdhury** (BS) – The Boeing Company
-+ **Tatiana Luna** (BS) – MS/PhD candidate at Columbia University
-+ **Aashik Nagadikeri Harish** (MS) – STRIVR Labs
+- **Nahien Chowdhury** (BS) – The Boeing Company
+- **Tatiana Luna** (BS) – MS/PhD candidate at Columbia University
+- **Aashik Nagadikeri Harish** (MS) – STRIVR Labs
 
 #### Class of 2016
 
-+ **Aleksandar Zivkovic** (MS) – Magic and Company
-+ **Junior Metayer** (BS) – Florida Power and Light
-+ **Phillip Riley** (MS) – Harris Corporation
-+ **Ishwarya Iyengar Thirunarayanan** (MS) – Siemens Imaging
+- **Aleksandar Zivkovic** (MS) – Magic and Company
+- **Junior Metayer** (BS) – Florida Power and Light
+- **Phillip Riley** (MS) – Harris Corporation
+- **Ishwarya Iyengar Thirunarayanan** (MS) – Siemens Imaging
 
 #### Class of 2015
 
-+ **Elizabeth Butler** (MS) – Lockheed Martin
+- **Elizabeth Butler** (MS) – Lockheed Martin
