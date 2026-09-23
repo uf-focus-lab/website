@@ -10,10 +10,13 @@ import Item from "./Item.vue";
 ## 2026
 
 @09/25
-Dr. Koppal will be co-organizing a [mini-work at NSF-FRR](https://nrifrr-mtg26.org/workshops) on "Adaptive Sensing and Active Robot Perception". See you in Pittsburgh! 
+Dr. Koppal will be co-organizing a [mini-workshop at NSF-FRR](https://nrifrr-mtg26.org/workshops) on "Adaptive Sensing and Active Robot Perception". See you in Pittsburgh! 
 
 @09/23
 FOCUS lab will be at IROS. See Jacob's demo and [paper](/research/2026/rolling-shutter-anchor-point/) on removing rolling shutter distortions (with our collaborator Dr. Islam at UF)! 
+
+@08/20
+Dr. Koppal will be an Area Chair for CVPR 2027
 
 @07/15
 FOCUS lab travelled to Princeton, NJ for ICCP. We had five posters and one amazing talk on Foveacam Duo. Dr. Koppal also won the [ICCP Photography Competition](https://iccp2026.iccp-conference.org/#photocompetition)!
