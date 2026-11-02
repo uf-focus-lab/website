@@ -9,6 +9,9 @@ import Item from "./Item.vue";
 
 ## 2026
 
+@11/02
+Our ICCP paper "FoveaCam Duo: Foveated Stereo for Standoff Depth Sensing" was accepted to IEEE T-PAMI! Congrats to Yuxuan, Jacob and all the authors.
+
 @09/25
 Dr. Koppal will be co-organizing a [mini-workshop at NSF-FRR](https://nrifrr-mtg26.org/workshops) on "Adaptive Sensing and Active Robot Perception". See you in Pittsburgh! 
 
