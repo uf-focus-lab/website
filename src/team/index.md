@@ -110,7 +110,7 @@ Logan Burns is an undergraduate researcher in the FOCUS Lab, majoring in Electri
 
 ### Doctoral Students
 
-- [**Justin Folden**](https://jfolden.github.io/)
+- [**Justin Folden**](https://jfolden.github.io/) - Lockheed Martin
 
   Thesis: Foveated Depth Sensing (2024)
 
